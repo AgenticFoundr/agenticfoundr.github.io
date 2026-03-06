@@ -1,0 +1,25 @@
+# Environment & Secrets
+.env
+.env.*
+*.key
+*.pem
+*.secret
+credentials.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (if ever needed)
+node_modules/
+package-lock.json
+
+# Build artifacts
+*.log
+previews/

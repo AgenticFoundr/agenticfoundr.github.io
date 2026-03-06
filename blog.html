@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — AgenticFoundr</title>
+<meta name="description" content="Insights, strategies, and behind-the-scenes from an AI-first enterprise. Learn how to build your one-person business with AI agents.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .blog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  @media (max-width: 768px) { .blog-grid { grid-template-columns: 1fr; } }
+  .blog-card {
+    background: var(--bg-white); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    transition: all var(--transition);
+  }
+  .blog-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .blog-thumb {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    font-size: 64px;
+  }
+  .blog-thumb-green { background: linear-gradient(135deg, #1B5E3A, #2D7A4E); }
+  .blog-thumb-gold { background: linear-gradient(135deg, #C9A84C, #A68B3C); }
+  .blog-thumb-sage { background: linear-gradient(135deg, #7DA88A, #5A8A6A); }
+  .blog-thumb-dark { background: linear-gradient(135deg, #2A2A2A, #3A3A3A); }
+  .blog-body { padding: 24px; }
+  .blog-meta { font-size: 12px; color: var(--caption); margin-bottom: 8px; display: flex; gap: 12px; }
+  .blog-tag {
+    display: inline-block; padding: 3px 10px; border-radius: 5px;
+    font-size: 10px; font-weight: 600; background: var(--primary-light); color: var(--primary);
+  }
+  .blog-card h3 { font-size: 18px; margin-bottom: 8px; }
+  .blog-card h3 a { color: var(--headline); }
+  .blog-card h3 a:hover { color: var(--primary); }
+  .blog-card .desc { font-size: 14px; color: var(--caption); line-height: 1.6; }
+  .blog-card .read-more { font-size: 13px; font-weight: 600; color: var(--primary); margin-top: 12px; display: inline-block; }
+
+  .coming-soon-banner {
+    background: var(--accent-light); border: 2px dashed var(--accent);
+    border-radius: var(--radius); padding: 40px; text-align: center; margin-bottom: 40px;
+  }
+  .coming-soon-banner h3 { color: var(--antique-gold); margin-bottom: 8px; }
+</style>
+</head><body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span>Agentic</span><span>Foundr</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="free.html">Free Resources</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="products.html" class="btn btn-primary btn-sm">Shop →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" style="padding-top:120px;padding-bottom:48px;">
+  <div class="container">
+    <h1>Blog</h1>
+    <p class="hero-sub">Strategies, insights, and behind-the-scenes from building an AI-first enterprise.</p>
+  </div>
+</section>
+
+<section class="section-sm">
+  <div class="container">
+
+    <div class="coming-soon-banner">
+      <h3>✨ Blog launching soon</h3>
+      <p style="color:var(--body);margin-bottom:16px;">We're writing our first posts right now. Subscribe to get notified when they drop.</p>
+      <form class="email-form" action="#" method="POST" style="max-width:400px;margin:0 auto;">
+        <input type="email" name="email" placeholder="you@example.com" required>
+        <button type="submit" class="btn btn-accent">Notify Me →</button>
+      </form>
+    </div>
+
+    <h2 class="mb-3" style="font-size:22px;">Coming up</h2>
+
+    <div class="blog-grid">
+
+      <div class="blog-card">
+        <div class="blog-thumb blog-thumb-green">🚀</div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Getting Started</span>
+            <span>Coming soon</span>
+          </div>
+          <h3><a href="#">How I Built a 50-Agent Enterprise in 24 Hours</a></h3>
+          <p class="desc">The full behind-the-scenes of Day One at AgenticFoundr — from naming the brand to shipping 13 products before midnight.</p>
+          <span class="read-more">Coming soon →</span>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-thumb blog-thumb-gold">🤖</div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Strategy</span>
+            <span>Coming soon</span>
+          </div>
+          <h3><a href="#">Your First 5 AI Agents: A Step-by-Step Guide</a></h3>
+          <p class="desc">Which agents to hire first, what tools they need, and how to get 25+ hours back per week starting this weekend.</p>
+          <span class="read-more">Coming soon →</span>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-thumb blog-thumb-sage">💡</div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Philosophy</span>
+            <span>Coming soon</span>
+          </div>
+          <h3><a href="#">Why AI Won't Replace You (It'll Free You)</a></h3>
+          <p class="desc">The servant leadership model for AI. How to use agents to multiply your impact — not outsource your purpose.</p>
+          <span class="read-more">Coming soon →</span>
+        </div>
+      </div>
+
+      <div class="blog-card">
+        <div class="blog-thumb blog-thumb-dark" style="color:#C9A84C;">💰</div>
+        <div class="blog-body">
+          <div class="blog-meta">
+            <span class="blog-tag">Revenue</span>
+            <span>Coming soon</span>
+          </div>
+          <h3><a href="#">The $0 Tech Stack That Runs a Real Business</a></h3>
+          <p class="desc">23 free tools, zero monthly cost, full business operations. Here's the exact stack and how to set it up.</p>
+          <span class="read-more">Coming soon →</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Your dream deserves a team.</h2>
+    <p>Join the newsletter for weekly AI agent strategies, free resources, and product drops.</p>
+    <form class="email-form" action="#" method="POST">
+      <input type="email" name="email" placeholder="you@example.com" required>
+      <button type="submit" class="btn btn-accent">Subscribe →</button>
+    </form>
+    <p style="font-size:11px;opacity:0.5;margin-top:12px;">No spam, ever. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo footer-logo" style="font-size:22px;"><span>Agentic</span><span>Foundr</span></div>
+      <p>AI agents for solopreneurs. Your dream deserves a team.</p>
+    </div>
+    <div>
+      <h4>Products</h4>
+      <ul class="footer-links">
+        <li><a href="products.html">All Products</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="free.html">Free Guides</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul class="footer-links">
+        <li><a href="https://twitter.com/AgenticFoundr" target="_blank">X / Twitter</a></li>
+        <li><a href="https://youtube.com/@AgenticFoundr" target="_blank">YouTube</a></li>
+        <li><a href="https://instagram.com/agenticfoundr" target="_blank">Instagram</a></li>
+        <li><a href="https://github.com/AgenticFoundr" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 AgenticFoundr. All rights reserved.</span>
+    <span>Built with 🤖 by AI agents</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+});
+</script>
+</body></html>
