@@ -28,7 +28,6 @@ html, body {
  padding: 30px 20px;
 }
 
-/* Header */
 h1 { font-size: 28px; color: var(--primary); margin-bottom: 4px; }
 h1 span {color: var(--gold)}
 .subtitle { color: var(--sage); font-size: 14px; margin-bottom: 24px; }
@@ -49,30 +48,11 @@ h1 span {color: var(--gold)}
 .stat-lbl {font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px}
 
 /* Org Chart Tree */
-.org-tree {
- display: flex;
- flex-direction: column;
- align-items: center;
-}
-
-/* Level wrappers */
-.level {
- display: flex;
- justify-content: center;
- gap: 16px;
- margin-bottom: 0;
-}
+.org-tree { display: flex; flex-direction: column; align-items: center; }
+.level { display: flex; justify-content: center; gap: 16px; margin-bottom: 0; }
 .level-csuite { gap: 12px; }
-.level-vp { gap: 10px; }
-.level-director { gap: 8px; }
 
-/* Node Groups - each CSuite gets their own branch */
-.exec-branch {
- display: flex;
- flex-direction: column;
- align-items: center;
- margin: 0 8px;
-}
+.exec-branch { display: flex; flex-direction: column; align-items: center; margin: 0 8px; }
 
 /* Cards */
 .agent-card {
@@ -87,146 +67,110 @@ h1 span {color: var(--gold)}
  transition: transform 0.2s, box-shadow 0.2s;
  position: relative;
 }
-.agent-card:hover {
- transform: translateY(-2px);
- box-shadow: 0 6px 20px rgba(0,0,0,0.12);
- z-index: 10;
-}
+.agent-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); z-index: 10; }
 .agent-card .emoji {font-size: 20px; display: block; margin-bottom: 4px}
-.agent-card .name {
- font-weight: 700;
- font-size: 13px;
- color: var(--primary);
-}
-.agent-card .role {
- font-size: 9px;
- color: #666;
- margin-top: 2px;
- text-transform: uppercase;
- letter-spacing: 0.5px;
-}
+.agent-card .name { font-weight: 700; font-size: 13px; color: var(--primary); }
+.agent-card .role { font-size: 9px; color: #666; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-/* Card Colors by Level */
-.founder-card {
- border-color: var(--gold);
- background: linear-gradient(135deg, #fff 0%, #fef9e7 100%);
- min-width: 150px;
- padding: 18px 24px;
-}
+/* Card Colors */
+.founder-card { border-color: var(--gold); background: linear-gradient(135deg, #fff 0%, #fef9e7 100%); min-width: 150px; padding: 18px 24px; }
 .founder-card .emoji {font-size: 28px}
 .founder-card .name {font-size: 18px}
 
-.ceo-card {
- border-color: var(--gold);
- background: linear-gradient(135deg, #fff 0%, #fef9e7 100%);
- min-width: 160px;
- padding: 18px 24px;
-}
+.ceo-card { border-color: var(--gold); background: linear-gradient(135deg, #fff 0%, #fef9e7 100%); min-width: 160px; padding: 18px 24px; }
 .ceo-card .emoji {font-size: 32px}
 .ceo-card .name {font-size: 20px}
 
-.csuite-card {
- border-color: var(--primary);
- background: white;
-}
+.csuite-card { border-color: var(--primary); background: white; }
 .csuite-card .role {color: var(--primary); font-weight: 600}
 
-.vp-card {
- border-color: var(--sage);
- background: white;
- min-width: 110px;
- padding: 10px 14px;
-}
+.vp-card { border-color: var(--sage); background: white; min-width: 110px; padding: 10px 14px; }
 .vp-card .emoji {font-size: 16px}
 .vp-card .name {font-size: 12px}
 .vp-card .role {font-size: 8px}
 
-.dir-card {
- border-color: var(--primary-light);
- background: white;
- min-width: 90px;
- padding: 8px 12px;
-}
+.dir-card { border-color: var(--primary-light); background: white; min-width: 90px; padding: 8px 12px; }
 .dir-card .emoji {font-size: 14px}
 .dir-card .name {font-size: 11px}
 .dir-card .role {font-size: 7px}
 
 /* Connecting Lines */
-.line-vertical {
- width: 2px;
- height: 24px;
- background: #ccc;
-}
-.line-vertical-short {
- width: 2px;
- height: 16px;
- background: #ccc;
-}
-.line-horizontal {
- height: 2px;
- background: #ccc;
- position: absolute;
- top: -24px;
- left: 50%;
- transform: translateX(-50%);
-}
-.line-branch {
- position: absolute;
- top: -24px;
- height: 2px;
- background: #ccc;
-}
-
-/* Connector from VP to Directors */
-.vp-group {
- display: flex;
- flex-direction: column;
- align-items: center;
-}
-.vp-directors {
- display: flex;
- gap: 6px;
- margin-top: 8px;
- padding-top: 8px;
- border-top: 1px dashed #ddd;
-}
+.line-vertical { width: 2px; height: 24px; background: #ccc; }
+.line-vertical-short { width: 2px; height: 16px; background: #ccc; }
+.vp-group { display: flex; flex-direction: column; align-items: center; }
+.vp-directors { display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ddd; }
 
 /* Section Labels */
-.tier-label {
- font-size: 11px;
- font-weight: 700;
- letter-spacing: 2px;
- text-transform: uppercase;
- color: var(--sage);
- margin: 30px 0 16px;
- text-align: center;
-}
+.tier-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--sage); margin: 30px 0 16px; text-align: center; }
 .tier-label.security {color: #ff4d6a}
 .tier-label.data {color: #00dfc8}
 
-/* VP Groups by CSuite */
-.vp-row {
- display: flex;
- justify-content: center;
- flex-wrap: wrap;
- gap: 12px;
- margin-bottom: 12px;
+/* Definitions Section */
+.definitions {
+ margin-top: 60px;
+ padding-top: 40px;
+ border-top: 3px solid var(--primary);
 }
-.vp-group-container {
- display: flex;
- flex-direction: column;
- align-items: center;
-}
-.vp-label {
- font-size: 9px;
+.definitions h2 {
+ font-size: 20px;
  color: var(--primary);
- font-weight: 600;
- margin-bottom: 4px;
- text-transform: uppercase;
- letter-spacing: 0.5px;
+ margin-bottom: 24px;
+ text-align: center;
 }
 
-/* Footer */
+.def-group { margin-bottom: 32px; }
+.def-group-title {
+ font-size: 14px;
+ font-weight: 700;
+ letter-spacing: 1px;
+ text-transform: uppercase;
+ margin-bottom: 12px;
+ padding-bottom: 8px;
+ border-bottom: 2px solid;
+}
+.def-group-title.csuite { border-color: var(--primary); color: var(--primary); }
+.def-group-title.vp { border-color: var(--sage); color: var(--sage); }
+.def-group-title.dir { border-color: var(--primary-light); color: var(--primary-light); }
+.def-group-title.data { border-color: #00dfc8; color: #00dfc8; }
+.def-group-title.security { border-color: #ff4d6a; color: #ff4d6a; }
+
+.def-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+ gap: 16px;
+}
+
+.def-card {
+ background: white;
+ border-radius: 8px;
+ padding: 16px;
+ border-left: 4px solid;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.def-card.csuite { border-color: var(--primary); }
+.def-card.vp { border-color: var(--sage); }
+.def-card.dir { border-color: var(--primary-light); }
+.def-card.data { border-color: #00dfc8; }
+.def-card.security { border-color: #ff4d6a; }
+
+.def-card .name {
+ font-weight: 700;
+ font-size: 15px;
+ color: var(--primary);
+}
+.def-card .role {
+ font-size: 11px;
+ color: #666;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ margin-bottom: 8px;
+}
+.def-card .desc {
+ font-size: 12px;
+ color: #555;
+ line-height: 1.5;
+}
+
 .footer-note {
  margin-top: 50px;
  padding-top: 20px;
@@ -272,30 +216,22 @@ h1 span {color: var(--gold)}
   </div>
   <div class="line-vertical"></div>
   
-  <!-- LEVEL 2: C-SUITE (9) -->
+  <!-- LEVEL 2: C-SUITE -->
   <div class="tier-label">⚙️ Tier 1 — C-Suite Reports to ATLAS</div>
   <div class="level level-csuite">
    
-   <!-- STEWARD (CFO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">💰</span><span class="name">STEWARD</span><div class="role">CFO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">💰</span><span class="name">STEWARD</span><div class="role">CFO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">📊</span><span class="name">COMPASS</span><div class="role">Revenue Intel</div></div>
      <div class="agent-card vp-card"><span class="emoji">🧾</span><span class="name">LEDGER</span><div class="role">Finance</div></div>
     </div>
-    <div class="vp-directors">
-     <div class="agent-card dir-card"><span class="emoji">📒</span><span class="name">TALLY</span><div class="role">Billing</div></div>
-    </div>
+    <div class="vp-directors"><div class="agent-card dir-card"><span class="emoji">📒</span><span class="name">TALLY</span><div class="role">Billing</div></div></div>
    </div>
    
-   <!-- BRIDGE (COO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">⚙️</span><span class="name">BRIDGE</span><div class="role">COO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">⚙️</span><span class="name">BRIDGE</span><div class="role">COO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">🔄</span><span class="name">DELIVER</span><div class="role">Delivery</div></div>
@@ -303,11 +239,8 @@ h1 span {color: var(--gold)}
     </div>
    </div>
    
-   <!-- VOICE (CMO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">📣</span><span class="name">VOICE</span><div class="role">CMO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">📣</span><span class="name">VOICE</span><div class="role">CMO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">✍️</span><span class="name">QUILL</span><div class="role">Content</div></div>
@@ -319,11 +252,8 @@ h1 span {color: var(--gold)}
     </div>
    </div>
    
-   <!-- HARVEST (CRO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">🎯</span><span class="name">HARVEST</span><div class="role">CRO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">🎯</span><span class="name">HARVEST</span><div class="role">CRO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">🚀</span><span class="name">GROW</span><div class="role">Growth</div></div>
@@ -336,11 +266,8 @@ h1 span {color: var(--gold)}
     </div>
    </div>
    
-   <!-- CRAFT (CTO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">🔧</span><span class="name">CRAFT</span><div class="role">CTO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">🔧</span><span class="name">CRAFT</span><div class="role">CTO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">🖥️</span><span class="name">FOUNDATION</span><div class="role">Infra</div></div>
@@ -348,26 +275,18 @@ h1 span {color: var(--gold)}
     </div>
    </div>
    
-   <!-- HAVEN (CCO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">🤝</span><span class="name">HAVEN</span><div class="role">CCO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">🤝</span><span class="name">HAVEN</span><div class="role">CCO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">⭐</span><span class="name">WARMTH</span><div class="role">CX</div></div>
      <div class="agent-card vp-card"><span class="emoji">🎓</span><span class="name">GUIDE</span><div class="role">Onboarding</div></div>
     </div>
-    <div class="vp-directors">
-     <div class="agent-card dir-card"><span class="emoji">🔗</span><span class="name">BOND</span><div class="role">Retention</div></div>
-    </div>
+    <div class="vp-directors"><div class="agent-card dir-card"><span class="emoji">🔗</span><span class="name">BOND</span><div class="role">Retention</div></div></div>
    </div>
    
-   <!-- SAGE (CLO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">⚖️</span><span class="name">SAGE</span><div class="role">CLO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">⚖️</span><span class="name">SAGE</span><div class="role">CLO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">🏛️</span><span class="name">JUSTICE</span><div class="role">Legal</div></div>
@@ -375,41 +294,30 @@ h1 span {color: var(--gold)}
     </div>
    </div>
    
-   <!-- KEEPER (CDO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">🌐</span><span class="name">KEEPER</span><div class="role">CDO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">🌐</span><span class="name">KEEPER</span><div class="role">CDO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">🔐</span><span class="name">TRUST</span><div class="role">Data Gov</div></div>
-     <div class="agent-card vp-card"><span class="emoji">🔩</span><span name="FLOW">FLOW</span><div class="role">Engineering</div></div>
+     <div class="agent-card vp-card"><span class="emoji">🔩</span><span class="name">FLOW</span><div class="role">Engineering</div></div>
     </div>
-    <div class="vp-directors">
-     <div class="agent-card dir-card"><span class="emoji">🔭</span><span class="name">LENS</span><div class="role">Analytics</div></div>
-    </div>
+    <div class="vp-directors"><div class="agent-card dir-card"><span class="emoji">🔭</span><span class="name">LENS</span><div class="role">Analytics</div></div></div>
    </div>
    
-   <!-- SHIELD (CISO) -->
    <div class="exec-branch">
-    <div class="agent-card csuite-card">
-     <span class="emoji">🛡️</span><span class="name">SHIELD</span><div class="role">CISO</div>
-    </div>
+    <div class="agent-card csuite-card"><span class="emoji">🛡️</span><span class="name">SHIELD</span><div class="role">CISO</div></div>
     <div class="line-vertical-short"></div>
     <div class="vp-group">
      <div class="agent-card vp-card"><span class="emoji">🔭</span><span class="name">VIGIL</span><div class="role">Security</div></div>
      <div class="agent-card vp-card"><span class="emoji">📋</span><span class="name">ACCORD</span><div class="role">Risk</div></div>
     </div>
-    <div class="vp-directors">
-     <div class="agent-card dir-card"><span class="emoji">✨</span><span class="name">POLISH</span><div class="role">QA</div></div>
-    </div>
+    <div class="vp-directors"><div class="agent-card dir-card"><span class="emoji">✨</span><span class="name">POLISH</span><div class="role">QA</div></div></div>
    </div>
    
   </div>
-  
  </div>
  
- <!-- Data & Security Systems -->
+ <!-- Data Lane -->
  <div class="tier-label data">🌊 Data Lane — Under KEEPER</div>
  <div class="level" style="flex-wrap:wrap;justify-content:center;gap:8px">
   <div class="agent-card dir-card" style="border-color:#00dfc8"><span class="emoji">🔏</span><span class="name">GUARDIAN-D</span><div class="role">Privacy</div></div>
@@ -423,6 +331,7 @@ h1 span {color: var(--gold)}
   <div class="agent-card dir-card" style="border-color:#00dfc8"><span class="emoji">🛡️</span><span class="name">ISOLATE</span><div class="role">Session</div></div>
  </div>
 
+ <!-- Security Lane -->
  <div class="tier-label security">🛡️ Security Lane — Under SHIELD</div>
  <div class="level" style="flex-wrap:wrap;justify-content:center;gap:8px">
   <div class="agent-card dir-card" style="border-color:#ff4d6a"><span class="emoji">👁️</span><span class="name">WATCH</span><div class="role">Threat</div></div>
@@ -435,6 +344,137 @@ h1 span {color: var(--gold)}
   <div class="agent-card dir-card" style="border-color:#ff4d6a"><span class="emoji">📜</span><span class="name">CHRONICLE</span><div class="role">Audit</div></div>
   <div class="agent-card dir-card" style="border-color:#ff4d6a"><span class="emoji">⭕</span><span class="name">ZERO</span><div class="role">ZeroTrust</div></div>
   <div class="agent-card dir-card" style="border-color:#ff4d6a"><span class="emoji">📦</span><span class="name">CONTAIN</span><div class="role">Breach</div></div>
+ </div>
+
+ <!-- DEFINITIONS SECTION -->
+ <div class="definitions">
+  <h2>📖 Agent Definitions & Mandates</h2>
+  
+  <div class="def-group">
+   <div class="def-group-title csuite">Tier 1 — C-Suite</div>
+   <div class="def-grid">
+    <div class="def-card csuite">
+     <div class="name">🧠 ATLAS — CEO</div>
+     <div class="role">Chief Executive Officer</div>
+     <div class="desc">The master orchestrator. Receives objectives from founder, decomposes into enterprise-wide missions, delegates to C-Suite. Sets strategic direction, ensures alignment across all departments, and maintains the servant leadership vision.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">💰 STEWARD — CFO</div>
+     <div class="role">Chief Financial Officer</div>
+     <div class="desc">Financial health, planning, budgeting, reporting, risk management. Oversees all financial operations, ensures fiscal responsibility, manages cash flow, and provides financial insights to ATLAS and the founder.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">⚙️ BRIDGE — COO</div>
+     <div class="role">Chief Operating Officer</div>
+     <div class="desc">Orchestrates client delivery workflows, SLA compliance, vendor relationships. Ensures operational excellence across all delivery channels, optimizes processes, and maintains quality standards.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">📣 VOICE — CMO</div>
+     <div class="role">Chief Marketing Officer</div>
+     <div class="desc">Content creation, SEO, social media, email campaigns, brand presence. Drives market awareness, manages brand reputation, and generates leads through strategic marketing initiatives.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">🎯 HARVEST — CRO</div>
+     <div class="role">Chief Revenue Officer</div>
+     <div class="desc">Full sales pipeline — lead research, outreach, proposals, deal closure. Unifies sales and marketing efforts to maximize revenue growth, oversees the entire customer acquisition journey.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">🔧 CRAFT — CTO</div>
+     <div class="role">Chief Technology Officer</div>
+     <div class="desc">Infrastructure health, agent deployments, integrations, model optimization. Manages all technical infrastructure, evaluates and implements AI models, and ensures system reliability and performance.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">🤝 HAVEN — CCO</div>
+     <div class="role">Chief Client Officer</div>
+     <div class="desc">Client relationships — onboarding, satisfaction, renewals, upsells. Ensures exceptional client experiences, drives retention, and identifies expansion opportunities within existing accounts.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">⚖️ SAGE — CLO</div>
+     <div class="role">Chief Legal Officer</div>
+     <div class="desc">Contracts, regulatory compliance, risk management, IP protection. Provides legal guidance, manages risk exposure, ensures regulatory compliance, and protects intellectual property.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">🌐 KEEPER — CDO</div>
+     <div class="role">Chief Data Officer</div>
+     <div class="desc">Data strategy, governance, protection, analytics infrastructure. Manages data assets, ensures data quality and privacy, and oversees analytics capabilities across the enterprise.</div>
+    </div>
+    <div class="def-card csuite">
+     <div class="name">🛡️ SHIELD — CISO</div>
+     <div class="role">Chief Security Officer</div>
+     <div class="desc">Security vision, threat operations, compliance, risk posture. Leads security strategy, manages threat detection and response, and ensures compliance with security standards.</div>
+    </div>
+   </div>
+  </div>
+
+  <div class="def-group">
+   <div class="def-group-title vp">Tier 2 — Vice Presidents</div>
+   <div class="def-grid">
+    <div class="def-card vp"><div class="name">📊 COMPASS</div><div class="role">VP Revenue Intelligence</div><div class="desc">Pipeline health, revenue forecasting, directional insights. Provides real-time visibility into sales performance and predictive analytics.</div></div>
+    <div class="def-card vp"><div class="name">🧾 LEDGER</div><div class="role">VP Finance & Billing</div><div class="desc">Billing operations, invoicing, financial tracking. Manages accounts receivable, payment processing, and financial reporting.</div></div>
+    <div class="def-card vp"><div class="name">🔄 DELIVER</div><div class="role">VP Client Delivery</div><div class="desc">Client delivery workflows, SLA enforcement, module agents. Ensures timely and quality delivery of all client-facing services.</div></div>
+    <div class="def-card vp"><div class="name">🔬 INSIGHT</div><div class="role">VP Data Intelligence</div><div class="desc">Analytics aggregation, dashboard feeds, pattern recognition. Transforms data into actionable business insights.</div></div>
+    <div class="def-card vp"><div class="name">🚀 GROW</div><div class="role">VP Growth & Partnerships</div><div class="desc">Partnership pipeline, expansion revenue, mutual value. Identifies and develops strategic partnerships.</div></div>
+    <div class="def-card vp"><div class="name">🗺️ SCOUT</div><div class="role">VP Market Intelligence</div><div class="desc">Market research, competitive intelligence, landscape scanning. Keeps the enterprise ahead of market trends.</div></div>
+    <div class="def-card vp"><div class="name">✍️ QUILL</div><div class="role">VP Content & Brand</div><div class="desc">Content strategy, brand storytelling, marketing copy. Creates compelling content that resonates with audiences.</div></div>
+    <div class="def-card vp"><div class="name">🖥️ FOUNDATION</div><div class="role">VP Infrastructure</div><div class="desc">Mac Mini, Ollama, API health, technical backbone. Maintains all technical infrastructure.</div></div>
+    <div class="def-card vp"><div class="name">🧩 BUILDER</div><div class="role">VP Product Development</div><div class="desc">R&D backlog, product roadmap, performance patterns. Drives innovation and product evolution.</div></div>
+    <div class="def-card vp"><div class="name">⭐ WARMTH</div><div class="role">VP Client Experience</div><div class="desc">Client retention, NPS, satisfaction, health scoring. Ensures clients feel valued and heard.</div></div>
+    <div class="def-card vp"><div class="name">🎓 GUIDE</div><div class="role">VP Client Onboarding</div><div class="desc">New client setup, walkthroughs, first-success journeys. Sets clients up for long-term success.</div></div>
+    <div class="def-card vp"><div class="name">🏛️ JUSTICE</div><div class="role">VP Legal Strategy</div><div class="desc">Legal ops, contracts, IP portfolio, risk management. Strategic legal planning and execution.</div></div>
+    <div class="def-card vp"><div class="name">📜 CHARTER</div><div class="role">VP Regulatory & Governance</div><div class="desc">Compliance calendar, governance frameworks, policies. Ensures adherence to regulations.</div></div>
+    <div class="def-card vp"><div class="name">🔐 TRUST</div><div class="role">VP Data Governance</div><div class="desc">Data policies, privacy, catalog, lineage, GDPR. Protects data as a strategic asset.</div></div>
+    <div class="def-card vp"><div class="name">🔩 FLOW</div><div class="role">VP Data Engineering</div><div class="desc">Data pipelines, ingestion, warehousing, flow management. Builds data infrastructure.</div></div>
+    <div class="def-card vp"><div class="name">🔭 VIGIL</div><div class="role">VP Cybersecurity Ops</div><div class="desc">Active threat operations, monitoring, security posture. 24/7 security vigilance.</div></div>
+    <div class="def-card vp"><div class="name">📋 ACCORD</div><div class="role">VP Compliance & Risk</div><div class="desc">Risk register, compliance, SOC2, regulatory alignment. Maintains compliance posture.</div></div>
+   </div>
+  </div>
+
+  <div class="def-group">
+   <div class="def-group-title dir">Tier 3 — Directors</div>
+   <div class="def-grid">
+    <div class="def-card dir"><div class="name">🔍 SEEK</div><div class="role">Director of Prospecting</div><div class="desc">Lead generation, prospect identification. Finds potential clients who need our services.</div></div>
+    <div class="def-card dir"><div class="name">🎵 RHYTHM</div><div class="role">Director of Outreach</div><div class="desc">Sales sequencing, outreach cadence, follow-ups. Maintains consistent client communication.</div></div>
+    <div class="def-card dir"><div class="name">🤝 COVENANT</div><div class="role">Director of Proposals</div><div class="desc">Proposal creation, mutual promises, terms. Crafts compelling proposals.</div></div>
+    <div class="def-card dir"><div class="name">📝 INK</div><div class="role">Director of Content & SEO</div><div class="desc">Content creation, SEO optimization, writing. Produces optimized written content.</div></div>
+    <div class="def-card dir"><div class="name">🧵 THREAD</div><div class="role">Director of Social Media</div><div class="desc">Social channels, community, engagement threads. Builds social presence.</div></div>
+    <div class="def-card dir"><div class="name">🔥 EMBER</div><div class="role">Director of Email</div><div class="desc">Email campaigns, nurturing, warm communications. Manages email marketing.</div></div>
+    <div class="def-card dir"><div class="name">📒 TALLY</div><div class="role">Director of Billing</div><div class="desc">Invoice generation, payment tracking, counting. Manages billing operations.</div></div>
+    <div class="def-card dir"><div class="name">✨ POLISH</div><div class="role">Director of Quality Assurance</div><div class="desc">Output quality, polish, excellence verification. Ensures deliverables are flawless.</div></div>
+    <div class="def-card dir"><div class="name">🔗 BOND</div><div class="role">Director of Retention</div><div class="desc">Client retention, relationship bonds, renewals. Keeps clients happy long-term.</div></div>
+    <div class="def-card dir"><div class="name">🔭 LENS</div><div class="role">Director of Analytics</div><div class="desc">KPI aggregation, metrics, analytical clarity. Provides data-driven insights.</div></div>
+   </div>
+  </div>
+
+  <div class="def-group">
+   <div class="def-group-title data">🌊 Data Lane — KEEPER's Domain</div>
+   <div class="def-grid">
+    <div class="def-card data"><div class="name">🔏 GUARDIAN-D</div><div class="role">Data Privacy & PII</div><div class="desc">PII handling, tokenization, privacy protection. Ensures all sensitive data is properly protected.</div></div>
+    <div class="def-card data"><div class="name">🗄️ CURATOR</div><div class="role">Data Quality & Vault</div><div class="desc">Data quality, warehouse, vault management. Maintains data integrity and secure storage.</div></div>
+    <div class="def-card data"><div class="name">🌊 RIVER</div><div class="role">Data Pipeline & Viz</div><div class="desc">Data flow, visualization, dashboard delivery. Manages data streaming and reporting.</div></div>
+    <div class="def-card data"><div class="name">🏦 VAULT</div><div class="role">Data Warehouse</div><div class="desc">Secure storage, encrypted data vault. Provides tamper-proof data storage.</div></div>
+    <div class="def-card data"><div class="name">📥 INTAKE</div><div class="role">Data Ingestion</div><div class="desc">Data intake, classification, entry. Processes incoming data from all sources.</div></div>
+    <div class="def-card data"><div class="name">🎭 MASK</div><div class="role">PII Tokenization</div><div class="desc">PII masking, token replacement, privacy. Replaces sensitive data with tokens.</div></div>
+    <div class="def-card data"><div class="name">📊 VISION</div><div class="role">Data Visualization</div><div class="desc">Dashboards, reports, visual insights. Creates visual representations of data.</div></div>
+    <div class="def-card data"><div class="name">💎 PURE</div><div class="role">Data Quality Guard</div><div class="desc">Data purity, validation, cleansing. Ensures data meets quality standards.</div></div>
+    <div class="def-card data"><div class="name">🛡️ ISOLATE</div><div class="role">Session Isolation</div><div class="desc">Session isolation, sandboxing, separation. Prevents data cross-contamination.</div></div>
+   </div>
+  </div>
+
+  <div class="def-group">
+   <div class="def-group-title security">🛡️ Security Lane — SHIELD's Domain</div>
+   <div class="def-grid">
+    <div class="def-card security"><div class="name">👁️ WATCH</div><div class="role">Threat Operations</div><div class="desc">Threat monitoring, surveillance, anomaly detection. Continuously watches for threats.</div></div>
+    <div class="def-card security"><div class="name">🔧 RESOLVE</div><div class="role">Incident Response</div><div class="desc">Incident handling, resolution, recovery. Responds to security incidents.</div></div>
+    <div class="def-card security"><div class="name">🚪 GATE</div><div class="role">Access & Audit</div><div class="desc">Access control, gatekeeping, audit trails. Manages who can access what.</div></div>
+    <div class="def-card security"><div class="name">🩺 SENTINEL</div><div class="role">Security Ops Monitor</div><div class="desc">Security monitoring, health checks, alerts. Continuous security surveillance.</div></div>
+    <div class="def-card security"><div class="name">🔍 FILTER</div><div class="role">Content & Input Filter</div><div class="desc">Input filtering, content screening, validation. Screens all inputs for threats.</div></div>
+    <div class="def-card security"><div class="name">💰 TREASURY</div><div class="role">Transaction Security</div><div class="desc">Financial transactions, payment security. Protects financial operations.</div></div>
+    <div class="def-card security"><div class="name">✅ VERIFY</div><div class="role">Identity & Access</div><div class="desc">Identity verification, access management. Ensures right people access right resources.</div></div>
+    <div class="def-card security"><div class="name">📜 CHRONICLE</div><div class="role">Immutable Audit Log</div><div class="desc">Audit logging, history, immutable records. Maintains unchangeable audit trail.</div></div>
+    <div class="def-card security"><div class="name">⭕ ZERO</div><div class="role">Zero Trust Enforcer</div><div class="desc">Zero trust model, never trust, always verify. Implements zero-trust architecture.</div></div>
+    <div class="def-card security"><div class="name">📦 CONTAIN</div><div class="role">Incident Containment</div><div class="desc">Incident containment, isolation, breach control. Limits damage from breaches.</div></div>
+   </div>
+  </div>
  </div>
 
  <div class="footer-note">
