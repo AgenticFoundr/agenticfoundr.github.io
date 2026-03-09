@@ -51,7 +51,7 @@ h1 span {color: var(--gold)}
 .stat-num {font-size: 32px; font-weight: 800; color: var(--primary)}
 .stat-lbl {font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px}
 
-/* Org Chart */
+/* Chart */
 .chart {
  display: flex;
  flex-direction: column;
@@ -69,33 +69,31 @@ h1 span {color: var(--gold)}
 /* Cards */
 .card {
  background: white;
- border-radius: 16px;
- padding: 16px 20px;
+ border-radius: 12px;
+ padding: 14px 18px;
  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
  text-align: center;
  transition: all 0.3s ease;
  cursor: pointer;
- position: relative;
- min-width: 120px;
+ min-width: 110px;
 }
 .card:hover {
- transform: translateY(-8px) scale(1.02);
- box-shadow: 0 12px 40px rgba(0,0,0,0.15);
- z-index: 10;
+ transform: translateY(-6px);
+ box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
-.card .emoji { font-size: 28px; display: block; margin-bottom: 8px; }
+.card .emoji { font-size: 26px; display: block; margin-bottom: 6px; }
 .card .name { 
  font-weight: 700; 
- font-size: 14px; 
+ font-size: 13px; 
  color: var(--dark);
- letter-spacing: 0.5px;
 }
-.card .role { 
+.card .title { 
  font-size: 10px; 
  color: #666; 
- margin-top: 4px; 
+ margin-top: 3px; 
  text-transform: uppercase; 
- letter-spacing: 1px;
+ letter-spacing: 0.5px;
+ font-weight: 600;
 }
 
 /* Colors */
@@ -104,12 +102,12 @@ h1 span {color: var(--gold)}
 .green { border-bottom: 4px solid var(--green); }
 .teal { border-bottom: 4px solid var(--teal); }
 .blue { border-bottom: 4px solid var(--blue); }
-.sage { border-bottom: 4px solid var(--green); }
+.sage { border-bottom: 4px solid var(--green); background: linear-gradient(180deg, #fff 0%, #f0fdf4 100%); }
 
 /* Connector */
 .connector {
  width: 3px;
- height: 25px;
+ height: 22px;
  background: linear-gradient(180deg, #ccc 0%, #999 100%);
  border-radius: 2px;
 }
@@ -119,32 +117,24 @@ h1 span {color: var(--gold)}
  display: flex;
  flex-direction: column;
  align-items: center;
- margin: 0 10px;
+ margin: 0 8px;
 }
 .vp-row {
  display: flex;
- gap: 8px;
- margin-top: 12px;
+ gap: 6px;
+ margin-top: 10px;
  flex-wrap: wrap;
  justify-content: center;
 }
 .vp-row .card {
- padding: 10px 14px;
- min-width: 80px;
+ padding: 10px 12px;
+ min-width: 70px;
 }
-.vp-row .card .emoji { font-size: 18px; margin-bottom: 4px; }
-.vp-row .card .name { font-size: 11px; }
-.vp-row .card .role { font-size: 8px; }
+.vp-row .card .emoji { font-size: 16px; margin-bottom: 3px; }
+.vp-row .card .name { font-size: 10px; }
+.vp-row .card .title { font-size: 8px; }
 
-/* Simple line connector between rows */
-.line-row {
- width: 80%;
- height: 2px;
- background: #ddd;
- margin: 0 auto;
-}
-
-/* Label */
+/* Section Label */
 .label {
  font-size: 11px;
  font-weight: 700;
@@ -157,7 +147,7 @@ h1 span {color: var(--gold)}
 
 /* Footer */
 .footer {
- margin-top: 50px;
+ margin-top: 40px;
  text-align: center;
  color: #999;
  font-size: 12px;
@@ -185,7 +175,7 @@ h1 span {color: var(--gold)}
    <div class="card gold">
     <span class="emoji">👤</span>
     <span class="name">YOU</span>
-    <span class="role">Founder</span>
+    <span class="title">Founder</span>
    </div>
   </div>
   <div class="connector"></div>
@@ -195,154 +185,154 @@ h1 span {color: var(--gold)}
    <div class="card gold">
     <span class="emoji">🧠</span>
     <span class="name">ATLAS</span>
-    <span class="role">CEO</span>
+    <span class="title">CEO</span>
    </div>
   </div>
   <div class="connector"></div>
   
   <!-- C-SUITE -->
-  <div class="label">C-Suite → Direct Reports</div>
+  <div class="label">C-Suite → VPs & Directors</div>
   <div class="row">
    
-   <!-- STEWARD -->
+   <!-- STEWARD (CFO) -->
    <div class="branch">
     <div class="card purple">
      <span class="emoji">💰</span>
      <span class="name">STEWARD</span>
-     <span class="role">CFO</span>
+     <span class="title">CFO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">📊</span><span class="name">COMPASS</span></div>
-     <div class="card sage"><span class="emoji">🧾</span><span class="name">LEDGER</span></div>
-     <div class="card sage"><span class="emoji">📒</span><span class="name">TALLY</span></div>
+     <div class="card sage"><span class="emoji">📊</span><span class="name">COMPASS</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🧾</span><span class="name">LEDGER</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">📒</span><span class="name">TALLY</span><span class="title">Director</span></div>
     </div>
    </div>
    
-   <!-- BRIDGE -->
+   <!-- BRIDGE (COO) -->
    <div class="branch">
     <div class="card green">
      <span class="emoji">⚙️</span>
      <span class="name">BRIDGE</span>
-     <span class="role">COO</span>
+     <span class="title">COO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">🔄</span><span class="name">DELIVER</span></div>
-     <div class="card sage"><span class="emoji">🔬</span><span class="name">INSIGHT</span></div>
+     <div class="card sage"><span class="emoji">🔄</span><span class="name">DELIVER</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🔬</span><span class="name">INSIGHT</span><span class="title">VP</span></div>
     </div>
    </div>
    
-   <!-- VOICE -->
+   <!-- VOICE (CMO) -->
    <div class="branch">
     <div class="card teal">
      <span class="emoji">📣</span>
      <span class="name">VOICE</span>
-     <span class="role">CMO</span>
+     <span class="title">CMO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">✍️</span><span class="name">QUILL</span></div>
-     <div class="card sage"><span class="emoji">📝</span><span class="name">INK</span></div>
-     <div class="card sage"><span class="emoji">🧵</span><span class="name">THREAD</span></div>
-     <div class="card sage"><span class="emoji">🔥</span><span class="name">EMBER</span></div>
+     <div class="card sage"><span class="emoji">✍️</span><span class="name">QUILL</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">📝</span><span class="name">INK</span><span class="title">Director</span></div>
+     <div class="card sage"><span class="emoji">🧵</span><span class="name">THREAD</span><span class="title">Director</span></div>
+     <div class="card sage"><span class="emoji">🔥</span><span class="name">EMBER</span><span class="title">Director</span></div>
     </div>
    </div>
    
-   <!-- HARVEST -->
+   <!-- HARVEST (CRO) -->
    <div class="branch">
     <div class="card blue">
      <span class="emoji">🎯</span>
      <span class="name">HARVEST</span>
-     <span class="role">CRO</span>
+     <span class="title">CRO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">🚀</span><span class="name">GROW</span></div>
-     <div class="card sage"><span class="emoji">🗺️</span><span class="name">SCOUT</span></div>
-     <div class="card sage"><span class="emoji">🔍</span><span class="name">SEEK</span></div>
-     <div class="card sage"><span class="emoji">🎵</span><span class="name">RHYTHM</span></div>
-     <div class="card sage"><span class="emoji">🤝</span><span class="name">COVENANT</span></div>
+     <div class="card sage"><span class="emoji">🚀</span><span class="name">GROW</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🗺️</span><span class="name">SCOUT</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🔍</span><span class="name">SEEK</span><span class="title">Director</span></div>
+     <div class="card sage"><span class="emoji">🎵</span><span class="name">RHYTHM</span><span class="title">Director</span></div>
+     <div class="card sage"><span class="emoji">🤝</span><span class="name">COVENANT</span><span class="title">Director</span></div>
     </div>
    </div>
    
-   <!-- CRAFT -->
+   <!-- CRAFT (CTO) -->
    <div class="branch">
     <div class="card purple">
      <span class="emoji">🔧</span>
      <span class="name">CRAFT</span>
-     <span class="role">CTO</span>
+     <span class="title">CTO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">🖥️</span><span class="name">FOUNDATION</span></div>
-     <div class="card sage"><span class="emoji">🧩</span><span class="name">BUILDER</span></div>
+     <div class="card sage"><span class="emoji">🖥️</span><span class="name">FOUNDATION</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🧩</span><span class="name">BUILDER</span><span class="title">VP</span></div>
     </div>
    </div>
    
-   <!-- HAVEN -->
+   <!-- HAVEN (CCO) -->
    <div class="branch">
     <div class="card green">
      <span class="emoji">🤝</span>
      <span class="name">HAVEN</span>
-     <span class="role">CCO</span>
+     <span class="title">CCO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">⭐</span><span class="name">WARMTH</span></div>
-     <div class="card sage"><span class="emoji">🎓</span><span class="name">GUIDE</span></div>
-     <div class="card sage"><span class="emoji">🔗</span><span class="name">BOND</span></div>
+     <div class="card sage"><span class="emoji">⭐</span><span class="name">WARMTH</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🎓</span><span class="name">GUIDE</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🔗</span><span class="name">BOND</span><span class="title">Director</span></div>
     </div>
    </div>
    
-   <!-- SAGE -->
+   <!-- SAGE (CLO) -->
    <div class="branch">
     <div class="card teal">
      <span class="emoji">⚖️</span>
      <span class="name">SAGE</span>
-     <span class="role">CLO</span>
+     <span class="title">CLO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">🏛️</span><span class="name">JUSTICE</span></div>
-     <div class="card sage"><span class="emoji">📜</span><span class="name">CHARTER</span></div>
+     <div class="card sage"><span class="emoji">🏛️</span><span class="name">JUSTICE</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">📜</span><span class="name">CHARTER</span><span class="title">VP</span></div>
     </div>
    </div>
    
-   <!-- KEEPER -->
+   <!-- KEEPER (CDO) -->
    <div class="branch">
     <div class="card blue">
      <span class="emoji">🌐</span>
      <span class="name">KEEPER</span>
-     <span class="role">CDO</span>
+     <span class="title">CDO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">🔐</span><span class="name">TRUST</span></div>
-     <div class="card sage"><span class="emoji">🔩</span><span class="name">FLOW</span></div>
-     <div class="card sage"><span class="emoji">🔭</span><span class="name">LENS</span></div>
-     <div class="card sage"><span class="emoji">🔏</span><span class="name">GUARDIAN-D</span></div>
-     <div class="card sage"><span class="emoji">🗄️</span><span class="name">CURATOR</span></div>
-     <div class="card sage"><span class="emoji">🌊</span><span class="name">RIVER</span></div>
-     <div class="card sage"><span class="emoji">🏦</span><span class="name">VAULT</span></div>
-     <div class="card sage"><span class="emoji">📥</span><span class="name">INTAKE</span></div>
-     <div class="card sage"><span class="emoji">🎭</span><span class="name">MASK</span></div>
+     <div class="card sage"><span class="emoji">🔐</span><span class="name">TRUST</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🔩</span><span class="name">FLOW</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">🔭</span><span class="name">LENS</span><span class="title">Director</span></div>
+     <div class="card sage"><span class="emoji">🔏</span><span class="name">GUARDIAN-D</span><span class="title">Data</span></div>
+     <div class="card sage"><span class="emoji">🗄️</span><span class="name">CURATOR</span><span class="title">Data</span></div>
+     <div class="card sage"><span class="emoji">🌊</span><span class="name">RIVER</span><span class="title">Data</span></div>
+     <div class="card sage"><span class="emoji">🏦</span><span class="name">VAULT</span><span class="title">Data</span></div>
+     <div class="card sage"><span class="emoji">📥</span><span class="name">INTAKE</span><span class="title">Data</span></div>
+     <div class="card sage"><span class="emoji">🎭</span><span class="name">MASK</span><span class="title">Data</span></div>
     </div>
    </div>
    
-   <!-- SHIELD -->
+   <!-- SHIELD (CISO) -->
    <div class="branch">
     <div class="card gold" style="border-bottom-color: var(--dark)">
      <span class="emoji">🛡️</span>
      <span class="name">SHIELD</span>
-     <span class="role">CISO</span>
+     <span class="title">CISO</span>
     </div>
     <div class="vp-row">
-     <div class="card sage"><span class="emoji">🔭</span><span class="name">VIGIL</span></div>
-     <div class="card sage"><span class="emoji">📋</span><span class="name">ACCORD</span></div>
-     <div class="card sage"><span class="emoji">✨</span><span class="name">POLISH</span></div>
-     <div class="card sage"><span class="emoji">👁️</span><span class="name">WATCH</span></div>
-     <div class="card sage"><span class="emoji">🔧</span><span class="name">RESOLVE</span></div>
-     <div class="card sage"><span class="emoji">🚪</span><span class="name">GATE</span></div>
-     <div class="card sage"><span class="emoji">🩺</span><span class="name">SENTINEL</span></div>
-     <div class="card sage"><span class="emoji">🔍</span><span class="name">FILTER</span></div>
-     <div class="card sage"><span class="emoji">💰</span><span class="name">TREASURY</span></div>
-     <div class="card sage"><span class="emoji">✅</span><span class="name">VERIFY</span></div>
-     <div class="card sage"><span class="emoji">📜</span><span class="name">CHRONICLE</span></div>
-     <div class="card sage"><span class="emoji">⭕</span><span class="name">ZERO</span></div>
-     <div class="card sage"><span class="emoji">📦</span><span class="name">CONTAIN</span></div>
+     <div class="card sage"><span class="emoji">🔭</span><span class="name">VIGIL</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">📋</span><span class="name">ACCORD</span><span class="title">VP</span></div>
+     <div class="card sage"><span class="emoji">✨</span><span class="name">POLISH</span><span class="title">Director</span></div>
+     <div class="card sage"><span class="emoji">👁️</span><span class="name">WATCH</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">🔧</span><span class="name">RESOLVE</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">🚪</span><span class="name">GATE</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">🩺</span><span class="name">SENTINEL</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">🔍</span><span class="name">FILTER</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">💰</span><span class="name">TREASURY</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">✅</span><span class="name">VERIFY</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">📜</span><span class="name">CHRONICLE</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">⭕</span><span class="name">ZERO</span><span class="title">Security</span></div>
+     <div class="card sage"><span class="emoji">📦</span><span class="name">CONTAIN</span><span class="title">Security</span></div>
     </div>
    </div>
    
