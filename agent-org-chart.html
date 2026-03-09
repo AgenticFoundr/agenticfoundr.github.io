@@ -3,438 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgenticFoundr — Enterprise Agent Org Chart</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>AgenticFoundr — Agent Org Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
  --cream: #FAF8F5;
- --cream-dark: #F0EDE8;
  --primary: #0A351D;
- --primary-light: #165436;
  --gold: #C9A84C;
- --gold-light: #D4BC6A;
  --sage: #7DA88A;
  --gray: #2A2A2A;
- --gray-light: #5A5A5A;
- --border: rgba(10, 53, 29, 0.1);
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:var(--cream);font-family:'Inter',sans-serif;overflow:hidden;color:var(--gray)}
+* {margin: 0; padding: 0; box-sizing: border-box}
+html, body {
+ width: 100%; height: 100%;
+ background: var(--cream);
+ font-family: 'Inter', sans-serif;
+ color: var(--gray);
+ overflow: auto;
+}
+#container {
+ max-width: 1400px;
+ margin: 0 auto;
+ padding: 20px;
+}
+h1 {
+ font-size: 28px;
+ color: var(--primary);
+ margin-bottom: 8px;
+}
+h1 span {color: var(--gold)}
+.subtitle {
+ color: var(--sage);
+ font-size: 14px;
+ margin-bottom: 30px;
+}
+.tier-section {
+ margin-bottom: 24px;
+}
+.tier-label {
+ font-size: 11px;
+ font-weight: 700;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ margin-bottom: 12px;
+ padding-bottom: 6px;
+ border-bottom: 2px solid;
+}
+.tier-0 .tier-label {border-color: var(--gold); color: var(--gold)}
+.tier-1 .tier-label {border-color: var(--primary); color: var(--primary)}
+.tier-2 .tier-label {border-color: var(--sage); color: var(--sage)}
+.tier-3 .tier-label {border-color: #165436; color: #165436}
+.tier-sys .tier-label {border-color: #ff4d6a; color: #ff4d6a}
 
-/* ─── HEADER ─── */
-#hdr {
-position:fixed;top:0;left:0;right:0;z-index:200;
-height:52px;
-background:var(--primary);
-border-bottom:1px solid var(--border);
-display:flex;align-items:center;padding:0 20px;gap:12px;
+.agents {
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
 }
-.hdr-logo {
-font-family:'Inter',sans-serif;font-weight:800;font-size:15px;
-letter-spacing:-0.3px;color:var(--gold);white-space:nowrap;
+.agent-card {
+ background: white;
+ border-radius: 8px;
+ padding: 12px 16px;
+ min-width: 160px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+ border-left: 4px solid;
+ transition: transform 0.2s, box-shadow 0.2s;
 }
-.hdr-logo span{color:var(--cream)}
-.hdr-sep{width:1px;height:18px;background:rgba(255,255,255,0.2);margin:0 4px}
-.hdr-tag {
-font-family:monospace;font-size:9px;
-letter-spacing:1px;text-transform:uppercase;
-padding:3px 10px;border-radius:3px;white-space:nowrap;
+.agent-card:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 16px rgba(0,0,0,0.1);
 }
-.hdr-tag-cream{color:var(--cream);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2)}
-.hdr-tag-gold{color:var(--primary);background:var(--gold);border:1px solid var(--gold)}
-.hdr-tag-sage{color:var(--cream);background:rgba(125,168,138,0.3);border:1px solid rgba(125,168,138,0.4)}
-.hdr-spacer{flex:1}
-.hdr-btns{display:flex;gap:7px}
-.hdr-btn {
-font-family:'Inter',sans-serif;font-size:11px;font-weight:600;
-background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
-color:var(--cream);border-radius:20px;padding:5px 14px;
-cursor:pointer;transition:all .15s;white-space:nowrap;
+.agent-card .emoji {font-size: 18px; margin-right: 6px}
+.agent-card .name {
+ font-weight: 700;
+ font-size: 14px;
+ color: var(--primary);
 }
-.hdr-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--primary)}
-.hdr-btn.active{background:var(--gold);border-color:var(--gold);color:var(--primary)}
-
-/* ─── CANVAS ─── */
-#canvas{
-position:fixed;inset:52px 0 0 0;
-width:100%;height:calc(100% - 52px);
-cursor:grab;user-select:none;
-background: var(--cream);
+.agent-card .role {
+ font-size: 11px;
+ color: #666;
+ margin-top: 2px;
 }
-#canvas:active{cursor:grabbing}
-
-/* ─── TOOLTIP ─── */
-#tip {
-position:fixed;background:white;
-border:1px solid var(--primary);border-radius:10px;
-padding:18px 22px;max-width:360px;
-pointer-events:none;display:none;z-index:300;
-box-shadow:0 8px 32px rgba(10,53,29,0.15);
-}
-.tip-tier {
-font-family:monospace;font-size:9px;
-letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;
-color:var(--sage);
-}
-.tip-name{font-weight:800;font-size:18px;color:var(--primary);margin-bottom:2px}
-.tip-role {
-font-family:monospace;font-size:10px;
-letter-spacing:0.5px;text-transform:uppercase;
-color:var(--gold-dark, #A68B3C);margin-bottom:12px;
-}
-.tip-mandate {
-font-size:12px;font-weight:500;line-height:1.6;
-padding:10px 12px;border-radius:4px;margin-bottom:10px;
-border-left:3px solid var(--gold);
-background:rgba(201,168,76,0.08);
-}
-.tip-desc{font-size:12px;color:var(--gray-light);line-height:1.6}
-.tip-sec {
-font-family:monospace;font-size:8px;
-letter-spacing:2px;text-transform:uppercase;
-color:var(--sage);margin:12px 0 6px;
-}
-.tip-list{list-style:none;display:flex;flex-direction:column;gap:3px}
-.tip-list li {
-font-size:11px;color:var(--gray);
-padding-left:14px;position:relative;line-height:1.5;
-}
-.tip-list li::before{content:'›';position:absolute;left:0;color:var(--gold)}
-.tip-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
-.tip-chip {
-font-family:monospace;font-size:9px;
-padding:3px 8px;border-radius:3px;
-color:var(--primary);border:1px solid var(--sage);
-background:rgba(125,168,138,0.1);
+.agent-card .desc {
+ font-size: 10px;
+ color: #888;
+ margin-top: 6px;
+ line-height: 1.4;
 }
 
-/* ─── LEGEND ─── */
-#legend {
-position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
-background:white;border:1px solid var(--border);
-border-radius:24px;padding:8px 20px;
-display:flex;gap:14px;align-items:center;z-index:100;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
-}
-.leg{display:flex;align-items:center;gap:5px;white-space:nowrap}
-.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-.leg-lbl{font-size:10px;color:var(--gray);font-weight:500}
-.leg-sep{width:1px;height:14px;background:var(--border)}
+.tier-0 .agent-card {border-color: var(--gold)}
+.tier-1 .agent-card {border-color: var(--primary)}
+.tier-2 .agent-card {border-color: var(--sage)}
+.tier-3 .agent-card {border-color: #165436}
+.tier-sys .agent-card {border-color: #ff4d6a}
 
-/* Stats */
-#stats {
-position:fixed;top:70px;left:20px;
-background:white;border:1px solid var(--border);
-border-radius:12px;padding:16px 20px;
-z-index:100;
-box-shadow:0 4px 12px rgba(0,0,0,0.06);
+.stats {
+ display: flex;
+ gap: 20px;
+ margin-bottom: 30px;
+ background: white;
+ padding: 16px 24px;
+ border-radius: 12px;
+ box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
-#stats h3{font-size:11px;color:var(--sage);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
-.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.stat-item{text-align:center}
-.stat-num{font-size:24px;font-weight:800;color:var(--primary)}
-.stat-lbl{font-size:9px;color:var(--gray-light);text-transform:uppercase;letter-spacing:0.5px}
+.stat {text-align: center}
+.stat-num {font-size: 24px; font-weight: 800; color: var(--primary)}
+.stat-lbl {font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px}
 </style>
 </head>
 <body>
+<div id="container">
+ <h1>Agentic<span>Foundr</span></h1>
+ <div class="subtitle">Enterprise Agent Roster — Servant Leadership Model</div>
+ 
+ <div class="stats">
+  <div class="stat"><div class="stat-num">57</div><div class="stat-lbl">Core Agents</div></div>
+  <div class="stat"><div class="stat-num">9</div><div class="stat-lbl">C-Suite</div></div>
+  <div class="stat"><div class="stat-num">17</div><div class="stat-lbl">VPs</div></div>
+  <div class="stat"><div class="stat-num">10</div><div class="stat-lbl">Directors</div></div>
+  <div class="stat"><div class="stat-num">19</div><div class="stat-lbl">Systems</div></div>
+ </div>
 
-<!-- HEADER -->
-<div id="hdr">
- <div class="hdr-logo">Agentic<span>Foundr</span></div>
- <div class="hdr-sep"></div>
- <div class="hdr-tag hdr-tag-cream">Enterprise</div>
- <div class="hdr-tag hdr-tag-gold">v1.0</div>
- <div class="hdr-tag hdr-tag-sage">Servant Leadership</div>
- <div class="hdr-spacer"></div>
- <div class="hdr-btns">
- <button class="hdr-btn" onclick="resetView()">Reset</button>
- <button class="hdr-btn" onclick="zoomIn()">＋</button>
- <button class="hdr-btn" onclick="zoomOut()">−</button>
+ <div class="tier-section tier-0">
+  <div class="tier-label">👤 Founder</div>
+  <div class="agents">
+   <div class="agent-card"><span class="emoji">👤</span><span class="name">YOU</span><div class="role">Founder & Strategic Authority</div><div class="desc">Single point of authority. Final approver on all major decisions.</div></div>
+  </div>
+ </div>
+
+ <div class="tier-section tier-0">
+  <div class="tier-label">🧠 Tier 0 — CEO</div>
+  <div class="agents">
+   <div class="agent-card"><span class="emoji">🧠</span><span class="name">ATLAS</span><div class="role">Chief Executive Officer</div><div class="desc">Master orchestrator. Receives objectives from founder, decomposes into enterprise-wide missions.</div></div>
+  </div>
+ </div>
+
+ <div class="tier-section tier-1">
+  <div class="tier-label">⚙️ Tier 1 — C-Suite (9)</div>
+  <div class="agents">
+   <div class="agent-card"><span class="emoji">💰</span><span class="name">STEWARD</span><div class="role">CFO</div><div class="desc">Financial health, planning, budgeting, reporting.</div></div>
+   <div class="agent-card"><span class="emoji">⚙️</span><span class="name">BRIDGE</span><div class="role">COO</div><div class="desc">Client delivery workflows, SLA compliance.</div></div>
+   <div class="agent-card"><span class="emoji">📣</span><span class="name">VOICE</span><div class="role">CMO</div><div class="desc">Content, SEO, social media, brand presence.</div></div>
+   <div class="agent-card"><span class="emoji">🎯</span><span class="name">HARVEST</span><div class="role">CRO</div><div class="desc">Full sales pipeline, lead research, outreach.</div></div>
+   <div class="agent-card"><span class="emoji">🔧</span><span class="name">CRAFT</span><div class="role">CTO</div><div class="desc">Infrastructure, agent deployments, integrations.</div></div>
+   <div class="agent-card"><span class="emoji">🤝</span><span class="name">HAVEN</span><div class="role">CCO</div><div class="desc">Client relationships, onboarding, satisfaction.</div></div>
+   <div class="agent-card"><span class="emoji">⚖️</span><span class="name">SAGE</span><div class="role">CLO</div><div class="desc">Contracts, compliance, risk, IP protection.</div></div>
+   <div class="agent-card"><span class="emoji">🌐</span><span class="name">KEEPER</span><div class="role">CDO</div><div class="desc">Data strategy, governance, protection.</div></div>
+   <div class="agent-card"><span class="emoji">🛡️</span><span class="name">SHIELD</span><div class="role">CISO</div><div class="desc">Security vision, threat ops, compliance.</div></div>
+  </div>
+ </div>
+
+ <div class="tier-section tier-2">
+  <div class="tier-label">📊 Tier 2 — VP Layer (17)</div>
+  <div class="agents">
+   <div class="agent-card"><span class="emoji">📊</span><span class="name">COMPASS</span><div class="role">VP Revenue Intelligence</div><div class="desc">Pipeline health, forecasting.</div></div>
+   <div class="agent-card"><span class="emoji">🧾</span><span class="name">LEDGER</span><div class="role">VP Finance & Billing</div><div class="desc">Billing operations, invoicing.</div></div>
+   <div class="agent-card"><span class="emoji">🔄</span><span class="name">DELIVER</span><div class="role">VP Client Delivery</div><div class="desc">Client workflows, SLA enforcement.</div></div>
+   <div class="agent-card"><span class="emoji">🔬</span><span class="name">INSIGHT</span><div class="role">VP Data Intelligence</div><div class="desc">Analytics, dashboards, patterns.</div></div>
+   <div class="agent-card"><span class="emoji">🚀</span><span class="name">GROW</span><div class="role">VP Growth & Partnerships</div><div class="desc">Partnerships, expansion revenue.</div></div>
+   <div class="agent-card"><span class="emoji">🗺️</span><span class="name">SCOUT</span><div class="role">VP Market Intelligence</div><div class="desc">Market research, competitive intel.</div></div>
+   <div class="agent-card"><span class="emoji">✍️</span><span class="name">QUILL</span><div class="role">VP Content & Brand</div><div class="desc">Content strategy, brand storytelling.</div></div>
+   <div class="agent-card"><span class="emoji">🖥️</span><span class="name">FOUNDATION</span><div class="role">VP Infrastructure</div><div class="desc">Mac Mini, Ollama, API health.</div></div>
+   <div class="agent-card"><span class="emoji">🧩</span><span class="name">BUILDER</span><div class="role">VP Product Development</div><div class="desc">R&D, product roadmap.</div></div>
+   <div class="agent-card"><span class="emoji">⭐</span><span class="name">WARMTH</span><div class="role">VP Client Experience</div><div class="desc">Retention, NPS, satisfaction.</div></div>
+   <div class="agent-card"><span class="emoji">🎓</span><span class="name">GUIDE</span><div class="role">VP Client Onboarding</div><div class="desc">New client setup, walkthroughs.</div></div>
+   <div class="agent-card"><span class="emoji">🏛️</span><span class="name">JUSTICE</span><div class="role">VP Legal Strategy</div><div class="desc">Legal ops, contracts, IP.</div></div>
+   <div class="agent-card"><span class="emoji">📜</span><span class="name">CHARTER</span><div class="role">VP Regulatory & Gov</div><div class="desc">Compliance, governance frameworks.</div></div>
+   <div class="agent-card"><span class="emoji">🔐</span><span class="name">TRUST</span><div class="role">VP Data Governance</div><div class="desc">Data policies, privacy, GDPR.</div></div>
+   <div class="agent-card"><span class="emoji">🔩</span><span class="name">FLOW</span><div class="role">VP Data Engineering</div><div class="desc">Pipelines, ingestion, warehousing.</div></div>
+   <div class="agent-card"><span class="emoji">🔭</span><span class="name">VIGIL</span><div class="role">VP Cybersecurity Ops</div><div class="desc">Threat ops, monitoring.</div></div>
+   <div class="agent-card"><span class="emoji">📋</span><span class="name">ACCORD</span><div class="role">VP Compliance & Risk</div><div class="desc">Risk register, SOC2.</div></div>
+  </div>
+ </div>
+
+ <div class="tier-section tier-3">
+  <div class="tier-label">🎯 Tier 3 — Directors (10)</div>
+  <div class="agents">
+   <div class="agent-card"><span class="emoji">🔍</span><span class="name">SEEK</span><div class="role">Director of Prospecting</div><div class="desc">Lead generation.</div></div>
+   <div class="agent-card"><span class="emoji">🎵</span><span class="name">RHYTHM</span><div class="role">Director of Outreach</div><div class="desc">Sales sequencing.</div></div>
+   <div class="agent-card"><span class="emoji">🤝</span><span class="name">COVENANT</span><div class="role">Director of Proposals</div><div class="desc">Proposal creation.</div></div>
+   <div class="agent-card"><span class="emoji">📝</span><span class="name">INK</span><div class="role">Director of Content & SEO</div><div class="desc">Content, SEO.</div></div>
+   <div class="agent-card"><span class="emoji">🧵</span><span class="name">THREAD</span><div class="role">Director of Social Media</div><div class="desc">Social channels.</div></div>
+   <div class="agent-card"><span class="emoji">🔥</span><span class="name">EMBER</span><div class="role">Director of Email</div><div class="desc">Email campaigns.</div></div>
+   <div class="agent-card"><span class="emoji">📒</span><span class="name">TALLY</span><div class="role">Director of Billing</div><div class="desc">Invoicing, tracking.</div></div>
+   <div class="agent-card"><span class="emoji">✨</span><span class="name">POLISH</span><div class="role">Director of QA</div><div class="desc">Quality assurance.</div></div>
+   <div class="agent-card"><span class="emoji">🔗</span><span class="name">BOND</span><div class="role">Director of Retention</div><div class="desc">Client retention.</div></div>
+   <div class="agent-card"><span class="emoji">🔭</span><span class="name">LENS</span><div class="role">Director of Analytics</div><div class="desc">KPI aggregation.</div></div>
+  </div>
+ </div>
+
+ <div class="tier-section tier-sys">
+  <div class="tier-label">🛡️ Data & Security Systems (19)</div>
+  <div class="agents">
+   <div class="agent-card"><span class="emoji">🔏</span><span class="name">GUARDIAN-D</span><div class="role">Data Privacy & PII</div><div class="desc">PII handling, tokenization.</div></div>
+   <div class="agent-card"><span class="emoji">🗄️</span><span class="name">CURATOR</span><div class="role">Data Quality & Vault</div><div class="desc">Data warehouse management.</div></div>
+   <div class="agent-card"><span class="emoji">🌊</span><span class="name">RIVER</span><div class="role">Data Pipeline & Viz</div><div class="desc">Data flow, visualization.</div></div>
+   <div class="agent-card"><span class="emoji">👁️</span><span class="name">WATCH</span><div class="role">Threat Operations</div><div class="desc">Threat monitoring.</div></div>
+   <div class="agent-card"><span class="emoji">🔧</span><span class="name">RESOLVE</span><div class="role">Incident Response</div><div class="desc">Incident handling.</div></div>
+   <div class="agent-card"><span class="emoji">🚪</span><span class="name">GATE</span><div class="role">Access & Audit</div><div class="desc">Access control.</div></div>
+   <div class="agent-card"><span class="emoji">🏦</span><span class="name">VAULT</span><div class="role">Data Warehouse</div><div class="desc">Secure storage.</div></div>
+   <div class="agent-card"><span class="emoji">📥</span><span class="name">INTAKE</span><div class="role">Data Ingestion</div><div class="desc">Data classification.</div></div>
+   <div class="agent-card"><span class="emoji">🎭</span><span class="name">MASK</span><div class="role">PII Tokenization</div><div class="desc">PII masking.</div></div>
+   <div class="agent-card"><span class="emoji">📊</span><span class="name">VISION</span><div class="role">Data Visualization</div><div class="desc">Dashboards.</div></div>
+   <div class="agent-card"><span class="emoji">💎</span><span class="name">PURE</span><div class="role">Data Quality Guard</div><div class="desc">Data purity.</div></div>
+   <div class="agent-card"><span class="emoji">🛡️</span><span class="name">ISOLATE</span><div class="role">Session Isolation</div><div class="desc">Session security.</div></div>
+   <div class="agent-card"><span class="emoji">🩺</span><span class="name">SENTINEL</span><div class="role">Security Ops Monitor</div><div class="desc">Security monitoring.</div></div>
+   <div class="agent-card"><span class="emoji">🔍</span><span class="name">FILTER</span><div class="role">Content & Input Filter</div><div class="desc">Input filtering.</div></div>
+   <div class="agent-card"><span class="emoji">💰</span><span class="name">TREASURY</span><div class="role">Transaction Security</div><div class="desc">Payment security.</div></div>
+   <div class="agent-card"><span class="emoji">✅</span><span class="name">VERIFY</span><div class="role">Identity & Access</div><div class="desc">Identity verification.</div></div>
+   <div class="agent-card"><span class="emoji">📜</span><span class="name">CHRONICLE</span><div class="role">Immutable Audit Log</div><div class="desc">Audit logging.</div></div>
+   <div class="agent-card"><span class="emoji">⭕</span><span class="name">ZERO</span><div class="role">Zero Trust Enforcer</div><div class="desc">Zero trust model.</div></div>
+   <div class="agent-card"><span class="emoji">📦</span><span class="name">CONTAIN</span><div class="role">Incident Containment</div><div class="desc">Breach control.</div></div>
+  </div>
+ </div>
+
+ <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #888; font-size: 12px;">
+  <strong>Servant Leadership Model</strong> — Names like WARMTH, GUIDE, HAVEN, COVENANT reflect our brand values. Designed to feel like teammates, not surveillance.
  </div>
 </div>
-
-<!-- STATS -->
-<div id="stats">
- <h3>Agent Count</h3>
- <div class="stats-grid">
-  <div class="stat-item"><div class="stat-num">57</div><div class="stat-lbl">Core</div></div>
-  <div class="stat-item"><div class="stat-num">8</div><div class="stat-lbl">Modules</div></div>
-  <div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">C-Suite</div></div>
-  <div class="stat-item"><div class="stat-num">17</div><div class="stat-lbl">VPs</div></div>
- </div>
-</div>
-
-<!-- SVG CANVAS -->
-<svg id="canvas" xmlns="http://www.w3.org/2000/svg">
- <defs>
- <filter id="drop" x="-20%" y="-20%" width="140%" height="140%">
- <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(10,53,29,0.12)"/>
- </filter>
- </defs>
- <g id="root"></g>
-</svg>
-
-<div id="tip"></div>
-
-<!-- LEGEND -->
-<div id="legend">
- <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">Founder</span></div>
- <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">CEO</span></div>
- <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#0A351D"></div><span class="leg-lbl">C-Suite</span></div>
- <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#7DA88A"></div><span class="leg-lbl">VP</span></div>
- <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#165436"></div><span class="leg-lbl">Director</span></div>
- <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#00dfc8"></div><span class="leg-lbl">Data</span></div>
- <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#ff4d6a"></div><span class="leg-lbl">Security</span></div>
-</div>
-
-<script>
-// ═══════════════════════════════════════════════════
-// AGENTICFOUNDR AGENT DATA (SERVANT LEADERSHIP MODEL)
-// ═══════════════════════════════════════════════════
-const CORE = {
- // FOUNDER
- FOUNDER: {n:'YOU', r:'Founder & Strategic Authority', e:'👤', c:'#C9A84C', tier:'founder', desc:'Single point of authority. Final approver on all major decisions. Owns the vision.'},
- 
- // TIER 0 — CEO
- ATLAS: {n:'ATLAS', r:'Chief Executive Officer', e:'🧠', c:'#C9A84C', tier:0, desc:'The master orchestrator. Receives objectives from founder, decomposes into enterprise-wide missions, delegates to C-Suite.'},
- 
- // TIER 1 — C-SUITE
- STEWARD: {n:'STEWARD', r:'Chief Financial Officer', e:'💰', c:'#0A351D', tier:1, desc:'Financial health, planning, budgeting, reporting, risk management.'},
- BRIDGE: {n:'BRIDGE', r:'Chief Operating Officer', e:'⚙️', c:'#0A351D', tier:1, desc:'Orchestrates client delivery workflows, SLA compliance, vendor relationships.'},
- VOICE: {n:'VOICE', r:'Chief Marketing Officer', e:'📣', c:'#0A351D', tier:1, desc:'Content creation, SEO, social media, email campaigns, brand presence.'},
- HARVEST: {n:'HARVEST', r:'Chief Revenue Officer', e:'🎯', c:'#0A351D', tier:1, desc:'Full sales pipeline — lead research, outreach, proposals, deal closure.'},
- CRAFT: {n:'CRAFT', r:'Chief Technology Officer', e:'🔧', c:'#0A351D', tier:1, desc:'Infrastructure health, agent deployments, integrations, model optimization.'},
- HAVEN: {n:'HAVEN', r:'Chief Client Officer', e:'🤝', c:'#0A351D', tier:1, desc:'Client relationships — onboarding, satisfaction, renewals, upsells.'},
- SAGE: {n:'SAGE', r:'Chief Legal Officer', e:'⚖️', c:'#7DA88A', tier:1, desc:'Contracts, regulatory compliance, risk monitoring, IP protection.'},
- KEEPER: {n:'KEEPER', r:'Chief Data Officer', e:'🌐', c:'#00dfc8', tier:1, desc:'Data strategy, governance, protection, analytics infrastructure.'},
- SHIELD: {n:'SHIELD', r:'Chief Security Officer', e:'🛡️', c:'#ff4d6a', tier:1, desc:'Security vision, threat operations, compliance, risk posture.'},
- 
- // TIER 2 — VP LAYER
- COMPASS: {n:'COMPASS', r:'VP Revenue Intelligence', e:'📊', c:'#7DA88A', tier:2, desc:'Pipeline health, revenue forecasting, direction.'},
- LEDGER: {n:'LEDGER', r:'VP Finance & Billing', e:'🧾', c:'#7DA88A', tier:2, desc:'Billing operations, invoicing, financial tracking.'},
- DELIVER: {n:'DELIVER', r:'VP Client Delivery', e:'🔄', c:'#7DA88A', tier:2, desc:'Client delivery workflows, SLA enforcement, module agents.'},
- INSIGHT: {n:'INSIGHT', r:'VP Data Intelligence', e:'🔬', c:'#7DA88A', tier:2, desc:'Analytics aggregation, dashboard feeds, pattern recognition.'},
- GROW: {n:'GROW', r:'VP Growth & Partnerships', e:'🚀', c:'#7DA88A', tier:2, desc:'Partnership pipeline, expansion revenue, mutual value.'},
- SCOUT: {n:'SCOUT', r:'VP Market Intelligence', e:'🗺️', c:'#7DA88A', tier:2, desc:'Market research, competitive intelligence, landscape scanning.'},
- QUILL: {n:'QUILL', r:'VP Content & Brand', e:'✍️', c:'#7DA88A', tier:2, desc:'Content strategy, brand storytelling, marketing copy.'},
- FOUNDATION: {n:'FOUNDATION', r:'VP Infrastructure', e:'🖥️', c:'#7DA88A', tier:2, desc:'Mac Mini, Ollama, API health, technical backbone.'},
- BUILDER: {n:'BUILDER', r:'VP Product Development', e:'🧩', c:'#7DA88A', tier:2, desc:'R&D backlog, product roadmap, performance patterns.'},
- WARMTH: {n:'WARMTH', r:'VP Client Experience', e:'⭐', c:'#7DA88A', tier:2, desc:'Client retention, NPS, satisfaction, health scoring.'},
- GUIDE: {n:'GUIDE', r:'VP Client Onboarding', e:'🎓', c:'#7DA88A', tier:2, desc:'New client setup, walkthroughs, first-success journeys.'},
- JUSTICE: {n:'JUSTICE', r:'VP Legal Strategy', e:'🏛️', c:'#7DA88A', tier:2, desc:'Legal ops, contracts, IP portfolio, risk management.'},
- CHARTER: {n:'CHARTER', r:'VP Regulatory & Governance', e:'📜', c:'#7DA88A', tier:2, desc:'Compliance calendar, governance frameworks, policies.'},
- TRUST: {n:'TRUST', r:'VP Data Governance', e:'🔐', c:'#7DA88A', tier:2, desc:'Data policies, privacy, catalog, lineage, GDPR.'},
- FLOW: {n:'FLOW', r:'VP Data Engineering', e:'🔩', c:'#7DA88A', tier:2, desc:'Data pipelines, ingestion, warehousing, flow management.'},
- VIGIL: {n:'VIGIL', r:'VP Cybersecurity Ops', e:'🔭', c:'#ff4d6a', tier:2, desc:'Active threat operations, monitoring, security posture.'},
- ACCORD: {n:'ACCORD', r:'VP Compliance & Risk', e:'📋', c:'#ff4d6a', tier:2, desc:'Risk register, compliance, SOC2, regulatory alignment.'},
- 
- // TIER 3 — DIRECTORS
- SEEK: {n:'SEEK', r:'Director of Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Lead generation, prospect identification.'},
- RHYTHM: {n:'RHYTHM', r:'Director of Outreach', e:'🎵', c:'#165436', tier:3, desc:'Sales sequencing, outreach cadence, follow-ups.'},
- COVENANT: {n:'COVENANT', r:'Director of Proposals', e:'🤝', c:'165436', tier:3, desc:'Proposal creation, mutual promises, terms.'},
- INK: {n:'INK', r:'Director of Content & SEO', e:'📝', c:'#165436', tier:3, desc:'Content creation, SEO optimization, writing.'},
- THREAD: {n:'THREAD', r:'Director of Social Media', e:'🧵', c:'#165436', tier:3, desc:'Social channels, community, engagement threads.'},
- EMBER: {n:'EMBER', r:'Director of Email', e:'🔥', c:'#165436', tier:3, desc:'Email campaigns, nurturing, warm communications.'},
- TALLY: {n:'TALLY', r:'Director of Billing', e:'📒', c:'#165436', tier:3, desc:'Invoice generation, payment tracking, counting.'},
- POLISH: {n:'POLISH', r:'Director of Quality Assurance', e:'✨', c:'#165436', tier:3, desc:'Output quality, polish, excellence verification.'},
- BOND: {n:'BOND', r:'Director of Retention', e:'🔗', c:'#165436', tier:3, desc:'Client retention, relationship bonds, renewals.'},
- LENS: {n:'LENS', r:'Director of Analytics', e:'🔭', c:'#165436', tier:3, desc:'KPI aggregation, metrics, analytical clarity.'},
- 
- // DATA & SECURITY SYSTEMS
- GUARDIAN_D: {n:'GUARDIAN-D', r:'Data Privacy & PII', e:'🔏', c:'#00dfc8', tier:'data', desc:'PII handling, tokenization, privacy protection.'},
- CURATOR: {n:'CURATOR', r:'Data Quality & Vault', e:'🗄️', c:'#00dfc8', tier:'data', desc:'Data quality, warehouse, vault management.'},
- RIVER: {n:'RIVER', r:'Data Pipeline & Viz', e:'🌊', c:'#00dfc8', tier:'data', desc:'Data flow, visualization, dashboard delivery.'},
- WATCH: {n:'WATCH', r:'Threat Operations', e:'👁️', c:'#ff4d6a', tier:'security', desc:'Threat monitoring, surveillance, anomaly detection.'},
- RESOLVE: {n:'RESOLVE', r:'Incident Response', e:'🔧', c:'#ff4d6a', tier:'security', desc:'Incident handling, resolution, recovery.'},
- GATE: {n:'GATE', r:'Access & Audit', e:'🚪', c:'#ff4d6a', tier:'security', desc:'Access control, gatekeeping, audit trails.'},
- VAULT: {n:'VAULT', r:'Data Warehouse', e:'🏦', c:'#ff4d6a', tier:'security', desc:'Secure storage, encrypted data vault.'},
- INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'📥', c:'#ff4d6a', tier:'security', desc:'Data intake, classification, entry.'},
- MASK: {n:'MASK', r:'PII Tokenization', e:'🎭', c:'#ff4d6a', tier:'security', desc:'PII masking, token replacement, privacy.'},
- VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#ff4d6a', tier:'security', desc:'Dashboards, reports, visual insights.'},
- PURE: {n:'PURE', r:'Data Quality Guard', e:'💎', c:'#ff4d6a', tier:'security', desc:'Data purity, validation, cleansing.'},
- ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🛡️', c:'#ff4d6a', tier:'security', desc:'Session isolation, sandboxing, separation.'},
- SENTINEL: {n:'SENTINEL', r:'Security Ops Monitor', e:'🩺', c:'#ff4d6a', tier:'security', desc:'Security monitoring, health checks, alerts.'},
- FILTER: {n:'FILTER', r:'Content & Input Filter', e:'🔍', c:'#ff4d6a', tier:'security', desc:'Input filtering, content screening, validation.'},
- TREASURY: {n:'TREASURY', r:'Transaction Security', e:'💰', c:'#ff4d6a', tier:'security', desc:'Financial transactions, payment security.'},
- VERIFY: {n:'VERIFY', r:'Identity & Access', e:'✅', c:'#ff4d6a', tier:'security', desc:'Identity verification, access management.'},
- CHRONICLE: {n:'CHRONICLE', r:'Immutable Audit Log', e:'📜', c:'#ff4d6a', tier:'security', desc:'Audit logging, history, immutable records.'},
- ZERO: {n:'ZERO', r:'Zero Trust Enforcer', e:'⭕', c:'#ff4d6a', tier:'security', desc:'Zero trust model, never trust, always verify.'},
- CONTAIN: {n:'CONTAIN', r:'Incident Containment', e:'📦', c:'#ff4d6a', tier:'security', desc:'Incident containment, isolation, breach control.'}
-};
-
-const TIERS = {
- founder: {y:0}, 0: {y:1}, 1: {y:2}, 2: {y:3}, 3: {y:4}, data: {y:5}, security: {y:5}
-};
-
-let scale = 1, panX = 0, panY = 0, isDragging = false, startX, startY;
-const canvas = document.getElementById('canvas'), root = document.getElementById('root'), tip = document.getElementById('tip');
-
-function pos(tier, index, total) {
- const y = (TIERS[tier]?.y ?? 3) * 130 + 80;
- const x = (index - (total-1)/2) * 145 + 400;
- return {x: x * scale + panX, y: y * scale + panY};
-}
-
-function drawNode(id, data, x, y, parentId) {
- const g = document.createElementNS('http://www.w3.org/2000/svg','g');
- g.setAttribute('transform', `translate(${x},${y})`);
- g.style.cursor = 'pointer';
- 
- const boxW = 130, boxH = 48;
- const color = data.c || '#0A351D';
- const isTop = data.tier === 0 || data.tier === 'founder';
- 
- // Card
- const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
- rect.setAttribute('x', -boxW/2);
- rect.setAttribute('y', -boxH/2);
- rect.setAttribute('width', boxW);
- rect.setAttribute('height', boxH);
- rect.setAttribute('rx', 8);
- rect.setAttribute('fill', 'white');
- rect.setAttribute('stroke', color);
- rect.setAttribute('stroke-width', isTop ? 2 : 1);
- rect.setAttribute('filter', 'url(#drop)');
- g.appendChild(rect);
- 
- // Top bar
- const bar = document.createElementNS('http://www.w3.org/2000/svg','rect');
- bar.setAttribute('x', -boxW/2 + 1);
- bar.setAttribute('y', -boxH/2 + 1);
- bar.setAttribute('width', boxW - 2);
- bar.setAttribute('height', 4);
- bar.setAttribute('rx', 2);
- bar.setAttribute('fill', color);
- g.appendChild(bar);
- 
- // Emoji
- const emoji = document.createElementNS('http://www.w3.org/2000/svg','text');
- emoji.setAttribute('x', -boxW/2 + 12);
- emoji.setAttribute('y', 6);
- emoji.setAttribute('font-size', 18);
- emoji.textContent = data.e;
- g.appendChild(emoji);
- 
- // Name
- const name = document.createElementNS('http://www.w3.org/2000/svg','text');
- name.setAttribute('x', -boxW/2 + 36);
- name.setAttribute('y', -4);
- name.setAttribute('font-size', 12);
- name.setAttribute('font-weight', '700');
- name.setAttribute('fill', '#2A2A2A');
- name.textContent = data.n;
- g.appendChild(name);
- 
- // Role
- const role = document.createElementNS('http://www.w3.org/2000/svg','text');
- role.setAttribute('x', -boxW/2 + 36);
- role.setAttribute('y', 10);
- role.setAttribute('font-size', 9);
- role.setAttribute('fill', color);
- role.textContent = data.r.substring(0, 22);
- g.appendChild(role);
- 
- // Line to parent
- if(parentId && CORE[parentId]) {
-  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-  line.setAttribute('x1', x);
-  line.setAttribute('y1', y - boxH/2);
-  line.setAttribute('x2', x);
-  line.setAttribute('y2', y - boxH/2 - 15);
-  line.setAttribute('stroke', '#ccc');
-  line.setAttribute('stroke-width', 1);
-  root.insertBefore(line, g);
- }
- 
- g.addEventListener('mouseenter', e => showTip(e, data));
- g.addEventListener('mouseleave', () => tip.style.display = 'none');
- g.addEventListener('mousemove', e => {
-  tip.style.left = (e.clientX + 15) + 'px';
-  tip.style.top = (e.clientY + 15) + 'px';
- });
- 
- root.appendChild(g);
-}
-
-function showTip(e, data) {
- const tierNames = {founder:'FOUNDER',0:'TIER 0 — CEO',1:'TIER 1 — C-SUITE',2:'TIER 2 — VP',3:'TIER 3 — DIRECTOR',data:'DATA & SECURITY',security:'SECURITY'};
- tip.innerHTML = `
- <div class="tip-tier">${tierNames[data.tier] || ''}</div>
- <div class="tip-name">${data.e} ${data.n}</div>
- <div class="tip-role">${data.r}</div>
- <div class="tip-desc">${data.desc}</div>
- `;
- tip.style.display = 'block';
-}
-
-function resetView() { scale = 1; panX = 0; panY = 0; render(); }
-function zoomIn() { scale = Math.min(scale * 1.2, 3); }
-function zoomOut() { scale = Math.max(scale / 1.2, 0.3); }
-
-canvas.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX - panX; startY = e.clientY - panY; });
-canvas.addEventListener('mousemove', e => { if(!isDragging) return; panX = e.clientX - startX; panY = e.clientY - startY; render(); });
-canvas.addEventListener('mouseup', () => isDragging = false);
-canvas.addEventListener('wheel', e => { e.preventDefault(); scale = e.deltaY > 0 ? Math.max(scale / 1.1, 0.3) : Math.min(scale * 1.1, 3); render(); }, {passive: false});
-
-function render() {
- root.innerHTML = '';
- 
- // Founder
- drawNode('FOUNDER', CORE.FOUNDER, pos('founder', 0, 1).x, pos('founder', 0, 1).y, null);
- 
- // CEO
- drawNode('ATLAS', CORE.ATLAS, pos(0, 0, 1).x, pos(0, 0, 1).y, 'FOUNDER');
- 
- // C-Suite
- const csuite = ['STEWARD','BRIDGE','VOICE','HARVEST','CRAFT','HAVEN','SAGE','KEEPER','SHIELD'];
- csuite.forEach((id, i) => drawNode(id, CORE[id], pos(1, i, csuite.length).x, pos(1, i, csuite.length).y, 'ATLAS'));
- 
- // VPs
- const vps = ['COMPASS','LEDGER','DELIVER','INSIGHT','GROW','SCOUT','QUILL','FOUNDATION','BUILDER','WARMTH','GUIDE','JUSTICE','CHARTER','TRUST','FLOW','VIGIL','ACCORD'];
- vps.forEach((id, i) => {
-  const parent = id === 'COMPASS' || id === 'LEDGER' ? 'STEWARD' :
-                 id === 'DELIVER' || id === 'INSIGHT' || id === 'GUIDE' ? 'BRIDGE' :
-                 id === 'QUILL' || id === 'SCOUT' ? 'VOICE' :
-                 id === 'GROW' || id === 'COMPASS' ? 'HARVEST' :
-                 id === 'FOUNDATION' || id === 'BUILDER' ? 'CRAFT' :
-                 id === 'WARMTH' || id === 'GUIDE' ? 'HAVEN' :
-                 id === 'JUSTICE' || id === 'CHARTER' ? 'SAGE' :
-                 id === 'TRUST' || id === 'FLOW' ? 'KEEPER' :
-                 'SHIELD';
-  drawNode(id, CORE[id], pos(2, i, vps.length).x, pos(2, i, vps.length).y, parent);
- });
- 
- // Directors
- const dirs = ['SEEK','RHYTHM','COVENANT','INK','THREAD','EMBER','TALLY','POLISH','BOND','LENS'];
- dirs.forEach((id, i) => {
-  const parent = id === 'SEEK' || id === 'RHYTHM' || id === 'COVENANT' ? 'HARVEST' :
-                 id === 'INK' || id === 'THREAD' || id === 'EMBER' ? 'QUILL' :
-                 id === 'TALLY' ? 'LEDGER' :
-                 id === 'LENS' ? 'INSIGHT' :
-                 'DELIVER';
-  drawNode(id, CORE[id], pos(3, i, dirs.length).x, pos(3, i, dirs.length).y, parent);
- });
- 
- // Data & Security Systems
- const systems = ['GUARDIAN_D','CURATOR','RIVER','WATCH','RESOLVE','GATE','VAULT','INTAKE','MASK','VISION','PURE','ISOLATE','SENTINEL','FILTER','TREASURY','VERIFY','CHRONICLE','ZERO','CONTAIN'];
- systems.forEach((id, i) => {
-  const realId = id === 'GUARDIAN_D' ? 'GUARDIAN-D' : id;
-  const parent = id === 'GUARDIAN_D' || id === 'MASK' || id === 'ISOLATE' ? 'KEEPER' :
-                 id === 'CURATOR' || id === 'VAULT' || id === 'PURE' ? 'KEEPER' :
-                 id === 'RIVER' || id === 'INTAKE' || id === 'VISION' ? 'KEEPER' :
-                 'SHIELD';
-  drawNode(realId, CORE[id], pos('data', i, systems.length).x - 100, pos('data', i, systems.length).y + 180, parent);
- });
-}
-
-render();
-</script>
-
 </body>
 </html>
