@@ -83,61 +83,42 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
 .card.ceo .name{font-size:18px}
 .card.ceo .role{font-size:10px;color:#C9A84C;font-weight:600}
 
-/* C-Suite */
-.card.csuite{border-top:4px solid #0A351D}
-.card.csuite .role{color:#0A351D;font-weight:600}
+/* ─── LINEAGE COLORS ─── */
+/* CFO = amber #D97706 */
+/* COO = blue #3B82F6 */
+/* CMO = purple #8B5CF6 */
+/* CRO = pink #EC4899 */
+/* CTO = indigo #6366F1 */
+/* CCO = emerald #10B981 */
+/* CLO = orange #F97316 */
+/* CDO = teal #14B8A6 */
+/* CISO = red #EF4444 */
 
-/* CDO lineage (teal) */
-.card.data-cs{border-top:4px solid #14B8A6}
-.card.data-cs .role{color:#14B8A6;font-weight:600}
+/* C-Suite base */
+.c-cs{font-weight:600}
 
-/* CISO lineage (red) */
-.card.sec-cs{border-top:4px solid #EF4444}
-.card.sec-cs .role{color:#EF4444;font-weight:600}
+/* Helper: lineage card generator via border-top color */
+.card.cfo{border-top:4px solid #D97706}.card.cfo .role{color:#D97706;font-weight:600}
+.card.coo{border-top:4px solid #3B82F6}.card.coo .role{color:#3B82F6;font-weight:600}
+.card.cmo{border-top:4px solid #8B5CF6}.card.cmo .role{color:#8B5CF6;font-weight:600}
+.card.cro{border-top:4px solid #EC4899}.card.cro .role{color:#EC4899;font-weight:600}
+.card.cto{border-top:4px solid #6366F1}.card.cto .role{color:#6366F1;font-weight:600}
+.card.cco{border-top:4px solid #10B981}.card.cco .role{color:#10B981;font-weight:600}
+.card.clo{border-top:4px solid #F97316}.card.clo .role{color:#F97316;font-weight:600}
+.card.cdo{border-top:4px solid #14B8A6}.card.cdo .role{color:#14B8A6;font-weight:600}
+.card.ciso{border-top:4px solid #EF4444}.card.ciso .role{color:#EF4444;font-weight:600}
 
-/* Data VP (teal) */
-.card.data-vp{border-top:4px solid #14B8A6;padding:10px 14px;min-width:90px}
-.card.data-vp .emoji{font-size:20px;margin-bottom:4px}
-.card.data-vp .name{font-size:11px}
-.card.data-vp .role{font-size:8px;color:#14B8A6;font-weight:600}
+/* VP size (applies to all lineage VPs) */
+.vp-size{padding:10px 14px;min-width:90px}
+.vp-size .emoji{font-size:20px;margin-bottom:4px}
+.vp-size .name{font-size:11px}
+.vp-size .role{font-size:8px}
 
-/* Security VP (red) */
-.card.sec-vp{border-top:4px solid #EF4444;padding:10px 14px;min-width:90px}
-.card.sec-vp .emoji{font-size:20px;margin-bottom:4px}
-.card.sec-vp .name{font-size:11px}
-.card.sec-vp .role{font-size:8px;color:#EF4444;font-weight:600}
-
-/* Legal Lane (orange) */
-.card.legal{border-top:4px solid #F97316}
-.card.legal .role{color:#F97316;font-weight:600}
-.card.legal-vp{
- border-top:4px solid #F97316;
- padding:10px 14px;
- min-width:90px;
-}
-.card.legal-vp .emoji{font-size:20px;margin-bottom:4px}
-.card.legal-vp .name{font-size:11px}
-.card.legal-vp .role{font-size:8px;color:#F97316;font-weight:600}
-
-/* VP */
-.card.vp{
- border-top:4px solid #7DA88A;
- padding:10px 14px;
- min-width:90px;
-}
-.card.vp .emoji{font-size:20px;margin-bottom:4px}
-.card.vp .name{font-size:11px}
-.card.vp .role{font-size:8px;color:#7DA88A;font-weight:600}
-
-/* Director */
-.card.dir{
- border-top:4px solid #165436;
- padding:8px 12px;
- min-width:80px;
-}
-.card.dir .emoji{font-size:18px;margin-bottom:3px}
-.card.dir .name{font-size:10px}
-.card.dir .role{font-size:7px;color:#165436;font-weight:600}
+/* Director size */
+.dir-size{padding:8px 12px;min-width:80px}
+.dir-size .emoji{font-size:18px;margin-bottom:3px}
+.dir-size .name{font-size:10px}
+.dir-size .role{font-size:7px}
 
 /* Data/Security */
 .card.data{border-top:4px solid #14B8A6;padding:8px 12px;min-width:80px}
@@ -218,15 +199,15 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
    <div class="tier-label">Tier 1 — C-Suite</div>
    <div class="hline" style="width:80%"></div>
    <div class="tier-row">
-    <div class="card csuite"><span class="emoji">💰</span><div class="name">STEWARD</div><div class="role">CFO</div></div>
-    <div class="card csuite"><span class="emoji">⚙️</span><div class="name">BRIDGE</div><div class="role">COO</div></div>
-    <div class="card csuite"><span class="emoji">📣</span><div class="name">VOICE</div><div class="role">CMO</div></div>
-    <div class="card csuite"><span class="emoji">🎯</span><div class="name">HARVEST</div><div class="role">CRO</div></div>
-    <div class="card csuite"><span class="emoji">🔧</span><div class="name">CRAFT</div><div class="role">CTO</div></div>
-    <div class="card csuite"><span class="emoji">🤝</span><div class="name">HAVEN</div><div class="role">CCO</div></div>
-    <div class="card legal"><span class="emoji">⚖️</span><div class="name">SAGE</div><div class="role">CLO</div></div>
-    <div class="card data-cs"><span class="emoji">🌐</span><div class="name">KEEPER</div><div class="role">CDO</div></div>
-    <div class="card sec-cs"><span class="emoji">🛡️</span><div class="name">SHIELD</div><div class="role">CISO</div></div>
+    <div class="card cfo"><span class="emoji">💰</span><div class="name">STEWARD</div><div class="role">CFO</div></div>
+    <div class="card coo"><span class="emoji">⚙️</span><div class="name">BRIDGE</div><div class="role">COO</div></div>
+    <div class="card cmo"><span class="emoji">📣</span><div class="name">VOICE</div><div class="role">CMO</div></div>
+    <div class="card cro"><span class="emoji">🎯</span><div class="name">HARVEST</div><div class="role">CRO</div></div>
+    <div class="card cto"><span class="emoji">🔧</span><div class="name">CRAFT</div><div class="role">CTO</div></div>
+    <div class="card cco"><span class="emoji">🤝</span><div class="name">HAVEN</div><div class="role">CCO</div></div>
+    <div class="card clo"><span class="emoji">⚖️</span><div class="name">SAGE</div><div class="role">CLO</div></div>
+    <div class="card cdo"><span class="emoji">🌐</span><div class="name">KEEPER</div><div class="role">CDO</div></div>
+    <div class="card ciso"><span class="emoji">🛡️</span><div class="name">SHIELD</div><div class="role">CISO</div></div>
    </div>
   </div>
   <div class="vline"></div>
@@ -236,23 +217,23 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
    <div class="tier-label">Tier 2 — Vice Presidents (17)</div>
    <div class="hline" style="width:90%"></div>
    <div class="tier-row">
-    <div class="card vp"><span class="emoji">📊</span><div class="name">COMPASS</div><div class="role">VP Revenue</div></div>
-    <div class="card vp"><span class="emoji">🧾</span><div class="name">LEDGER</div><div class="role">VP Finance</div></div>
-    <div class="card vp"><span class="emoji">🔄</span><div class="name">DELIVER</div><div class="role">VP Delivery</div></div>
-    <div class="card vp"><span class="emoji">🔬</span><div class="name">INSIGHT</div><div class="role">VP Data</div></div>
-    <div class="card vp"><span class="emoji">✍️</span><div class="name">QUILL</div><div class="role">VP Content</div></div>
-    <div class="card vp"><span class="emoji">🚀</span><div class="name">GROW</div><div class="role">VP Growth</div></div>
-    <div class="card vp"><span class="emoji">🗺️</span><div class="name">SCOUT</div><div class="role">VP Market</div></div>
-    <div class="card vp"><span class="emoji">🖥️</span><div class="name">FOUNDATION</div><div class="role">VP Infra</div></div>
-    <div class="card vp"><span class="emoji">🧩</span><div class="name">BUILDER</div><div class="role">VP Product</div></div>
-    <div class="card vp"><span class="emoji">⭐</span><div class="name">WARMTH</div><div class="role">VP CX</div></div>
-    <div class="card vp"><span class="emoji">🎓</span><div class="name">GUIDE</div><div class="role">VP Onboard</div></div>
-    <div class="card legal-vp"><span class="emoji">🏛️</span><div class="name">JUSTICE</div><div class="role">VP Legal</div></div>
-    <div class="card legal-vp"><span class="emoji">📜</span><div class="name">CHARTER</div><div class="role">VP Gov</div></div>
-    <div class="card data-vp"><span class="emoji">🔐</span><div class="name">TRUST</div><div class="role">VP Data Gov</div></div>
-    <div class="card data-vp"><span class="emoji">🔩</span><div class="name">FLOW</div><div class="role">VP Eng</div></div>
-    <div class="card sec-vp"><span class="emoji">🔭</span><div class="name">VIGIL</div><div class="role">VP Security</div></div>
-    <div class="card sec-vp"><span class="emoji">📋</span><div class="name">ACCORD</div><div class="role">VP Risk</div></div>
+    <div class="card cfo vp-size"><span class="emoji">📊</span><div class="name">COMPASS</div><div class="role">VP Revenue</div></div>
+    <div class="card cfo vp-size"><span class="emoji">🧾</span><div class="name">LEDGER</div><div class="role">VP Finance</div></div>
+    <div class="card coo vp-size"><span class="emoji">🔄</span><div class="name">DELIVER</div><div class="role">VP Delivery</div></div>
+    <div class="card coo vp-size"><span class="emoji">🔬</span><div class="name">INSIGHT</div><div class="role">VP Data</div></div>
+    <div class="card cmo vp-size"><span class="emoji">✍️</span><div class="name">QUILL</div><div class="role">VP Content</div></div>
+    <div class="card cro vp-size"><span class="emoji">🚀</span><div class="name">GROW</div><div class="role">VP Growth</div></div>
+    <div class="card cro vp-size"><span class="emoji">🗺️</span><div class="name">SCOUT</div><div class="role">VP Market</div></div>
+    <div class="card cto vp-size"><span class="emoji">🖥️</span><div class="name">FOUNDATION</div><div class="role">VP Infra</div></div>
+    <div class="card cto vp-size"><span class="emoji">🧩</span><div class="name">BUILDER</div><div class="role">VP Product</div></div>
+    <div class="card cco vp-size"><span class="emoji">⭐</span><div class="name">WARMTH</div><div class="role">VP CX</div></div>
+    <div class="card cco vp-size"><span class="emoji">🎓</span><div class="name">GUIDE</div><div class="role">VP Onboard</div></div>
+    <div class="card clo vp-size"><span class="emoji">🏛️</span><div class="name">JUSTICE</div><div class="role">VP Legal</div></div>
+    <div class="card clo vp-size"><span class="emoji">📜</span><div class="name">CHARTER</div><div class="role">VP Gov</div></div>
+    <div class="card cdo vp-size"><span class="emoji">🔐</span><div class="name">TRUST</div><div class="role">VP Data Gov</div></div>
+    <div class="card cdo vp-size"><span class="emoji">🔩</span><div class="name">FLOW</div><div class="role">VP Eng</div></div>
+    <div class="card ciso vp-size"><span class="emoji">🔭</span><div class="name">VIGIL</div><div class="role">VP Security</div></div>
+    <div class="card ciso vp-size"><span class="emoji">📋</span><div class="name">ACCORD</div><div class="role">VP Risk</div></div>
    </div>
   </div>
   <div class="vline"></div>
@@ -262,16 +243,16 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
    <div class="tier-label">Tier 3 — Directors (10)</div>
    <div class="hline" style="width:60%"></div>
    <div class="tier-row">
-    <div class="card dir"><span class="emoji">🔍</span><div class="name">SEEK</div><div class="role">Prospecting</div></div>
-    <div class="card dir"><span class="emoji">🎵</span><div class="name">RHYTHM</div><div class="role">Outreach</div></div>
-    <div class="card dir"><span class="emoji">🤝</span><div class="name">COVENANT</div><div class="role">Proposals</div></div>
-    <div class="card dir"><span class="emoji">📝</span><div class="name">INK</div><div class="role">Content</div></div>
-    <div class="card dir"><span class="emoji">🧵</span><div class="name">THREAD</div><div class="role">Social</div></div>
-    <div class="card dir"><span class="emoji">🔥</span><div class="name">EMBER</div><div class="role">Email</div></div>
-    <div class="card dir"><span class="emoji">📒</span><div class="name">TALLY</div><div class="role">Billing</div></div>
-    <div class="card sec"><span class="emoji">✨</span><div class="name">POLISH</div><div class="role">QA</div></div>
-    <div class="card dir"><span class="emoji">🔗</span><div class="name">BOND</div><div class="role">Retention</div></div>
-    <div class="card data"><span class="emoji">🔭</span><div class="name">LENS</div><div class="role">Analytics</div></div>
+    <div class="card cro dir-size"><span class="emoji">🔍</span><div class="name">SEEK</div><div class="role">Prospecting</div></div>
+    <div class="card cro dir-size"><span class="emoji">🎵</span><div class="name">RHYTHM</div><div class="role">Outreach</div></div>
+    <div class="card cro dir-size"><span class="emoji">🤝</span><div class="name">COVENANT</div><div class="role">Proposals</div></div>
+    <div class="card cmo dir-size"><span class="emoji">📝</span><div class="name">INK</div><div class="role">Content</div></div>
+    <div class="card cmo dir-size"><span class="emoji">🧵</span><div class="name">THREAD</div><div class="role">Social</div></div>
+    <div class="card cmo dir-size"><span class="emoji">🔥</span><div class="name">EMBER</div><div class="role">Email</div></div>
+    <div class="card cfo dir-size"><span class="emoji">📒</span><div class="name">TALLY</div><div class="role">Billing</div></div>
+    <div class="card ciso dir-size"><span class="emoji">✨</span><div class="name">POLISH</div><div class="role">QA</div></div>
+    <div class="card cco dir-size"><span class="emoji">🔗</span><div class="name">BOND</div><div class="role">Retention</div></div>
+    <div class="card cdo dir-size"><span class="emoji">🔭</span><div class="name">LENS</div><div class="role">Analytics</div></div>
    </div>
   </div>
   <div class="vline"></div>
@@ -327,13 +308,16 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
  <!-- Legend -->
  <div class="legend">
   <div class="legend-item"><div class="legend-dot" style="background:#C9A84C"></div>Founder / CEO</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#0A351D"></div>C-Suite</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#F97316"></div>Legal</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#7DA88A"></div>VP</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#165436"></div>Director</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#14B8A6"></div>Data</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#EF4444"></div>Security</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#8B5CF6"></div>Module</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#D97706"></div>CFO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#3B82F6"></div>COO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8B5CF6"></div>CMO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#EC4899"></div>CRO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6366F1"></div>CTO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#10B981"></div>CCO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#F97316"></div>CLO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#14B8A6"></div>CDO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#EF4444"></div>CISO Lane</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8B5CF6;border:2px dashed #666"></div>Module</div>
  </div>
 
  <div class="footer">Servant Leadership Model — Names like WARMTH, GUIDE, HAVEN, COVENANT reflect our brand values.</div>
@@ -390,37 +374,37 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
   <div class="def-section">
    <div class="def-section-title" style="background:#0A351D">C-Suite</div>
    <div class="def-grid">
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#D97706">
      <div class="def-name">💰 STEWARD</div>
      <div class="def-title">Chief Financial Officer</div>
      <div class="def-desc">Financial health, planning, budgeting, reporting, and risk management. Oversees all financial operations, ensures fiscal responsibility, manages cash flow, and provides financial insights to ATLAS.</div>
      <div class="def-reports">Reports to: ATLAS · Manages: COMPASS, LEDGER, TALLY</div>
     </div>
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#3B82F6">
      <div class="def-name">⚙️ BRIDGE</div>
      <div class="def-title">Chief Operating Officer</div>
      <div class="def-desc">Orchestrates client delivery workflows, SLA compliance, and vendor relationships. Ensures operational excellence across all delivery channels and maintains quality standards.</div>
      <div class="def-reports">Reports to: ATLAS · Manages: DELIVER, INSIGHT</div>
     </div>
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#8B5CF6">
      <div class="def-name">📣 VOICE</div>
      <div class="def-title">Chief Marketing Officer</div>
      <div class="def-desc">Content creation, SEO, social media, email campaigns, and brand presence. Drives market awareness, manages brand reputation, and generates leads through strategic marketing.</div>
      <div class="def-reports">Reports to: ATLAS · Manages: QUILL, INK, THREAD, EMBER</div>
     </div>
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#EC4899">
      <div class="def-name">🎯 HARVEST</div>
      <div class="def-title">Chief Revenue Officer</div>
      <div class="def-desc">Full sales pipeline — lead research, outreach, proposals, and deal closure. Unifies sales and marketing efforts to maximize revenue growth across the entire customer acquisition journey.</div>
      <div class="def-reports">Reports to: ATLAS · Manages: GROW, SCOUT, SEEK, RHYTHM, COVENANT</div>
     </div>
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#6366F1">
      <div class="def-name">🔧 CRAFT</div>
      <div class="def-title">Chief Technology Officer</div>
      <div class="def-desc">Infrastructure health, agent deployments, integrations, and model optimization. Manages all technical infrastructure, evaluates AI models, and ensures system reliability.</div>
      <div class="def-reports">Reports to: ATLAS · Manages: FOUNDATION, BUILDER</div>
     </div>
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#10B981">
      <div class="def-name">🤝 HAVEN</div>
      <div class="def-title">Chief Client Officer</div>
      <div class="def-desc">Client relationships — onboarding, satisfaction, renewals, and upsells. Ensures exceptional client experiences, drives retention, and identifies expansion opportunities.</div>
@@ -449,19 +433,19 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
 
   <!-- VPs -->
   <div class="def-section">
-   <div class="def-section-title" style="background:#7DA88A">Vice Presidents</div>
+   <div class="def-section-title" style="background:#0A351D">Vice Presidents</div>
    <div class="def-grid">
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">📊 COMPASS</div><div class="def-title">VP Revenue Intelligence</div><div class="def-desc">Pipeline health, revenue forecasting, and directional insights. Provides real-time visibility into sales performance and predictive analytics.</div><div class="def-reports">Reports to: STEWARD (CFO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🧾 LEDGER</div><div class="def-title">VP Finance & Billing</div><div class="def-desc">Billing operations, invoicing, and financial tracking. Manages accounts receivable, payment processing, and financial reporting.</div><div class="def-reports">Reports to: STEWARD (CFO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🔄 DELIVER</div><div class="def-title">VP Client Delivery</div><div class="def-desc">Client delivery workflows, SLA enforcement, and module agents. Ensures timely, quality delivery of all client-facing services.</div><div class="def-reports">Reports to: BRIDGE (COO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🔬 INSIGHT</div><div class="def-title">VP Data Intelligence</div><div class="def-desc">Analytics aggregation, dashboard feeds, and pattern recognition. Transforms raw data into actionable business insights.</div><div class="def-reports">Reports to: BRIDGE (COO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">✍️ QUILL</div><div class="def-title">VP Content & Brand</div><div class="def-desc">Content strategy, brand storytelling, and marketing copy. Creates compelling content that resonates with target audiences.</div><div class="def-reports">Reports to: VOICE (CMO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🚀 GROW</div><div class="def-title">VP Growth & Partnerships</div><div class="def-desc">Partnership pipeline, expansion revenue, and mutual value creation. Identifies and develops strategic partnerships.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🗺️ SCOUT</div><div class="def-title">VP Market Intelligence</div><div class="def-desc">Market research, competitive intelligence, and landscape scanning. Keeps the enterprise ahead of market trends and opportunities.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🖥️ FOUNDATION</div><div class="def-title">VP Infrastructure</div><div class="def-desc">Mac Mini, Ollama, API health, and technical backbone. Maintains all technical infrastructure and ensures uptime.</div><div class="def-reports">Reports to: CRAFT (CTO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🧩 BUILDER</div><div class="def-title">VP Product Development</div><div class="def-desc">R&D backlog, product roadmap, and performance patterns. Drives innovation and product evolution.</div><div class="def-reports">Reports to: CRAFT (CTO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">⭐ WARMTH</div><div class="def-title">VP Client Experience</div><div class="def-desc">Client retention, NPS, satisfaction, and health scoring. Ensures clients feel valued, heard, and supported.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🎓 GUIDE</div><div class="def-title">VP Client Onboarding</div><div class="def-desc">New client setup, walkthroughs, and first-success journeys. Sets clients up for long-term success from day one.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
+    <div class="def-item" style="border-color:#D97706"><div class="def-name">📊 COMPASS</div><div class="def-title">VP Revenue Intelligence</div><div class="def-desc">Pipeline health, revenue forecasting, and directional insights. Provides real-time visibility into sales performance and predictive analytics.</div><div class="def-reports">Reports to: STEWARD (CFO)</div></div>
+    <div class="def-item" style="border-color:#D97706"><div class="def-name">🧾 LEDGER</div><div class="def-title">VP Finance & Billing</div><div class="def-desc">Billing operations, invoicing, and financial tracking. Manages accounts receivable, payment processing, and financial reporting.</div><div class="def-reports">Reports to: STEWARD (CFO)</div></div>
+    <div class="def-item" style="border-color:#3B82F6"><div class="def-name">🔄 DELIVER</div><div class="def-title">VP Client Delivery</div><div class="def-desc">Client delivery workflows, SLA enforcement, and module agents. Ensures timely, quality delivery of all client-facing services.</div><div class="def-reports">Reports to: BRIDGE (COO)</div></div>
+    <div class="def-item" style="border-color:#3B82F6"><div class="def-name">🔬 INSIGHT</div><div class="def-title">VP Data Intelligence</div><div class="def-desc">Analytics aggregation, dashboard feeds, and pattern recognition. Transforms raw data into actionable business insights.</div><div class="def-reports">Reports to: BRIDGE (COO)</div></div>
+    <div class="def-item" style="border-color:#8B5CF6"><div class="def-name">✍️ QUILL</div><div class="def-title">VP Content & Brand</div><div class="def-desc">Content strategy, brand storytelling, and marketing copy. Creates compelling content that resonates with target audiences.</div><div class="def-reports">Reports to: VOICE (CMO)</div></div>
+    <div class="def-item" style="border-color:#EC4899"><div class="def-name">🚀 GROW</div><div class="def-title">VP Growth & Partnerships</div><div class="def-desc">Partnership pipeline, expansion revenue, and mutual value creation. Identifies and develops strategic partnerships.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#EC4899"><div class="def-name">🗺️ SCOUT</div><div class="def-title">VP Market Intelligence</div><div class="def-desc">Market research, competitive intelligence, and landscape scanning. Keeps the enterprise ahead of market trends and opportunities.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#6366F1"><div class="def-name">🖥️ FOUNDATION</div><div class="def-title">VP Infrastructure</div><div class="def-desc">Mac Mini, Ollama, API health, and technical backbone. Maintains all technical infrastructure and ensures uptime.</div><div class="def-reports">Reports to: CRAFT (CTO)</div></div>
+    <div class="def-item" style="border-color:#6366F1"><div class="def-name">🧩 BUILDER</div><div class="def-title">VP Product Development</div><div class="def-desc">R&D backlog, product roadmap, and performance patterns. Drives innovation and product evolution.</div><div class="def-reports">Reports to: CRAFT (CTO)</div></div>
+    <div class="def-item" style="border-color:#10B981"><div class="def-name">⭐ WARMTH</div><div class="def-title">VP Client Experience</div><div class="def-desc">Client retention, NPS, satisfaction, and health scoring. Ensures clients feel valued, heard, and supported.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
+    <div class="def-item" style="border-color:#10B981"><div class="def-name">🎓 GUIDE</div><div class="def-title">VP Client Onboarding</div><div class="def-desc">New client setup, walkthroughs, and first-success journeys. Sets clients up for long-term success from day one.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
     <div class="def-item" style="border-color:#F97316"><div class="def-name">🏛️ JUSTICE</div><div class="def-title">VP Legal Strategy</div><div class="def-desc">Legal ops, contracts, IP portfolio, and risk management. Handles strategic legal planning and execution.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
     <div class="def-item" style="border-color:#F97316"><div class="def-name">📜 CHARTER</div><div class="def-title">VP Regulatory & Governance</div><div class="def-desc">Compliance calendar, governance frameworks, and policy management. Ensures adherence to all regulations.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
     <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔐 TRUST</div><div class="def-title">VP Data Governance</div><div class="def-desc">Data policies, privacy, catalog, lineage, and GDPR compliance. Protects data as a strategic enterprise asset.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
@@ -473,17 +457,17 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
 
   <!-- DIRECTORS -->
   <div class="def-section">
-   <div class="def-section-title" style="background:#165436">Directors</div>
+   <div class="def-section-title" style="background:#0A351D">Directors</div>
    <div class="def-grid">
-    <div class="def-item" style="border-color:#165436"><div class="def-name">🔍 SEEK</div><div class="def-title">Director of Prospecting</div><div class="def-desc">Lead generation and prospect identification. Finds potential clients who need our services.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">🎵 RHYTHM</div><div class="def-title">Director of Outreach</div><div class="def-desc">Sales sequencing, outreach cadence, and follow-ups. Maintains consistent and timely client communication.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">🤝 COVENANT</div><div class="def-title">Director of Proposals</div><div class="def-desc">Proposal creation, mutual promises, and terms negotiation. Crafts compelling proposals that close deals.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">📝 INK</div><div class="def-title">Director of Content & SEO</div><div class="def-desc">Content creation, SEO optimization, and writing. Produces search-optimized written content.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">🧵 THREAD</div><div class="def-title">Director of Social Media</div><div class="def-desc">Social channels, community management, and engagement. Builds and maintains social presence.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">🔥 EMBER</div><div class="def-title">Director of Email</div><div class="def-desc">Email campaigns, nurturing sequences, and warm communications. Manages the full email marketing lifecycle.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">📒 TALLY</div><div class="def-title">Director of Billing</div><div class="def-desc">Invoice generation, payment tracking, and financial counting. Manages day-to-day billing operations.</div><div class="def-reports">Reports to: LEDGER (VP Finance)</div></div>
+    <div class="def-item" style="border-color:#EC4899"><div class="def-name">🔍 SEEK</div><div class="def-title">Director of Prospecting</div><div class="def-desc">Lead generation and prospect identification. Finds potential clients who need our services.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#EC4899"><div class="def-name">🎵 RHYTHM</div><div class="def-title">Director of Outreach</div><div class="def-desc">Sales sequencing, outreach cadence, and follow-ups. Maintains consistent and timely client communication.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#EC4899"><div class="def-name">🤝 COVENANT</div><div class="def-title">Director of Proposals</div><div class="def-desc">Proposal creation, mutual promises, and terms negotiation. Crafts compelling proposals that close deals.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#8B5CF6"><div class="def-name">📝 INK</div><div class="def-title">Director of Content & SEO</div><div class="def-desc">Content creation, SEO optimization, and writing. Produces search-optimized written content.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
+    <div class="def-item" style="border-color:#8B5CF6"><div class="def-name">🧵 THREAD</div><div class="def-title">Director of Social Media</div><div class="def-desc">Social channels, community management, and engagement. Builds and maintains social presence.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
+    <div class="def-item" style="border-color:#8B5CF6"><div class="def-name">🔥 EMBER</div><div class="def-title">Director of Email</div><div class="def-desc">Email campaigns, nurturing sequences, and warm communications. Manages the full email marketing lifecycle.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
+    <div class="def-item" style="border-color:#D97706"><div class="def-name">📒 TALLY</div><div class="def-title">Director of Billing</div><div class="def-desc">Invoice generation, payment tracking, and financial counting. Manages day-to-day billing operations.</div><div class="def-reports">Reports to: LEDGER (VP Finance)</div></div>
     <div class="def-item" style="border-color:#EF4444"><div class="def-name">✨ POLISH</div><div class="def-title">Director of Quality Assurance</div><div class="def-desc">Output quality, polish, and excellence verification. Ensures all deliverables meet the highest standards.</div><div class="def-reports">Reports to: ACCORD (VP Risk)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">🔗 BOND</div><div class="def-title">Director of Retention</div><div class="def-desc">Client retention, relationship bonds, and renewals. Keeps clients happy and engaged long-term.</div><div class="def-reports">Reports to: WARMTH (VP CX)</div></div>
+    <div class="def-item" style="border-color:#10B981"><div class="def-name">🔗 BOND</div><div class="def-title">Director of Retention</div><div class="def-desc">Client retention, relationship bonds, and renewals. Keeps clients happy and engaged long-term.</div><div class="def-reports">Reports to: WARMTH (VP CX)</div></div>
     <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔭 LENS</div><div class="def-title">Director of Analytics</div><div class="def-desc">KPI aggregation, metrics tracking, and analytical clarity. Provides data-driven insights across the enterprise.</div><div class="def-reports">Reports to: TRUST (VP Data Gov)</div></div>
    </div>
   </div>
