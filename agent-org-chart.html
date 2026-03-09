@@ -557,39 +557,47 @@ const CORE = {
  ACCORD: {n:'ACCORD', r:'VP Compliance & Risk', e:'📋', c:'#C9A84C', tier:2, desc:'Owns security compliance calendar and enterprise risk register under SHIELD direction.', tools:['Compliance Calendar','Regulatory Monitor','Vendor Risk Matrix','Risk Register','SOC 2 Readiness Tracker']},
 
  // TIER 3 — Directors
- SEEK: {n:'SEEK', r:'Director of Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Seeks out those we can serve.'},
- RHYTHM: {n:'RHYTHM', r:'Director of Outreach', e:'🎵', c:'#165436', tier:3, desc:'Every great relationship has a rhythm.'},
- COVENANT: {n:'COVENANT', r:'Director of Proposals', e:'🤝', c:'#165436', tier:3, desc:'A covenant is a mutual promise.'},
- INK: {n:'INK', r:'Director of Content & SEO', e:'✒️', c:'#165436', tier:3, desc:'The ink that writes our story.'},
- THREAD: {n:'THREAD', r:'Director of Social Media', e:'🧵', c:'#165436', tier:3, desc:'Threads connect us to our community.'},
- EMBER: {n:'EMBER', r:'Director of Email', e:'🔥', c:'#165436', tier:3, desc:'Embers keep the fire alive.'},
- TALLY: {n:'TALLY', r:'Director of Billing', e:'📒', c:'#165436', tier:3, desc:'Faithful counting.'},
- POLISH: {n:'POLISH', r:'Director of Quality Assurance', e:'✨', c:'#165436', tier:3, desc:'Quality is polish.'},
- BOND: {n:'BOND', r:'Director of Retention', e:'🔗', c:'#165436', tier:3, desc:'The bond between us and those we serve.'},
- LENS: {n:'LENS', r:'Director of Analytics', e:'🔭', c:'#165436', tier:3, desc:'The lens that brings clarity to data.'},
+ SEEK: {n:'SEEK', r:'Director of Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Seeks out those we can serve.', tools:[]},
+ RHYTHM: {n:'RHYTHM', r:'Director of Outreach', e:'🎵', c:'#165436', tier:3, desc:'Every great relationship has a rhythm.', tools:[]},
+ COVENANT: {n:'COVENANT', r:'Director of Proposals', e:'🤝', c:'#165436', tier:3, desc:'A covenant is a mutual promise.', tools:[]},
+ INK: {n:'INK', r:'Director of Content & SEO', e:'✒️', c:'#165436', tier:3, desc:'The ink that writes our story.', tools:['LLM Writer','SEO Tools','CMS API','GUARDIAN Filter']},
+ THREAD: {n:'THREAD', r:'Director of Social Media', e:'🧵', c:'#165436', tier:3, desc:'Threads connect us to our community.', tools:['Social Scheduler','Engagement Tools','GUARDIAN Filter']},
+ EMBER: {n:'EMBER', r:'Director of Email', e:'🔥', c:'#165436', tier:3, desc:'Embers keep the fire alive.', tools:['Email Platform','Automation','A/B Testing']},
+ TALLY: {n:'TALLY', r:'Director of Billing', e:'📒', c:'#165436', tier:3, desc:'Faithful counting.', tools:['Billing Platform','Invoice Generation']},
+ POLISH: {n:'POLISH', r:'Director of Quality Assurance', e:'✨', c:'#165436', tier:3, desc:'Quality is polish.', tools:['Output Sampler','PII Detector']},
+ BOND: {n:'BOND', r:'Director of Retention', e:'🔗', c:'#165436', tier:3, desc:'The bond between us and those we serve.', tools:['Churn Predictor','Re-engagement']},
+ LENS: {n:'LENS', r:'Director of Analytics', e:'🔭', c:'#165436', tier:3, desc:'The lens that brings clarity to data.', tools:['KPI Aggregator','VISION Dashboard']},
+ FINDER: {n:'FINDER', r:'Director of Prospecting', e:'🔍', c:'#a855f7', tier:3, desc:'Lead generation via data enrichment. Reports to HARVEST.', tools:['Data Enrichment','Lead Gen','VAULT-D']},
+ CADENCE: {n:'CADENCE', r:'Director of Outreach', e:'📧', c:'#a855f7', tier:3, desc:'Sales sequencing. GUARDIAN-screened. Reports to HARVEST.', tools:['Outreach Platform','Sequencing','GUARDIAN']},
+ CLOSE: {n:'CLOSE', r:'Director of Proposals', e:'📃', c:'#a855f7', tier:3, desc:'Custom proposals. Human e-signature required. Reports to HARVEST.', tools:['Proposal Builder','DocuSign','VAULT-D']},
+ LEDGE: {n:'LEDGE', r:'Director of Billing', e:'🧮', c:'#a855f7', tier:3, desc:'Invoice & collections. Payment changes → TREASURY.', tools:['Invoice Gen','Collections','TREASURY']},
+ AUDIT: {n:'AUDIT', r:'Director of QA', e:'🔎', c:'#a855f7', tier:3, desc:'Daily output sampling. PII in outputs → SENTINEL.', tools:['Output Sampler','SENTINEL','PII Detector']},
 
- // DATA LANE DIRECTORS
- GUARDIAN_D: {n:'GUARDIAN-D', r:'Data Privacy & PII', e:'🔏', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of MASK and ISOLATE. Reports to TRUST/VP Data Governance.'},
- CURATOR: {n:'CURATOR', r:'Data Quality & Vault', e:'🗄️', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of VAULT-D and CLEAN. Maintains data integrity.'},
- RIVER: {n:'RIVER', r:'Data Pipeline & Viz', e:'🌊', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of INTAKE and VISION.'},
+ // DATA LANE
+ VAULTD: {n:'VAULT-D', r:'Data Warehouse', e:'🗄️', c:'#00dfc8', tier:'data', desc:'Single encrypted source of truth. AES-256. Reports to KEEPER.', tools:['AES-256 PostgreSQL','VERIFY Access','MASK','GDPR Erasure']},
+ INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'🌊', c:'#00dfc8', tier:'data', desc:'Inbound data: classified, GUARDIAN-scanned, → VAULT-D.', tools:['Classifier','GUARDIAN','VAULT-D']},
+ GUARDIAN_D: {n:'GUARDIAN-D', r:'Data Privacy & PII', e:'🔏', c:'#00dfc8', tier:'dlane', desc:'MASK & ISOLATE ops. Reports to TRUST.'},
+ CURATOR: {n:'CURATOR', r:'Data Quality & Vault', e:'🗄️', c:'#00dfc8', tier:'dlane', desc:'VAULT-D & CLEAN ops. Reports to TRUST.'},
+ RIVER: {n:'RIVER', r:'Data Pipeline & Viz', e:'🌊', c:'#00dfc8', tier:'dlane', desc:'INTAKE & VISION ops. Reports to FLOW.'},
 
- // SECURITY LANE DIRECTORS
- WATCH: {n:'WATCH', r:'Threat Operations', e:'👁️', c:'#C9A84C', tier:'slane', desc:'Day-to-day management of SENTINEL and GUARDIAN.'},
- RESOLVE: {n:'RESOLVE', r:'Incident Response', e:'🔧', c:'#C9A84C', tier:'slane', desc:'Incident response and resolution.'},
- GATE: {n:'GATE', r:'Access & Audit', e:'🚪', c:'#C9A84C', tier:'slane', desc:'Access control and audit trails.'},
- VAULT: {n:'VAULT', r:'Data Warehouse', e:'🏦', c:'#C9A84C', tier:'slane', desc:'Encrypted data warehouse management.'},
- INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'📥', c:'#C9A84C', tier:'slane', desc:'Data ingestion and processing.'},
- MASK: {n:'MASK', r:'PII Tokenization', e:'🎭', c:'#C9A84C', tier:'slane', desc:'PII tokenization and privacy.'},
- VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#C9A84C', tier:'slane', desc:'Dashboard and visualization.'},
- PURE: {n:'PURE', r:'Data Quality Guard', e:'💎', c:'#C9A84C', tier:'slane', desc:'Data quality validation.'},
- ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🛡️', c:'#C9A84C', tier:'slane', desc:'Session isolation and security.'},
- SENTINEL: {n:'SENTINEL', r:'Security Ops Monitor', e:'🩺', c:'#C9A84C', tier:'slane', desc:'Security monitoring and alerts.'},
- FILTER: {n:'FILTER', r:'Content & Input Filter', e:'🔍', c:'#C9A84C', tier:'slane', desc:'Content filtering and validation.'},
- TREASURY: {n:'TREASURY', r:'Transaction Security', e:'💰', c:'#C9A84C', tier:'slane', desc:'Transaction security and validation.'},
- VERIFY: {n:'VERIFY', r:'Identity & Access', e:'✅', c:'#C9A84C', tier:'slane', desc:'Identity verification and access control.'},
- CHRONICLE: {n:'CHRONICLE', r:'Immutable Audit Log', e:'📜', c:'#C9A84C', tier:'slane', desc:'Audit logging and compliance.'},
- ZERO: {n:'ZERO', r:'Zero Trust Enforcer', e:'⭕', c:'#C9A84C', tier:'slane', desc:'Zero trust enforcement.'},
- CONTAIN: {n:'CONTAIN', r:'Incident Containment', e:'📦', c:'#C9A84C', tier:'slane', desc:'Incident containment and isolation.'}
+ // SECURITY LANE
+ WATCH: {n:'WATCH', r:'Threat Operations', e:'👁️', c:'#C9A84C', tier:'slane', desc:'SENTINEL & GUARDIAN ops. Reports to VIGIL.'},
+ RESOLVE: {n:'RESOLVE', r:'Incident Response', e:'🔧', c:'#C9A84C', tier:'slane', desc:'Incident response. Reports to VIGIL.'},
+ RESPONSE: {n:'RESPONSE', r:'Dir. Incident & Trust', e:'🚒', c:'#ff4d6a', tier:'slane', desc:'CONTAIN ops. Runbooks, forensics, post-incident. Reports to VIGIL.', tools:['CONTAIN Console','Incident Runbook','Forensic Engine']},
+ ACCESS: {n:'ACCESS', r:'Dir. Access & Audit', e:'🔒', c:'#ff4d6a', tier:'slane', desc:'VERIFY, LEDGER-S, TREASURY ops. Reports to ACCORD.', tools:['VERIFY Console','LEDGER-S Audit','TREASURY','API Key Rotation']},
+ GATE: {n:'GATE', r:'Access & Audit', e:'🚪', c:'#C9A84C', tier:'slane', desc:'Access control & audit trails.'},
+ VAULT: {n:'VAULT', r:'Data Warehouse', e:'🏦', c:'#C9A84C', tier:'slane', desc:'Encrypted warehouse.'},
+ MASK: {n:'MASK', r:'PII Tokenization', e:'🎭', c:'#C9A84C', tier:'slane', desc:'PII tokenization.'},
+ VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#C9A84C', tier:'slane', desc:'Dashboards.'},
+ PURE: {n:'PURE', r:'Data Quality Guard', e:'💎', c:'#C9A84C', tier:'slane', desc:'Data validation.'},
+ ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🛡️', c:'#C9A84C', tier:'slane', desc:'Session security.'},
+ SENTINEL: {n:'SENTINEL', r:'Security Ops Monitor', e:'🩺', c:'#C9A84C', tier:'slane', desc:'Security monitoring.'},
+ FILTER: {n:'FILTER', r:'Content Filter', e:'🔍', c:'#C9A84C', tier:'slane', desc:'Content filtering.'},
+ TREASURY: {n:'TREASURY', r:'Transaction Security', e:'💰', c:'#C9A84C', tier:'slane', desc:'Transaction validation.'},
+ VERIFY: {n:'VERIFY', r:'Identity & Access', e:'✅', c:'#C9A84C', tier:'slane', desc:'Identity verification.'},
+ CHRONICLE: {n:'CHRONICLE', r:'Audit Log', e:'📜', c:'#C9A84C', tier:'slane', desc:'Audit logging.'},
+ ZERO: {n:'ZERO', r:'Zero Trust', e:'⭕', c:'#C9A84C', tier:'slane', desc:'Zero trust enforcement.'},
+ CONTAIN: {n:'CONTAIN', r:'Incident Containment', e:'📦', c:'#C9A84C', tier:'slane', desc:'Incident isolation.'}
 };
 
 // ═══════════════════════════════════════════════════
@@ -605,6 +613,7 @@ const TIERS = {
  1: {y:2, label:'TIER 1 — C-SUITE'},
  2: {y:3, label:'TIER 2 — VP'},
  3: {y:4, label:'TIER 3 — DIRECTOR'},
+ data: {y:5, label:'DATA LAYER'},
  dlane: {y:3.5, label:'DATA LANE'},
  slane: {y:3.5, label:'SECURITY LANE'}
 };
@@ -615,6 +624,7 @@ const TIER_COLORS = {
  1: '#0A351D',
  2: '#7DA88A',
  3: '#165436',
+ data: '#00dfc8',
  dlane: '#00dfc8',
  slane: '#C9A84C'
 };
@@ -796,25 +806,25 @@ function render() {
  });
  
  // Directors (10)
- const dirs = ['SEEK','RHYTHM','COVENANT','INK','THREAD','EMBER','TALLY','POLISH','BOND','LENS'];
+ const dirs = ['SEEK','RHYTHM','COVENANT','INK','THREAD','EMBER','TALLY','POLISH','BOND','LENS','FINDER','CADENCE','CLOSE','LEDGE','AUDIT'];
  dirs.forEach((id, i) => {
   const p = pos(3, i, dirs.length);
   drawNode(id, CORE[id], p.x, p.y, 'VOICE');
  });
  
- // Data Lane (3)
- const dlane = ['GUARDIAN_D','CURATOR','RIVER'];
+ // Data Lane (5)
+ const dlane = ['VAULTD','INTAKE','GUARDIAN_D','CURATOR','RIVER'];
  dlane.forEach((id, i) => {
-  const p = pos('dlane', i, dlane.length);
+  const p = pos('data', i, dlane.length);
   const realId = id === 'GUARDIAN_D' ? 'GUARDIAN-D' : id;
-  drawNode(realId, CORE[id], p.x - 200, p.y + 80, 'KEEPER');
+  drawNode(realId, CORE[id], p.x - 250, p.y + 180, 'KEEPER');
  });
  
- // Security Lane (16)
- const slane = ['WATCH','RESOLVE','GATE','VAULT','INTAKE','MASK','VISION','PURE','ISOLATE','SENTINEL','FILTER','TREASURY','VERIFY','CHRONICLE','ZERO','CONTAIN'];
+ // Security Lane (18)
+ const slane = ['WATCH','RESOLVE','RESPONSE','ACCESS','GATE','VAULT','MASK','VISION','PURE','ISOLATE','SENTINEL','FILTER','TREASURY','VERIFY','CHRONICLE','ZERO','CONTAIN'];
  slane.forEach((id, i) => {
   const p = pos('slane', i, slane.length);
-  drawNode(id, CORE[id], p.x + 200, p.y + 80, 'SHIELD');
+  drawNode(id, CORE[id], p.x + 200, p.y + 180, 'SHIELD');
  });
 }
 
