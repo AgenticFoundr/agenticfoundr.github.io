@@ -87,6 +87,26 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
 .card.csuite{border-top:4px solid #0A351D}
 .card.csuite .role{color:#0A351D;font-weight:600}
 
+/* CDO lineage (teal) */
+.card.data-cs{border-top:4px solid #14B8A6}
+.card.data-cs .role{color:#14B8A6;font-weight:600}
+
+/* CISO lineage (red) */
+.card.sec-cs{border-top:4px solid #EF4444}
+.card.sec-cs .role{color:#EF4444;font-weight:600}
+
+/* Data VP (teal) */
+.card.data-vp{border-top:4px solid #14B8A6;padding:10px 14px;min-width:90px}
+.card.data-vp .emoji{font-size:20px;margin-bottom:4px}
+.card.data-vp .name{font-size:11px}
+.card.data-vp .role{font-size:8px;color:#14B8A6;font-weight:600}
+
+/* Security VP (red) */
+.card.sec-vp{border-top:4px solid #EF4444;padding:10px 14px;min-width:90px}
+.card.sec-vp .emoji{font-size:20px;margin-bottom:4px}
+.card.sec-vp .name{font-size:11px}
+.card.sec-vp .role{font-size:8px;color:#EF4444;font-weight:600}
+
 /* Legal Lane (orange) */
 .card.legal{border-top:4px solid #F97316}
 .card.legal .role{color:#F97316;font-weight:600}
@@ -205,8 +225,8 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
     <div class="card csuite"><span class="emoji">🔧</span><div class="name">CRAFT</div><div class="role">CTO</div></div>
     <div class="card csuite"><span class="emoji">🤝</span><div class="name">HAVEN</div><div class="role">CCO</div></div>
     <div class="card legal"><span class="emoji">⚖️</span><div class="name">SAGE</div><div class="role">CLO</div></div>
-    <div class="card csuite"><span class="emoji">🌐</span><div class="name">KEEPER</div><div class="role">CDO</div></div>
-    <div class="card csuite"><span class="emoji">🛡️</span><div class="name">SHIELD</div><div class="role">CISO</div></div>
+    <div class="card data-cs"><span class="emoji">🌐</span><div class="name">KEEPER</div><div class="role">CDO</div></div>
+    <div class="card sec-cs"><span class="emoji">🛡️</span><div class="name">SHIELD</div><div class="role">CISO</div></div>
    </div>
   </div>
   <div class="vline"></div>
@@ -229,10 +249,10 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
     <div class="card vp"><span class="emoji">🎓</span><div class="name">GUIDE</div><div class="role">VP Onboard</div></div>
     <div class="card legal-vp"><span class="emoji">🏛️</span><div class="name">JUSTICE</div><div class="role">VP Legal</div></div>
     <div class="card legal-vp"><span class="emoji">📜</span><div class="name">CHARTER</div><div class="role">VP Gov</div></div>
-    <div class="card vp"><span class="emoji">🔐</span><div class="name">TRUST</div><div class="role">VP Data Gov</div></div>
-    <div class="card vp"><span class="emoji">🔩</span><div class="name">FLOW</div><div class="role">VP Eng</div></div>
-    <div class="card vp"><span class="emoji">🔭</span><div class="name">VIGIL</div><div class="role">VP Security</div></div>
-    <div class="card vp"><span class="emoji">📋</span><div class="name">ACCORD</div><div class="role">VP Risk</div></div>
+    <div class="card data-vp"><span class="emoji">🔐</span><div class="name">TRUST</div><div class="role">VP Data Gov</div></div>
+    <div class="card data-vp"><span class="emoji">🔩</span><div class="name">FLOW</div><div class="role">VP Eng</div></div>
+    <div class="card sec-vp"><span class="emoji">🔭</span><div class="name">VIGIL</div><div class="role">VP Security</div></div>
+    <div class="card sec-vp"><span class="emoji">📋</span><div class="name">ACCORD</div><div class="role">VP Risk</div></div>
    </div>
   </div>
   <div class="vline"></div>
@@ -249,9 +269,9 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
     <div class="card dir"><span class="emoji">🧵</span><div class="name">THREAD</div><div class="role">Social</div></div>
     <div class="card dir"><span class="emoji">🔥</span><div class="name">EMBER</div><div class="role">Email</div></div>
     <div class="card dir"><span class="emoji">📒</span><div class="name">TALLY</div><div class="role">Billing</div></div>
-    <div class="card dir"><span class="emoji">✨</span><div class="name">POLISH</div><div class="role">QA</div></div>
+    <div class="card sec"><span class="emoji">✨</span><div class="name">POLISH</div><div class="role">QA</div></div>
     <div class="card dir"><span class="emoji">🔗</span><div class="name">BOND</div><div class="role">Retention</div></div>
-    <div class="card dir"><span class="emoji">🔭</span><div class="name">LENS</div><div class="role">Analytics</div></div>
+    <div class="card data"><span class="emoji">🔭</span><div class="name">LENS</div><div class="role">Analytics</div></div>
    </div>
   </div>
   <div class="vline"></div>
@@ -412,13 +432,13 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
      <div class="def-desc">Contracts, regulatory compliance, risk management, and IP protection. Provides legal guidance, manages risk exposure, and protects intellectual property.</div>
      <div class="def-reports">Reports to: ATLAS · Manages: JUSTICE, CHARTER</div>
     </div>
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#14B8A6">
      <div class="def-name">🌐 KEEPER</div>
      <div class="def-title">Chief Data Officer</div>
      <div class="def-desc">Data strategy, governance, protection, and analytics infrastructure. Manages data assets, ensures data quality and privacy, and oversees the entire Data Lane.</div>
      <div class="def-reports">Reports to: ATLAS · Manages: TRUST, FLOW, LENS + Data Lane</div>
     </div>
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#EF4444">
      <div class="def-name">🛡️ SHIELD</div>
      <div class="def-title">Chief Information Security Officer</div>
      <div class="def-desc">Security vision, threat operations, compliance, and risk posture. Leads security strategy, manages threat detection and response, and oversees the entire Security Lane.</div>
@@ -444,10 +464,10 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
     <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🎓 GUIDE</div><div class="def-title">VP Client Onboarding</div><div class="def-desc">New client setup, walkthroughs, and first-success journeys. Sets clients up for long-term success from day one.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
     <div class="def-item" style="border-color:#F97316"><div class="def-name">🏛️ JUSTICE</div><div class="def-title">VP Legal Strategy</div><div class="def-desc">Legal ops, contracts, IP portfolio, and risk management. Handles strategic legal planning and execution.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
     <div class="def-item" style="border-color:#F97316"><div class="def-name">📜 CHARTER</div><div class="def-title">VP Regulatory & Governance</div><div class="def-desc">Compliance calendar, governance frameworks, and policy management. Ensures adherence to all regulations.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🔐 TRUST</div><div class="def-title">VP Data Governance</div><div class="def-desc">Data policies, privacy, catalog, lineage, and GDPR compliance. Protects data as a strategic enterprise asset.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🔩 FLOW</div><div class="def-title">VP Data Engineering</div><div class="def-desc">Data pipelines, ingestion, warehousing, and flow management. Builds and maintains data infrastructure.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🔭 VIGIL</div><div class="def-title">VP Cybersecurity Ops</div><div class="def-desc">Active threat operations, security monitoring, and posture management. Provides 24/7 security vigilance.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">📋 ACCORD</div><div class="def-title">VP Compliance & Risk</div><div class="def-desc">Risk register, SOC2 compliance, and regulatory alignment. Maintains the enterprise compliance posture.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔐 TRUST</div><div class="def-title">VP Data Governance</div><div class="def-desc">Data policies, privacy, catalog, lineage, and GDPR compliance. Protects data as a strategic enterprise asset.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔩 FLOW</div><div class="def-title">VP Data Engineering</div><div class="def-desc">Data pipelines, ingestion, warehousing, and flow management. Builds and maintains data infrastructure.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🔭 VIGIL</div><div class="def-title">VP Cybersecurity Ops</div><div class="def-desc">Active threat operations, security monitoring, and posture management. Provides 24/7 security vigilance.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">📋 ACCORD</div><div class="def-title">VP Compliance & Risk</div><div class="def-desc">Risk register, SOC2 compliance, and regulatory alignment. Maintains the enterprise compliance posture.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
    </div>
   </div>
 
@@ -462,9 +482,9 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
     <div class="def-item" style="border-color:#165436"><div class="def-name">🧵 THREAD</div><div class="def-title">Director of Social Media</div><div class="def-desc">Social channels, community management, and engagement. Builds and maintains social presence.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
     <div class="def-item" style="border-color:#165436"><div class="def-name">🔥 EMBER</div><div class="def-title">Director of Email</div><div class="def-desc">Email campaigns, nurturing sequences, and warm communications. Manages the full email marketing lifecycle.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
     <div class="def-item" style="border-color:#165436"><div class="def-name">📒 TALLY</div><div class="def-title">Director of Billing</div><div class="def-desc">Invoice generation, payment tracking, and financial counting. Manages day-to-day billing operations.</div><div class="def-reports">Reports to: LEDGER (VP Finance)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">✨ POLISH</div><div class="def-title">Director of Quality Assurance</div><div class="def-desc">Output quality, polish, and excellence verification. Ensures all deliverables meet the highest standards.</div><div class="def-reports">Reports to: ACCORD (VP Risk)</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">✨ POLISH</div><div class="def-title">Director of Quality Assurance</div><div class="def-desc">Output quality, polish, and excellence verification. Ensures all deliverables meet the highest standards.</div><div class="def-reports">Reports to: ACCORD (VP Risk)</div></div>
     <div class="def-item" style="border-color:#165436"><div class="def-name">🔗 BOND</div><div class="def-title">Director of Retention</div><div class="def-desc">Client retention, relationship bonds, and renewals. Keeps clients happy and engaged long-term.</div><div class="def-reports">Reports to: WARMTH (VP CX)</div></div>
-    <div class="def-item" style="border-color:#165436"><div class="def-name">🔭 LENS</div><div class="def-title">Director of Analytics</div><div class="def-desc">KPI aggregation, metrics tracking, and analytical clarity. Provides data-driven insights across the enterprise.</div><div class="def-reports">Reports to: TRUST (VP Data Gov)</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔭 LENS</div><div class="def-title">Director of Analytics</div><div class="def-desc">KPI aggregation, metrics tracking, and analytical clarity. Provides data-driven insights across the enterprise.</div><div class="def-reports">Reports to: TRUST (VP Data Gov)</div></div>
    </div>
   </div>
 
