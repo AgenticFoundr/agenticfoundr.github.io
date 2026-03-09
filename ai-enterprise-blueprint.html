@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Enterprise Blueprint — AgenticFoundr</title>
+<meta name="description" content="Your custom AI agent org chart. Enterprise-grade architecture designed for solopreneurs. 57+ agents, color-coded lineages, industry modules.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#2A2A2A;background:#FAF8F5}
+
+/* ─── NAV ─── */
+.nav{background:#0A351D;padding:14px 0;position:sticky;top:0;z-index:100}
+.nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{color:white;font-weight:800;font-size:20px}
+.nav-logo span{color:#C9A84C}
+.nav-cta{background:#C9A84C;color:#0A351D;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;transition:all .2s}
+.nav-cta:hover{background:#d4b35a;transform:translateY(-1px)}
+
+/* ─── HERO ─── */
+.hero{background:linear-gradient(135deg,#0A351D 0%,#165436 100%);padding:80px 24px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,transparent,#FAF8F5)}
+.hero h1{color:white;font-size:clamp(32px,5vw,56px);font-weight:900;line-height:1.1;max-width:800px;margin:0 auto 20px}
+.hero h1 span{color:#C9A84C}
+.hero .subtitle{color:#7DA88A;font-size:clamp(16px,2vw,20px);max-width:600px;margin:0 auto 32px;line-height:1.6}
+.hero .price-preview{color:white;font-size:18px;margin-bottom:24px}
+.hero .price-preview b{color:#C9A84C;font-size:28px}
+.hero-cta{display:inline-block;background:#C9A84C;color:#0A351D;padding:16px 40px;border-radius:10px;text-decoration:none;font-weight:800;font-size:18px;transition:all .3s;box-shadow:0 4px 20px rgba(201,168,76,0.3)}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(201,168,76,0.4)}
+
+/* ─── SECTIONS ─── */
+.section{max-width:1100px;margin:0 auto;padding:80px 24px}
+.section-label{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#C9A84C;margin-bottom:8px}
+.section h2{font-size:clamp(28px,4vw,40px);font-weight:800;color:#0A351D;margin-bottom:16px}
+.section .lead{font-size:18px;color:#666;line-height:1.6;max-width:700px}
+
+/* ─── PROBLEM ─── */
+.problem{background:white;border-radius:16px;padding:40px;box-shadow:0 4px 20px rgba(0,0,0,0.06);margin-top:40px}
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:24px}
+.pain-point{display:flex;gap:12px;align-items:flex-start}
+.pain-point .x{color:#EF4444;font-size:24px;font-weight:800;flex-shrink:0}
+.pain-point p{font-size:15px;color:#555;line-height:1.5}
+.pain-point b{color:#2A2A2A}
+
+/* ─── WHAT YOU GET ─── */
+.deliverables{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px}
+.deliverable{background:white;border-radius:12px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border-top:4px solid #C9A84C}
+.deliverable .icon{font-size:32px;margin-bottom:12px}
+.deliverable h3{font-size:18px;font-weight:700;color:#0A351D;margin-bottom:8px}
+.deliverable p{font-size:14px;color:#666;line-height:1.5}
+
+/* ─── PREVIEW ─── */
+.preview{background:#0A351D;border-radius:16px;padding:40px;margin-top:60px;text-align:center}
+.preview h3{color:white;font-size:24px;font-weight:800;margin-bottom:8px}
+.preview p{color:#7DA88A;margin-bottom:24px}
+.preview-link{display:inline-block;background:#C9A84C;color:#0A351D;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;transition:all .2s}
+.preview-link:hover{background:#d4b35a}
+
+/* ─── INDUSTRIES ─── */
+.industries{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:40px}
+.ind-card{background:white;border-radius:12px;padding:20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.05);transition:transform .2s}
+.ind-card:hover{transform:translateY(-4px)}
+.ind-card .ind-icon{font-size:36px;margin-bottom:8px}
+.ind-card h4{font-size:15px;font-weight:700;color:#0A351D;margin-bottom:4px}
+.ind-card p{font-size:12px;color:#888}
+
+/* ─── PRICING ─── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:40px}
+.price-card{background:white;border-radius:16px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,0.06);position:relative;border:2px solid transparent;transition:all .3s}
+.price-card:hover{border-color:#C9A84C;transform:translateY(-4px)}
+.price-card.featured{border-color:#C9A84C;background:linear-gradient(180deg,#fff,#FFFDF5)}
+.price-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#C9A84C;color:#0A351D;font-size:10px;font-weight:800;padding:4px 16px;border-radius:20px;letter-spacing:1px}
+.price-card .tier{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7DA88A;margin-bottom:8px}
+.price-card h3{font-size:22px;font-weight:800;color:#0A351D;margin-bottom:4px}
+.price-card .price{font-size:40px;font-weight:900;color:#0A351D;margin:16px 0 8px}
+.price-card .price span{font-size:16px;color:#999;font-weight:400}
+.price-card .desc{font-size:14px;color:#888;margin-bottom:20px}
+.price-card ul{list-style:none;margin-bottom:24px}
+.price-card li{font-size:14px;color:#555;padding:6px 0;border-bottom:1px solid #f0f0f0;display:flex;gap:8px;align-items:flex-start}
+.price-card li::before{content:'✓';color:#C9A84C;font-weight:800;flex-shrink:0}
+.buy-btn{display:block;width:100%;padding:14px;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s;text-align:center;text-decoration:none}
+.buy-btn.primary{background:#C9A84C;color:#0A351D}
+.buy-btn.primary:hover{background:#d4b35a}
+.buy-btn.outline{background:transparent;color:#0A351D;border:2px solid #0A351D}
+.buy-btn.outline:hover{background:#0A351D;color:white}
+.payment-options{display:flex;gap:8px;margin-top:8px}
+.payment-options a{flex:1;text-align:center;padding:10px;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;border:1px solid #ddd;color:#666;transition:all .2s}
+.payment-options a:hover{border-color:#C9A84C;color:#C9A84C}
+
+/* ─── SOCIAL PROOF ─── */
+.proof{background:#0A351D;padding:60px 24px;text-align:center;margin-top:80px}
+.proof h2{color:white;font-size:28px;font-weight:800;margin-bottom:8px}
+.proof p{color:#7DA88A;font-size:16px;margin-bottom:32px}
+.proof-stats{display:flex;justify-content:center;gap:60px;flex-wrap:wrap}
+.proof-stat .num{font-size:48px;font-weight:900;color:#C9A84C}
+.proof-stat .lbl{font-size:12px;color:#7DA88A;text-transform:uppercase;letter-spacing:2px}
+
+/* ─── FAQ ─── */
+.faq-list{margin-top:40px;max-width:700px}
+.faq-item{border-bottom:1px solid #eee;padding:20px 0}
+.faq-q{font-size:16px;font-weight:700;color:#0A351D;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:24px;color:#C9A84C;transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{font-size:14px;color:#666;line-height:1.6;max-height:0;overflow:hidden;transition:max-height .3s}
+.faq-item.open .faq-a{max-height:200px;padding-top:12px}
+
+/* ─── FINAL CTA ─── */
+.final-cta{text-align:center;padding:80px 24px}
+.final-cta h2{font-size:clamp(28px,4vw,40px);font-weight:900;color:#0A351D;margin-bottom:16px}
+.final-cta p{font-size:18px;color:#666;max-width:600px;margin:0 auto 32px;line-height:1.6}
+
+/* ─── FOOTER ─── */
+.footer{background:#0A351D;padding:40px 24px;text-align:center}
+.footer p{color:#7DA88A;font-size:13px}
+.footer a{color:#C9A84C;text-decoration:none}
+
+@media(max-width:768px){
+ .hero{padding:60px 20px}
+ .section{padding:60px 20px}
+ .proof-stats{gap:30px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+ <div class="nav-inner">
+  <div class="nav-logo">Agentic<span>Foundr</span></div>
+  <a href="#pricing" class="nav-cta">Get Your Blueprint →</a>
+ </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+ <h1>Your AI Team Needs an <span>Org Chart</span></h1>
+ <p class="subtitle">Stop building AI agents randomly. Get a complete enterprise architecture — designed for solopreneurs, backed by servant leadership principles.</p>
+ <div class="price-preview">Starting at <b>$97</b></div>
+ <a href="#pricing" class="hero-cta">Build My AI Enterprise →</a>
+</div>
+
+<!-- PROBLEM -->
+<div class="section">
+ <div class="section-label">The Problem</div>
+ <h2>Most Solopreneurs Build AI Backwards</h2>
+ <p class="lead">You've got ChatGPT here, an automation there, maybe a few Zapier flows. But no structure. No hierarchy. No plan for how they all work together.</p>
+ 
+ <div class="problem">
+  <div class="problem-grid">
+   <div class="pain-point"><div class="x">✕</div><p><b>Random agents, no coordination.</b> You've built 5 different AI tools that don't talk to each other.</p></div>
+   <div class="pain-point"><div class="x">✕</div><p><b>No reporting structure.</b> Who's responsible for what? When something breaks, who owns it?</p></div>
+   <div class="pain-point"><div class="x">✕</div><p><b>No security model.</b> Your AI agents have access to everything with zero oversight.</p></div>
+   <div class="pain-point"><div class="x">✕</div><p><b>Can't scale.</b> Adding new agents creates chaos because there's no architecture to plug into.</p></div>
+   <div class="pain-point"><div class="x">✕</div><p><b>No industry focus.</b> Generic AI solutions that don't understand YOUR business.</p></div>
+   <div class="pain-point"><div class="x">✕</div><p><b>Wasted time.</b> Hours spent figuring out what to build next instead of following a roadmap.</p></div>
+  </div>
+ </div>
+</div>
+
+<!-- SOLUTION -->
+<div class="section">
+ <div class="section-label">The Solution</div>
+ <h2>The AI Enterprise Blueprint</h2>
+ <p class="lead">A complete, enterprise-grade AI agent architecture — color-coded, hierarchical, and built specifically for your industry. Think of it as a business plan for your AI workforce.</p>
+
+ <div class="deliverables">
+  <div class="deliverable">
+   <div class="icon">🏗️</div>
+   <h3>Hierarchical Org Chart</h3>
+   <p>Founder → CEO → C-Suite → VP → Director → Systems. Every agent has a role, a reporting chain, and a purpose. No orphan agents.</p>
+  </div>
+  <div class="deliverable">
+   <div class="icon">🎨</div>
+   <h3>Color-Coded Lineages</h3>
+   <p>Trace any agent's chain of command at a glance. Legal (orange), Data (teal), Security (red), Core ops (green). Visual clarity that enterprise consultants charge $10K+ for.</p>
+  </div>
+  <div class="deliverable">
+   <div class="icon">📋</div>
+   <h3>Full Role Definitions</h3>
+   <p>Every agent gets a name, title, job description, and reporting chain. Know exactly what each agent does and who it answers to.</p>
+  </div>
+  <div class="deliverable">
+   <div class="icon">🏭</div>
+   <h3>Industry Module Slots</h3>
+   <p>8 configurable module slots pre-mapped for your industry. Real estate, fitness, e-commerce, consulting — your agents, your business.</p>
+  </div>
+  <div class="deliverable">
+   <div class="icon">🛡️</div>
+   <h3>Security & Data Lanes</h3>
+   <p>Built-in security architecture with CISO, threat ops, zero trust, and audit logging. Enterprise-grade protection that actually makes sense.</p>
+  </div>
+  <div class="deliverable">
+   <div class="icon">🌐</div>
+   <h3>Interactive Web Version</h3>
+   <p>Not a static PDF — a live, interactive HTML page you can host, share with partners, or use as your operational dashboard.</p>
+  </div>
+ </div>
+
+ <!-- LIVE PREVIEW -->
+ <div class="preview">
+  <h3>👀 See It In Action</h3>
+  <p>This is the actual org chart powering AgenticFoundr — 57 agents, fully mapped.</p>
+  <a href="agent-org-chart.html" target="_blank" class="preview-link">View Live Demo →</a>
+ </div>
+</div>
+
+<!-- INDUSTRIES -->
+<div class="section">
+ <div class="section-label">Built For You</div>
+ <h2>Industry-Specific Configurations</h2>
+ <p class="lead">Every blueprint includes module slots pre-configured for your industry. Here's who we serve:</p>
+
+ <div class="industries">
+  <div class="ind-card"><div class="ind-icon">🏠</div><h4>Real Estate</h4><p>Lead response, showings, CMAs, nurture</p></div>
+  <div class="ind-card"><div class="ind-icon">💪</div><h4>Fitness & Coaching</h4><p>Check-ins, programs, progress, billing</p></div>
+  <div class="ind-card"><div class="ind-icon">🎨</div><h4>Freelance & Creative</h4><p>Projects, proposals, invoicing, portfolio</p></div>
+  <div class="ind-card"><div class="ind-icon">🛒</div><h4>E-Commerce</h4><p>Support, inventory, campaigns, reviews</p></div>
+  <div class="ind-card"><div class="ind-icon">📋</div><h4>Consulting</h4><p>Meeting prep, billing, deliverables, thought leadership</p></div>
+  <div class="ind-card"><div class="ind-icon">🔨</div><h4>Home Services</h4><p>Dispatch, routing, quotes, maintenance</p></div>
+  <div class="ind-card"><div class="ind-icon">⚖️</div><h4>Legal & Accounting</h4><p>Intake, document gen, compliance, billing</p></div>
+  <div class="ind-card"><div class="ind-icon">🏥</div><h4>Health & Wellness</h4><p>Scheduling, intake, follow-ups, HIPAA</p></div>
+ </div>
+</div>
+
+<!-- PRICING -->
+<div class="section" id="pricing">
+ <div class="section-label">Pricing</div>
+ <h2>Choose Your Blueprint</h2>
+ <p class="lead">From DIY template to full custom architecture — pick what fits your stage.</p>
+
+ <div class="pricing-grid">
+  <!-- TIER 1 -->
+  <div class="price-card">
+   <div class="tier">Tier 1</div>
+   <h3>The Template</h3>
+   <div class="price">$97 <span>one-time</span></div>
+   <div class="desc">Perfect for DIY builders who want the framework</div>
+   <ul>
+    <li>Complete HTML org chart template</li>
+    <li>57-agent architecture with all roles defined</li>
+    <li>6 industry module configurations</li>
+    <li>Color-coded lineage system</li>
+    <li>Brand color customization guide</li>
+    <li>Self-hosted — your domain, your data</li>
+   </ul>
+   <a href="#" class="buy-btn outline" id="tier1-buy">Get The Template</a>
+   <div class="payment-options">
+    <a href="#" class="stripe-link" data-tier="1">💳 Stripe</a>
+    <a href="#" class="gumroad-link" data-tier="1">🛒 Gumroad</a>
+   </div>
+  </div>
+
+  <!-- TIER 2 -->
+  <div class="price-card featured">
+   <div class="tier">Tier 2</div>
+   <h3>The Blueprint</h3>
+   <div class="price">$497 <span>one-time</span></div>
+   <div class="desc">Custom-built for YOUR brand and industry</div>
+   <ul>
+    <li>Everything in The Template</li>
+    <li>Custom agent naming for your brand</li>
+    <li>Industry modules configured for YOUR business</li>
+    <li>Your brand colors, logo, and identity</li>
+    <li>Interactive HTML + branded PDF delivery</li>
+    <li>1 round of revisions included</li>
+    <li>Delivered in 5 business days</li>
+   </ul>
+   <a href="#" class="buy-btn primary" id="tier2-buy">Get My Blueprint →</a>
+   <div class="payment-options">
+    <a href="#" class="stripe-link" data-tier="2">💳 Stripe</a>
+    <a href="#" class="gumroad-link" data-tier="2">🛒 Gumroad</a>
+   </div>
+  </div>
+
+  <!-- TIER 3 -->
+  <div class="price-card">
+   <div class="tier">Tier 3</div>
+   <h3>The Full Architecture</h3>
+   <div class="price">$1,497–$2,997 <span>one-time</span></div>
+   <div class="desc">White-glove consulting + full implementation plan</div>
+   <ul>
+    <li>Everything in The Blueprint</li>
+    <li>60-min consulting call to map your processes</li>
+    <li>Custom role definitions for your industry</li>
+    <li>Implementation roadmap (build order + timeline)</li>
+    <li>3 rounds of revisions</li>
+    <li>30 days of email support</li>
+    <li>Priority delivery in 3 business days</li>
+   </ul>
+   <a href="#" class="buy-btn outline" id="tier3-buy">Book My Architecture</a>
+   <div class="payment-options">
+    <a href="#" class="stripe-link" data-tier="3">💳 Stripe</a>
+    <a href="#" class="gumroad-link" data-tier="3">🛒 Gumroad</a>
+   </div>
+  </div>
+ </div>
+</div>
+
+<!-- SOCIAL PROOF -->
+<div class="proof">
+ <h2>Built By Operators, For Operators</h2>
+ <p>AgenticFoundr runs on this exact architecture. We're not teaching theory — we're sharing our playbook.</p>
+ <div class="proof-stats">
+  <div class="proof-stat"><div class="num">57+</div><div class="lbl">Agents Mapped</div></div>
+  <div class="proof-stat"><div class="num">9</div><div class="lbl">C-Suite Roles</div></div>
+  <div class="proof-stat"><div class="num">19</div><div class="lbl">Security Systems</div></div>
+  <div class="proof-stat"><div class="num">8</div><div class="lbl">Industry Modules</div></div>
+ </div>
+</div>
+
+<!-- FAQ -->
+<div class="section">
+ <div class="section-label">FAQ</div>
+ <h2>Common Questions</h2>
+
+ <div class="faq-list">
+  <div class="faq-item">
+   <div class="faq-q">Do I need technical skills to use this?</div>
+   <div class="faq-a">Nope. The Template tier includes a plain-English customization guide. The Blueprint and Architecture tiers are done-for-you — we build it, you use it.</div>
+  </div>
+  <div class="faq-item">
+   <div class="faq-q">What if my industry isn't listed?</div>
+   <div class="faq-a">We configure for ANY industry. The listed ones are examples. Blueprint and Architecture tiers include custom industry module configuration specific to your business.</div>
+  </div>
+  <div class="faq-item">
+   <div class="faq-q">Is this just a pretty diagram?</div>
+   <div class="faq-a">No — it's an operational framework. Every agent has defined responsibilities, reporting chains, and security protocols. It's the architectural blueprint you'd need before building any AI system at scale.</div>
+  </div>
+  <div class="faq-item">
+   <div class="faq-q">Can I host this on my own website?</div>
+   <div class="faq-a">Yes! It's a self-contained HTML file. Drop it on any web server, GitHub Pages, Netlify — anywhere. Your data stays with you.</div>
+  </div>
+  <div class="faq-item">
+   <div class="faq-q">What's the difference between $1,497 and $2,997 for Tier 3?</div>
+   <div class="faq-a">$1,497 covers standard industries with established patterns. $2,997 is for complex/niche industries that require deeper research and more custom architecture work.</div>
+  </div>
+  <div class="faq-item">
+   <div class="faq-q">Do you actually build the AI agents for me?</div>
+   <div class="faq-a">The Blueprint is the architecture — the plan. Think of it like blueprints for a house. We can discuss implementation services separately, or you can use it as your roadmap to build yourself.</div>
+  </div>
+ </div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+ <h2>Your Dream Deserves a Team</h2>
+ <p>You don't need 50 employees. You need 50 agents — and a plan for how they work together. That's exactly what we build.</p>
+ <a href="#pricing" class="hero-cta">Get Your Blueprint →</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+ <p>© 2026 <a href="https://agenticfoundr.com">AgenticFoundr</a> · Servant Leadership AI Architecture</p>
+</div>
+
+<script>
+// FAQ Toggle
+document.querySelectorAll('.faq-q').forEach(q=>{
+ q.addEventListener('click',()=>{
+  q.parentElement.classList.toggle('open');
+ });
+});
+</script>
+</body>
+</html>
