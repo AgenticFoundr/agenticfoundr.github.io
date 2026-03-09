@@ -281,6 +281,8 @@ max-width:90vw;
 
 <!-- LEGEND -->
 <div id="legend">
+ <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">Founder</span></div>
+ <div class="leg-sep"></div>
  <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">Tier 0 — CEO</span></div>
  <div class="leg-sep"></div>
  <div class="leg"><div class="leg-dot" style="background:#0A351D"></div><span class="leg-lbl">Tier 1 — C-Suite</span></div>
@@ -291,9 +293,9 @@ max-width:90vw;
  <div class="leg-sep"></div>
  <div class="leg"><div class="leg-dot leg-module" style="background:rgba(255,255,255,0.05)"></div><span class="leg-lbl">Module Slot</span></div>
  <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">Security</span></div>
- <div class="leg-sep"></div>
  <div class="leg"><div class="leg-dot" style="background:#00dfc8"></div><span class="leg-lbl">Data Lane</span></div>
+ <div class="leg-sep"></div>
+ <div class="leg"><div class="leg-dot" style="background:#ff4d6a"></div><span class="leg-lbl">Security Lane</span></div>
 </div>
 
 <script>
@@ -454,150 +456,167 @@ const MODULES = [
 ];
 
 // ═══════════════════════════════════════════════════
-// AGENTICFOUNDR CORE AGENT DATA
+// AGENTICFOUNDR CORE AGENT DATA (STACKHAND FORMAT)
 // ═══════════════════════════════════════════════════
 const CORE = {
- HUMAN: {
- n:'You', r:'Founder & Strategic Authority', e:'👤', c:'#C9A84C', tier:'owner',
+ // ═══════════════════════════════════════════════════
+ // FOUNDER — Top of org chart
+ // ═══════════════════════════════════════════════════
+ FOUNDER: {
+ n:'YOU', r:'Founder & Strategic Authority', e:'👤', c:'#C9A84C', tier:'founder',
  mandate:null,
- desc:'Single point of authority. Approves all transactions over $500, security threats, strategic decisions. You receive daily VISION dashboard and security briefings.',
- resp:['Approves all transactions above $500','Approves all bank routing changes','Reviews security alerts in real-time','Reviews weekly executive summary','Final authority on all strategic direction'],
+ desc:'Single point of authority. Approves all transactions over $500, security threats, and strategic decisions. You receive daily VISION dashboard and security briefings from ATLAS.',
+ resp:['Approves all transactions above $500','Approves all bank routing changes','Reviews security alerts in real-time','Reviews ATLAS weekly executive summary','Final authority on all strategic direction'],
  tools:['VISION Dashboard','Security Alerts','Weekly Summary']
  },
- ATLAS: {
- n:'ATLAS', r:'Chief Executive Officer', e:'🧠', c:'#C9A84C', tier:0,
- mandate:'Sets enterprise vision, strategy, and growth direction. Orchestrates all 9 C-Suite agents. The sole agent that communicates with the founder.',
- desc:'Master orchestrator. Reads data brief and security brief every morning before the delegation cycle. Produces weekly executive summary for founder.',
- resp:['Sets enterprise mission, vision, and quarterly OKRs','Delegates strategic initiatives across all 9 C-Suite agents','Morning review: data brief + security brief + legal risk brief','Produces weekly executive summary for founder','Final escalation decision-maker for all cross-C-Suite conflicts'],
- tools:['Mission Decomposer','VISION KPI Dashboard','Data Brief','Security Brief','RAG Memory Store','Executive Report Builder']
+
+ // ═══════════════════════════════════════════════════
+ // TIER 0 — CEO (APEX)
+ // ═══════════════════════════════════════════════════
+ APEX: {
+ n:'APEX', r:'Chief Executive Officer', e:'🧠', c:'#C9A84C', tier:0,
+ mandate:'Sets enterprise vision, strategy, and growth direction. Orchestrates all 9 C-Suite agents. The sole agent that communicates with the human founder.',
+ desc:'Master orchestrator. Reads DATUM data brief and CIPHER security brief every morning before the delegation cycle. Produces weekly executive summary for founder.',
+ resp:['Sets enterprise mission, vision, and quarterly OKRs','Delegates strategic initiatives across all 9 C-Suite agents','Morning review: DATUM data brief + CIPHER security brief + SAGE legal risk brief','Produces weekly executive summary for founder','Final escalation decision-maker for all cross-C-Suite conflicts'],
+ tools:['Mission Decomposer','VISION KPI Dashboard','DATUM Data Brief','CIPHER Security Brief','RAG Memory Store','Executive Report Builder']
  },
 
- // TIER 1 — C-SUITE
- STEWARD: {
- n:'STEWARD', r:'Chief Financial Officer', e:'💰', c:'#0A351D', tier:1,
- mandate:'Responsible for the organization\'s overall financial health. Oversees financial planning, budgeting, reporting, and risk management.',
- desc:'Owns the full financial lifecycle — daily cash flow through long-term investment strategy. Every financial decision routes through STEWARD.',
- resp:['Financial planning, budgeting, and quarterly forecasting','Monitors cash flow, revenue, and profitability daily','Manages investment decisions and capital allocation','Partners with ATLAS on funding strategy','Oversees financial risk'],
- tools:['QuickBooks API','Stripe API','Budget Planning Engine','Cash Flow Monitor','Financial Risk Scorer','TREASURY Integration','VISION Financial Dashboard']
+ // ═══════════════════════════════════════════════════
+ // TIER 1 — C-SUITE (9 Agents)
+ // ═══════════════════════════════════════════════════
+ LEDGER: {
+ n:'LEDGER', r:'Chief Financial Officer', e:'💰', c:'#0A351D', tier:1,
+ mandate:'Responsible for the organization\'s overall financial health. Oversees financial planning, budgeting, reporting, and risk management. Strategic partner to APEX on growth, funding, and investment decisions.',
+ desc:'Owns the full financial lifecycle — daily cash flow through long-term investment strategy. Every financial decision routes through LEDGER, who weighs risk against opportunity and keeps the enterprise financially healthy.',
+ resp:['Owns financial planning, budgeting, and quarterly forecasting','Monitors cash flow, revenue, and profitability daily','Manages investment decisions and capital allocation','Partners with APEX on funding strategy and business growth','Oversees financial risk — identifies exposure before it becomes a crisis','All transactions cleared through TREASURY (CIPHER-governed)'],
+ tools:['QuickBooks API','Stripe API','Budget Planning Engine','Cash Flow Monitor','Financial Risk Scorer','Investment Decision Framework','TREASURY Integration','VISION Financial Dashboard']
  },
- BRIDGE: {
- n:'BRIDGE', r:'Chief Operating Officer', e:'⚙️', c:'#0A351D', tier:1,
- mandate:'Second-in-command to ATLAS. Oversees day-to-day administrative and operational functions. The bridge between strategy and execution.',
- desc:'The operational engine. Turns strategy into execution. Orchestrates all operational workflows, manages resource allocation, and owns the gap between strategy and results.',
- resp:['Acts as second-in-command — represents ATLAS when needed','Translates ATLAS strategy into operational plans','Oversees all client delivery workflows and SLA compliance','Manages resource allocation and process efficiency','Coordinates cross-departmental execution','Reviews weekly operational performance'],
+ CORTEX: {
+ n:'CORTEX', r:'Chief Operating Officer', e:'⚙️', c:'#0A351D', tier:1,
+ mandate:'Second-in-command to APEX. Oversees day-to-day administrative and operational functions. The bridge between high-level strategy and daily execution — ensures processes run efficiently and long-term goals are met.',
+ desc:'The operational engine and APEX\'s second-in-command. Turns strategy into execution. Orchestrates all operational workflows, manages resource allocation, and owns the gap between strategy and results.',
+ resp:['Acts as second-in-command — represents APEX when needed','Translates APEX strategy into operational plans and agent assignments','Oversees all client delivery workflows and SLA compliance','Manages resource allocation and process efficiency','Coordinates cross-departmental execution','Reviews weekly operational performance and surfaces risks to APEX'],
  tools:['n8n Workflow Orchestrator','Operational Health Dashboard','Resource Allocation Engine','SLA Compliance Monitor','Cross-Department Coordination Hub','Agent Performance Tracker']
  },
- VOICE: {
- n:'VOICE', r:'Chief Marketing Officer', e:'📣', c:'#0A351D', tier:1,
- mandate:'Responsible for marketing activities, brand strategy, and customer engagement. Drives growth by aligning marketing with corporate strategy.',
- desc:'Owns market position and customer perception. Every marketing decision is grounded in VISION data. Collaborates with HARVEST on revenue pipeline.',
- resp:['Owns enterprise brand strategy and market positioning','Aligns all marketing with corporate strategy','Analyzes market data to surface insights','Optimizes marketing ROI across all channels','Collaborates with HARVEST to align marketing with revenue','Partners with HAVEN on consistent customer experience'],
+ SIGNAL: {
+ n:'SIGNAL', r:'Chief Marketing Officer', e:'📣', c:'#0A351D', tier:1,
+ mandate:'Responsible for marketing activities, brand strategy, and customer engagement. Drives growth by aligning marketing with corporate strategy and optimizing ROI. Bridges the gap between market insights and company operations.',
+ desc:'Owns market position and customer perception. Every marketing decision is grounded in VISION data. Collaborates with HUNTER/CRO on revenue pipeline and ANCHOR/CCO on customer experience consistency.',
+ resp:['Owns enterprise brand strategy and market positioning','Aligns all marketing with corporate strategy set by APEX','Analyzes market data to surface insights for product and pricing','Optimizes marketing ROI across all channels','Collaborates with HUNTER/CRO so marketing feeds pipeline directly','Partners with ANCHOR/CCO on consistent customer experience','All outbound content GUARDIAN-filtered (CIPHER-governed)'],
  tools:['Buffer','Mailchimp','SEMrush','Google Analytics API','Brand Strategy Engine','ROI Attribution Model','Market Insight Aggregator','VISION Marketing Dashboard','GUARDIAN Content Filter']
  },
- HARVEST: {
- n:'HARVEST', r:'Chief Revenue Officer', e:'🎯', c:'#0A351D', tier:1,
- mandate:'Focused on maximizing revenue. Aligns ALL revenue-generating functions — sales, marketing, and client success.',
- desc:'Owns the entire revenue engine — new business, renewals, expansions, and upsells. Aligns VOICE, direct sales, and HAVEN into one coordinated motion.',
- resp:['Owns total revenue — new business, renewals, expansions, upsells','Aligns sales, marketing, and client success into unified motion','Manages full pipeline from first contact through close','Sets and monitors revenue targets','Coordinates with VOICE so marketing feeds pipeline','Reports revenue to STEWARD and ATLAS'],
+ HUNTER: {
+ n:'HUNTER', r:'Chief Revenue Officer', e:'🎯', c:'#0A351D', tier:1,
+ mandate:'Focused on maximizing revenue. Aligns ALL revenue-generating functions — sales, marketing, and client success — which traditionally operate in silos. HUNTER breaks down those silos into one unified revenue machine.',
+ desc:'Owns the entire revenue engine — new business, renewals, expansions, and upsells. Aligns SIGNAL/CMO, direct sales, and ANCHOR/CCO into one coordinated motion. No revenue-touching function operates independently.',
+ resp:['Owns total revenue — new business, renewals, expansions, upsells','Aligns sales, marketing, and client success into a unified revenue motion','Manages full pipeline from first contact through contract close','Sets and monitors revenue targets — weekly reviews, monthly forecasts','Coordinates with SIGNAL/CMO so marketing feeds pipeline directly','Partners with ANCHOR/CCO on expansion revenue opportunities','Reports revenue to LEDGER/CFO and APEX'],
  tools:['CRM Platform','Data Enrichment Tool','Revenue Pipeline Dashboard','Sales-Marketing Alignment Engine','Expansion Revenue Tracker','Revenue Forecast Model','DocuSign','GUARDIAN Security Integration']
  },
- CRAFT: {
- n:'CRAFT', r:'Chief Technology Officer', e:'🔧', c:'#0A351D', tier:1,
- mandate:'Responsible for technological vision, strategy, and R&D. Aligns technology with business goals to drive innovation and maintain competitive edge.',
- desc:'Owns the technology roadmap — deciding what gets built, what gets automated, what AI models get deployed. Infrastructure is delegated to BEDROCK.',
- resp:['Owns technology vision, innovation roadmap, and R&D agenda','Aligns all technology decisions with business goals','Leads AI model selection, automation R&D','Manages competitive technology intelligence','Requires KEEPER + SHIELD joint approval for new deployments','Reports technology ROI to ATLAS quarterly'],
- tools:['Technology Roadmap Engine','Ollama Model Manager','AI Model Benchmark Suite','R&D Exploration Pipeline','Innovation Backlog','Docker Container Orchestration','API Integration Framework','Competitive Tech Intelligence Feed','KEEPER + SHIELD Joint Approval Gate']
+ FORGE: {
+ n:'FORGE', r:'Chief Technology Officer', e:'🔧', c:'#0A351D', tier:1,
+ mandate:'Responsible for technological vision, strategy, and R&D. Aligns technology with business goals to drive innovation, improve products, and maintain competitive edge. The architect of how technology creates competitive advantage.',
+ desc:'Owns the technology roadmap — deciding what gets built, what gets automated, what AI models get deployed, and how technology creates business value. Infrastructure is delegated to BEDROCK so FORGE stays focused on vision.',
+ resp:['Owns technology vision, innovation roadmap, and R&D agenda','Aligns all technology decisions with business goals','Leads AI model selection, automation R&D, and capability adoption','Manages competitive technology intelligence — stays ahead of the market','Requires DATUM + CIPHER joint approval for all new deployments','Drives workflow automation R&D — identifies new automation opportunities','Reports technology ROI and innovation progress to APEX quarterly'],
+ tools:['Technology Roadmap Engine','Ollama Model Manager','AI Model Benchmark Suite','R&D Exploration Pipeline','Innovation Backlog','Docker Container Orchestration','API Integration Framework','Competitive Tech Intelligence Feed','DATUM + CIPHER Joint Approval Gate']
  },
- HAVEN: {
- n:'HAVEN', r:'Chief Client Officer', e:'🤝', c:'#0A351D', tier:1,
- mandate:'Responsible for end-to-end customer experience, strategy, and advocacy. Unites teams to ensure customer-centricity.',
- desc:'The customer\'s seat at the C-Suite table. Ensures every function stays oriented around client outcomes. Owns retention, expansion, and advocacy.',
- resp:['Owns end-to-end client experience from onboarding through advocacy','Unites marketing, sales, and delivery around customer-centric strategy','Ensures customer voice is represented at ATLAS strategy sessions','Owns client retention KPIs — churn, NPS, CSAT','Partners with HARVEST on expansion revenue','Manages full client lifecycle'],
- tools:['CRM Platform','NPS & CSAT Tracker','Client Health Score Engine','Churn Prediction Model','Expansion Signal Detector','Onboarding Flow Manager','Advocacy & Referral Program','KEEPER PII Governance','SHIELD/VERIFY Identity Clearance']
+ ANCHOR: {
+ n:'ANCHOR', r:'Chief Client Officer', e:'🤝', c:'#0A351D', tier:1,
+ mandate:'Responsible for the end-to-end customer experience, strategy, and advocacy. Unites cross-functional teams — sales, marketing, and operations — to ensure the company remains customer-centric. Drives growth through retention, expansion, and advocacy.',
+ desc:'The customer\'s seat at the C-Suite table. Ensures every function stays oriented around client outcomes. Owns retention, expansion, and advocacy as growth levers in partnership with HUNTER/CRO.',
+ resp:['Owns end-to-end client experience from onboarding through advocacy','Unites marketing, sales, and delivery around customer-centric strategy','Ensures customer voice is represented at every APEX strategy session','Owns client retention KPIs — churn, NPS, CSAT, health scores','Partners with HUNTER/CRO on expansion revenue identification','Partners with SIGNAL/CMO to align messaging with actual client needs','Manages full client lifecycle — onboarding, success, renewal, referral'],
+ tools:['CRM Platform','NPS & CSAT Tracker','Client Health Score Engine','Churn Prediction Model','Expansion Signal Detector','Onboarding Flow Manager','Advocacy & Referral Program','Cross-Function CX Alignment Hub','DATUM PII Governance','CIPHER/VERIFY Identity Clearance']
  },
- SAGE: {
- n:'SAGE', r:'Chief Legal Officer', e:'⚖️', c:'#7DA88A', tier:1,
- mandate:'Serves as primary legal advisor to ATLAS and the entire C-Suite. Strategic business partner integrating legal expertise into strategy.',
- desc:'SAGE is a proactive strategic partner embedded at the highest level. Every C-Suite agent has a direct relationship with SAGE.',
- resp:['Primary legal advisor to ATLAS and all C-Suite agents','Integrates legal expertise into corporate strategy','Reviews all commercial contracts before HARVEST closes deals','Reviews IP and licensing before CRAFT deploys new tech','Co-owns data privacy law with KEEPER','Co-manages security regulatory obligations with SHIELD','Produces weekly legal risk brief for ATLAS'],
- tools:['Contract Review Engine','IP & Licensing Tracker','Legal Risk Register','Regulatory Intelligence Feed','NDA Management System','Litigation Hold System','Board Governance Dashboard','Weekly Legal Risk Brief Builder','Cross-C-Suite Legal Advisory Hub']
+ COUNSEL: {
+ n:'COUNSEL', r:'Chief Legal Officer', e:'⚖️', c:'#7DA88A', tier:1,
+ mandate:'Serves as the primary legal advisor to the CEO, board of directors, and the entire C-Suite. Unlike traditional legal roles, COUNSEL functions as a strategic business partner — integrating legal expertise into corporate strategy, risk management, compliance, and governance.',
+ desc:'COUNSEL is not a reactive legal department — it is a proactive strategic partner embedded at the highest level. Every C-Suite agent has a direct relationship with COUNSEL because legal risk touches every business function.',
+ resp:['Serves as primary legal advisor to APEX and all C-Suite agents','Integrates legal expertise into corporate strategy, risk management, and governance','Reviews all commercial contracts before HUNTER/CRO closes any deal','Reviews IP, licensing, and open-source usage before FORGE/CTO deploys new technology','Co-owns data privacy law obligations (GDPR, CCPA, CPRA) with DATUM/CDO','Co-manages security regulatory obligations (SOC 2, AI Act, HIPAA) with CIPHER/CISO','Reviews all marketing claims and advertising copy from SIGNAL/CMO for legal defensibility','Produces weekly legal risk brief for APEX and quarterly governance report for founder'],
+ tools:['Contract Review Engine','IP & Licensing Tracker','Legal Risk Register','Regulatory Intelligence Feed (AI Act / GDPR / CCPA / HIPAA)','NDA Management System','Litigation Hold System','Board Governance Dashboard','Weekly Legal Risk Brief Builder','Quarterly Governance Report Builder','Cross-C-Suite Legal Advisory Hub']
  },
- KEEPER: {
- n:'KEEPER', r:'Chief Data Officer', e:'🌐', c:'#00dfc8', tier:1,
- mandate:'Leads data-driven processes to achieve business goals. Manages data strategy, governance, and protection.',
- desc:'KEEPER operates as a true CDO — setting strategy, policy, and governance standards, then delegating operational execution.',
- resp:['Defines enterprise data strategy and aligns to business goals','Sets all 4 sensitivity tier policies','Approves all new data integrations before CRAFT deploys','Delegates Data Lane operations: GOVERN + PIPELINE','Co-chairs Data & Security Council with SHIELD','Produces quarterly Data Strategy Report'],
- tools:['Data Strategy Dashboard','Enterprise Data Policy Engine','Data & Security Council Hub','GDPR/CCPA Executive Console','Data Catalog','Quarterly CDO Report Builder','C-Suite Data Advisory Interface','Integration Approval Gate (joint with SHIELD)']
+ DATUM: {
+ n:'DATUM', r:'Chief Data Officer', e:'🌐', c:'#00dfc8', tier:1,
+ mandate:'Leads development of data-driven processes to achieve business goals. Manages data strategy, governance, and protection. Enables data-driven decision-making across the entire enterprise.',
+ desc:'DATUM operates as a true CDO — setting strategy, policy, and governance standards, then delegating operational execution to GOVERN (VP Data Governance) and PIPELINE (VP Data Engineering). Day-to-day Data Lane operations flow through those two VPs and their Director reports. DATUM stays focused on enterprise data strategy, C-Suite advisory, regulatory positioning, and the Data & Security Council.',
+ resp:['Defines enterprise data strategy and aligns it to business goals','Sets all 4 sensitivity tier policies — financial, PII, operational, comms','Approves all new data integrations before FORGE deploys them (joint gate with CIPHER)','Delegates Data Lane operations: GOVERN owns governance + privacy agents, PIPELINE owns ingestion + visualization','Reviews GOVERN and PIPELINE weekly status briefs — does not manage lane agents directly','Co-chairs Data & Security Council with CIPHER — joint veto on any PII or financial data system','Produces quarterly Data Strategy Report for APEX and founder','Serves as C-Suite advisor on data-driven decision-making across all 9 C-Suite agents'],
+ tools:['Data Strategy Dashboard','Enterprise Data Policy Engine','Data & Security Council Hub','GDPR/CCPA Executive Console','Data Catalog (read)','Quarterly CDO Report Builder','C-Suite Data Advisory Interface','Integration Approval Gate (joint with CIPHER)']
  },
- SHIELD: {
- n:'SHIELD', r:'Chief Information Security Officer', e:'🛡️', c:'#C9A84C', tier:1,
- mandate:'Establishes and maintains security vision, strategy, and program. Manages cybersecurity risks and ensures compliance.',
- desc:'SHIELD operates as a true CISO — setting security vision, policy parameters, then delegating to RISKWATCH and COMPLY.',
- resp:['Defines information security vision and enterprise risk posture','Sets operational parameters for all Security Lane agents','Delegates Security Lane ops: RISKWATCH + COMPLY','Manages GDPR, CCPA, SOC 2, AI Act strategic positioning','Approves all vendor security reviews','Co-chairs Data & Security Council with KEEPER','Produces quarterly Security Posture Report'],
- tools:['Security Strategy Dashboard','Threat Intelligence Console','Risk Posture Scorecard','Compliance Framework Manager','Vendor Security Review Portal','AI Threat Feed','Quarterly CISO Report Builder','Data & Security Council Hub','Integration Security Approval Gate (joint with KEEPER)']
+ CIPHER: {
+ n:'CIPHER', r:'Chief Information Security Officer', e:'🛡️', c:'#ff4d6a', tier:1,
+ mandate:'Establishes and maintains the organization\'s security vision, strategy, and program. Manages cybersecurity risks, oversees security operations, and ensures compliance with all regulatory requirements.',
+ desc:'CIPHER operates as a true CISO — setting security vision, policy parameters, and risk thresholds, then delegating operational execution to RISKWATCH (VP Cybersecurity Ops) and COMPLY (VP Compliance & Risk). Day-to-day Security Lane operations flow through those two VPs and their Director reports. CIPHER stays focused on enterprise security strategy, threat posture, regulatory compliance positioning, and the Data & Security Council.',
+ resp:['Defines information security vision, strategy, and enterprise risk posture','Sets operational parameters and thresholds for all 7 Security Lane agents — does not manage them directly','Delegates Security Lane ops: RISKWATCH owns active threat operations, COMPLY owns compliance and access control','Reviews RISKWATCH and COMPLY weekly security briefs — escalation only on confirmed high-severity events','Manages GDPR, CCPA, SOC 2, NIST SP 800-207, and AI Act strategic positioning','Approves all vendor and third-party security reviews before any integration goes live','Co-chairs Data & Security Council with DATUM — joint veto on any PII or financial data system','Produces quarterly Security Posture Report for APEX and founder'],
+ tools:['Security Strategy Dashboard','Threat Intelligence Console','Risk Posture Scorecard','Compliance Framework Manager','Vendor Security Review Portal','AI Threat Feed','Quarterly CISO Report Builder','Data & Security Council Hub','Integration Security Approval Gate (joint with DATUM)']
  },
 
- // TIER 2 — VPs
- COMPASS: {n:'COMPASS', r:'VP Revenue Intelligence', e:'📊', c:'#7DA88A', tier:2, desc:'Pipeline health and revenue forecasting. Reports to STEWARD/CFO.', tools:['CRM Analytics','Pipeline Tracker','Revenue Forecast Feed']},
- LEDGER: {n:'LEDGER', r:'VP Finance & Billing', e:'🧾', c:'#7DA88A', tier:2, desc:'Billing operations under STEWARD. All unusual charges → TREASURY within 60 seconds.', tools:['Billing Platform','Invoicing Engine','DocuSign','TREASURY Integration']},
- DELIVER: {n:'DELIVER', r:'VP Client Delivery', e:'🔄', c:'#7DA88A', tier:2, desc:'Executes BRIDGE/COO operational plans at the client level. Manages module-layer agents. SLA enforcement.', tools:['Workflow Monitor','SLA Dashboard','Agent Health Monitor']},
- INSIGHT: {n:'INSIGHT', r:'VP Data Intelligence', e:'🔬', c:'#7DA88A', tier:2, desc:'Analytics aggregation for all C-Suite under KEEPER governance. Feeds VISION dashboard.', tools:['Data Aggregator','Report Builder','CLEAN Integration','VISION Feed']},
- GROW: {n:'GROW', r:'VP Growth & Partnerships', e:'🚀', c:'#7DA88A', tier:2, desc:'Partnership pipeline and expansion revenue under HARVEST/CRO. VERIFY identity checks before data sharing.', tools:['Partner CRM','Commission Tracker','VERIFY Integration']},
- SCOUT: {n:'SCOUT', r:'VP Market Intelligence', e:'🗺️', c:'#7DA88A', tier:2, desc:'Competitive and market intelligence for VOICE/CMO and CRAFT/CTO.', tools:['Web Scraper','News API','CLEAN Integration']},
- QUILL: {n:'QUILL', r:'VP Content & Brand', e:'✍️', c:'#7DA88A', tier:2, desc:'Executes VOICE/CMO brand strategy. All content GUARDIAN-filtered.', tools:['LLM Writer','Brand Guide','CMS API','GUARDIAN Filter']},
- FOUNDATION: {n:'FOUNDATION', r:'VP Infrastructure', e:'🖥️', c:'#7DA88A', tier:2, desc:'Mac Mini, Ollama models, API health under CRAFT/CTO direction.', tools:['Ollama','Docker','Uptime Monitor','VISION Health Feed']},
- BUILDER: {n:'BUILDER', r:'VP Product Development', e:'🧩', c:'#7DA88A', tier:2, desc:'Executes CRAFT/CTO R&D backlog. Identifies performance patterns and workflow improvements.', tools:['Performance Logs','Feedback Parser','Innovation Pipeline']},
- WARMTH: {n:'WARMTH', r:'VP Client Experience', e:'⭐', c:'#7DA88A', tier:2, desc:'NPS, churn prediction, and client health scoring. Executes HAVEN/CCO experience strategy.', tools:['NPS Tool','Sentiment Analysis','Churn Predictor']},
- GUIDE: {n:'GUIDE', r:'VP Client Onboarding', e:'🎓', c:'#7DA88A', tier:2, desc:'New client setup. KEEPER governs PII collection. SHIELD confirms identity before data collection.', tools:['Onboarding Flow','n8n Deploy','Twilio','VERIFY Integration','MASK']},
- JUSTICE: {n:'JUSTICE', r:'VP Legal Strategy', e:'🏛️', c:'#7DA88A', tier:2, desc:'Executes SAGE/CLO legal strategy. Owns contract lifecycle, IP portfolio, and legal risk monitoring.', tools:['Contract Management Platform','IP Portfolio Tracker','Legal Risk Monitor','NDA Management','Vendor Agreement Library']},
- CHARTER: {n:'CHARTER', r:'VP Regulatory & Governance', e:'📜', c:'#7DA88A', tier:2, desc:'Manages regulatory compliance and corporate governance under SAGE direction.', tools:['Regulatory Intelligence Feed','Corporate Governance Dashboard','Legal Compliance Calendar','Government Affairs Tracker']},
- TRUST: {n:'TRUST', r:'VP Data Governance', e:'🔐', c:'#00dfc8', tier:2, desc:'Executes KEEPER/CDO governance program. Manages STEWARD-D and CURATOR.', tools:['Data Catalog Manager','Data Dictionary','Lineage Tracker','DSAR Workflow Engine','GDPR Erasure Coordinator']},
- FLOW: {n:'FLOW', r:'VP Data Engineering', e:'🔩', c:'#00dfc8', tier:2, desc:'Owns technical data pipeline infrastructure under KEEPER direction.', tools:['Pipeline Designer','Schema Registry','INTAKE Orchestrator','Pipeline Health Monitor']},
- VIGIL: {n:'VIGIL', r:'VP Cybersecurity Ops', e:'🔭', c:'#C9A84C', tier:2, desc:'Executes SHIELD/CISO active security operations. Manages SENTRY and RESPONSE.', tools:['SOC Dashboard','AI Threat Intel Feed','SENTINEL Rule Engine','Threat Hunting Console','Weekly Security Brief Builder']},
- ACCORD: {n:'ACCORD', r:'VP Compliance & Risk', e:'📋', c:'#C9A84C', tier:2, desc:'Owns security compliance calendar and enterprise risk register under SHIELD direction.', tools:['Compliance Calendar','Regulatory Monitor','Vendor Risk Matrix','Risk Register','SOC 2 Readiness Tracker']},
+ // ═══════════════════════════════════════════════════
+ // TIER 2 — VP LAYER (17 VPs)
+ // ═══════════════════════════════════════════════════
+ PULSE: {n:'PULSE', r:'VP Revenue Intelligence', e:'📊', c:'#7DA88A', tier:2, desc:'Pipeline health and revenue forecasting. Reports to LEDGER/CFO. Queries VAULT-D under DATUM governance.', tools:['CRM Analytics','Pipeline Tracker','Revenue Forecast Feed']},
+ QUILL: {n:'QUILL', r:'VP Content & Brand', e:'✍️', c:'#7DA88A', tier:2, desc:'Executes SIGNAL/CMO brand strategy. All content GUARDIAN-filtered. Reports to SIGNAL.', tools:['LLM Writer','Brand Guide','CMS API','GUARDIAN Filter']},
+ RELAY: {n:'RELAY', r:'VP Client Delivery', e:'🔄', c:'#7DA88A', tier:2, desc:'Executes CORTEX/COO operational plans at the client level. Manages module-layer agents. SLA enforcement.', tools:['Workflow Monitor','SLA Dashboard','Agent Health Monitor']},
+ VAULTVP: {n:'VAULT-VP', r:'VP Finance & Billing', e:'🧾', c:'#7DA88A', tier:2, desc:'Billing operations under LEDGER/CFO. All unusual charges → TREASURY (CIPHER) within 60 seconds.', tools:['Billing Platform','Invoicing Engine','DocuSign','TREASURY Integration']},
+ PRISM: {n:'PRISM', r:'VP Data Intelligence', e:'🔬', c:'#7DA88A', tier:2, desc:'Analytics aggregation for all C-Suite under DATUM governance. Feeds VISION dashboard.', tools:['Data Aggregator','Report Builder','CLEAN Integration','VISION Feed']},
+ BOOST: {n:'BOOST', r:'VP Growth & Partnerships', e:'🚀', c:'#7DA88A', tier:2, desc:'Partnership pipeline and expansion revenue under HUNTER/CRO. VERIFY identity checks before data sharing.', tools:['Partner CRM','Commission Tracker','VERIFY Integration']},
+ BEDROCK: {n:'BEDROCK', r:'VP Infrastructure', e:'🖥️', c:'#7DA88A', tier:2, desc:'Mac Mini, Ollama models, API health under FORGE/CTO direction. Infra changes require DATUM + CIPHER review.', tools:['Ollama','Docker','Uptime Monitor','VISION Health Feed']},
+ WARMTH: {n:'WARMTH', r:'VP Client Experience', e:'⭐', c:'#7DA88A', tier:2, desc:'NPS, churn prediction, and client health scoring. Executes ANCHOR/CCO experience strategy.', tools:['NPS Tool','Sentiment Analysis','Churn Predictor']},
+ GUIDE: {n:'GUIDE', r:'VP Client Onboarding', e:'🎓', c:'#7DA88A', tier:2, desc:'New client setup. DATUM governs PII collection. CIPHER confirms identity before data collection begins.', tools:['Onboarding Flow','n8n Deploy','Twilio','VERIFY Integration','MASK']},
+ ARCHITECT:{n:'ARCHITECT',r:'VP Product Development', e:'🧩', c:'#7DA88A', tier:2, desc:'Executes FORGE/CTO R&D backlog. Identifies performance patterns and workflow improvements.', tools:['Performance Logs','Feedback Parser','Innovation Pipeline']},
+ SCOUT: {n:'SCOUT', r:'VP Market Intelligence', e:'🗺️', c:'#7DA88A', tier:2, desc:'Competitive and market intelligence for SIGNAL/CMO and FORGE/CTO. CLEAN-validated under DATUM governance.', tools:['Web Scraper','News API','CLEAN Integration']},
+ SHIELD: {n:'SHIELD', r:'VP Legal Strategy', e:'🏛️', c:'#7DA88A', tier:2, desc:'Executes COUNSEL/CLO legal strategy. Owns contract lifecycle, IP portfolio, and cross-enterprise legal risk monitoring.', tools:['Contract Management Platform','IP Portfolio Tracker','Legal Risk Monitor','NDA Management','Vendor Agreement Library','Monthly Risk Register Builder']},
+ GOVERN: {n:'GOVERN', r:'VP Data Governance', e:'📐', c:'#7DA88A', tier:2, desc:'Executes DATUM/CDO governance program. Manages STEWARD (Dir. Data Privacy) and CURATOR (Dir. Data Quality & Vault). Owns data catalog, lineage maps, and GDPR/CCPA workflows. Reports to DATUM.', tools:['Data Catalog Manager','Data Dictionary','Lineage Tracker','DSAR Workflow Engine','GDPR Erasure Coordinator','Governance Audit Builder']},
+ PIPELINE: {n:'PIPELINE', r:'VP Data Engineering', e:'🔩', c:'#7DA88A', tier:2, desc:'Owns all technical data pipeline infrastructure under DATUM direction. Manages STREAM (Dir. Data Pipeline & Viz) who runs INTAKE and VISION day-to-day. Partners with FORGE/CTO on new integrations. Reports to DATUM.', tools:['Pipeline Designer','Schema Registry','INTAKE Orchestrator','Pipeline Health Monitor','Integration Vetting Gate']},
+ RISKWATCH:{n:'RISKWATCH',r:'VP Cybersecurity Ops', e:'🔭', c:'#ff4d6a', tier:2, desc:'Executes CIPHER/CISO active security operations. Manages SENTRY (Dir. Threat Ops) and RESPONSE (Dir. Incident & Trust). Translates CIPHER strategy into operational runbooks. Reports to CIPHER.', tools:['SOC Dashboard','AI Threat Intel Feed','SENTINEL Rule Engine','Threat Hunting Console','Weekly Security Brief Builder']},
+ COMPLY_L: {n:'COMPLY-L', r:'VP Regulatory & Governance', e:'📜', c:'#7DA88A', tier:2, desc:'Manages regulatory compliance and corporate governance under COUNSEL direction. Owns legal compliance calendar. Partners with COMPLY (CIPHER) on overlapping security + legal areas, and with GOVERN (DATUM) on data law. Reports to COUNSEL.', tools:['Regulatory Intelligence Feed','Corporate Governance Dashboard','Legal Compliance Calendar','Government Affairs Tracker','Employment Law Monitor','Quarterly Governance Report Builder']},
+ COMPLY: {n:'COMPLY', r:'VP Compliance & Risk', e:'📋', c:'#ff4d6a', tier:2, desc:'Owns security compliance calendar and enterprise risk register under CIPHER direction. Manages ACCESS (Dir. Access, Audit & Transactions) who runs VERIFY, LEDGER-S, and TREASURY day-to-day. Reports to CIPHER.', tools:['Compliance Calendar','Regulatory Monitor','Vendor Risk Matrix','Risk Register','SOC 2 Readiness Tracker']},
 
- // TIER 3 — Directors
- SEEK: {n:'SEEK', r:'Director of Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Seeks out those we can serve.', tools:[]},
- RHYTHM: {n:'RHYTHM', r:'Director of Outreach', e:'🎵', c:'#165436', tier:3, desc:'Every great relationship has a rhythm.', tools:[]},
- COVENANT: {n:'COVENANT', r:'Director of Proposals', e:'🤝', c:'#165436', tier:3, desc:'A covenant is a mutual promise.', tools:[]},
- INK: {n:'INK', r:'Director of Content & SEO', e:'✒️', c:'#165436', tier:3, desc:'The ink that writes our story.', tools:['LLM Writer','SEO Tools','CMS API','GUARDIAN Filter']},
- THREAD: {n:'THREAD', r:'Director of Social Media', e:'🧵', c:'#165436', tier:3, desc:'Threads connect us to our community.', tools:['Social Scheduler','Engagement Tools','GUARDIAN Filter']},
- EMBER: {n:'EMBER', r:'Director of Email', e:'🔥', c:'#165436', tier:3, desc:'Embers keep the fire alive.', tools:['Email Platform','Automation','A/B Testing']},
- TALLY: {n:'TALLY', r:'Director of Billing', e:'📒', c:'#165436', tier:3, desc:'Faithful counting.', tools:['Billing Platform','Invoice Generation']},
- POLISH: {n:'POLISH', r:'Director of Quality Assurance', e:'✨', c:'#165436', tier:3, desc:'Quality is polish.', tools:['Output Sampler','PII Detector']},
- BOND: {n:'BOND', r:'Director of Retention', e:'🔗', c:'#165436', tier:3, desc:'The bond between us and those we serve.', tools:['Churn Predictor','Re-engagement']},
- LENS: {n:'LENS', r:'Director of Analytics', e:'🔭', c:'#165436', tier:3, desc:'The lens that brings clarity to data.', tools:['KPI Aggregator','VISION Dashboard']},
- FINDER: {n:'FINDER', r:'Director of Prospecting', e:'🔍', c:'#a855f7', tier:3, desc:'Lead generation via data enrichment. Reports to HARVEST.', tools:['Data Enrichment','Lead Gen','VAULT-D']},
- CADENCE: {n:'CADENCE', r:'Director of Outreach', e:'📧', c:'#a855f7', tier:3, desc:'Sales sequencing. GUARDIAN-screened. Reports to HARVEST.', tools:['Outreach Platform','Sequencing','GUARDIAN']},
- CLOSE: {n:'CLOSE', r:'Director of Proposals', e:'📃', c:'#a855f7', tier:3, desc:'Custom proposals. Human e-signature required. Reports to HARVEST.', tools:['Proposal Builder','DocuSign','VAULT-D']},
- LEDGE: {n:'LEDGE', r:'Director of Billing', e:'🧮', c:'#a855f7', tier:3, desc:'Invoice & collections. Payment changes → TREASURY.', tools:['Invoice Gen','Collections','TREASURY']},
- AUDIT: {n:'AUDIT', r:'Director of QA', e:'🔎', c:'#a855f7', tier:3, desc:'Daily output sampling. PII in outputs → SENTINEL.', tools:['Output Sampler','SENTINEL','PII Detector']},
+ // ═══════════════════════════════════════════════════
+ // TIER 3 — DIRECTOR LAYER
+ // ═══════════════════════════════════════════════════
+ FINDER: {n:'FINDER', r:'Director of Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Lead generation via data enrichment tools. All prospect data written to VAULT-D under DATUM governance. Reports to HUNTER/CRO.', tools:['Data Enrichment','Lead Gen Tools','VAULT-D']},
+ CADENCE: {n:'CADENCE', r:'Director of Outreach', e:'📧', c:'#165436', tier:3, desc:'Sales sequencing and outreach execution. All inbound GUARDIAN-screened before reading. Reports to HUNTER/CRO.', tools:['Outreach Platform','Sequencing','GUARDIAN']},
+ CLOSE: {n:'CLOSE', r:'Director of Proposals', e:'📃', c:'#165436', tier:3, desc:'Custom proposals from VAULT-D data. All contracts require human e-signature via DocuSign. Reports to HUNTER/CRO.', tools:['Proposal Builder','DocuSign','VAULT-D']},
+ INK: {n:'INK', r:'Director of Content & SEO', e:'📝', c:'#165436', tier:3, desc:'Content strategy and SEO execution under SIGNAL/CMO brand direction. GUARDIAN-filtered pre-publish.', tools:['LLM Writer','SEO Tools','CMS API','GUARDIAN Filter']},
+ THREAD: {n:'THREAD', r:'Director of Social Media', e:'📱', c:'#165436', tier:3, desc:'Social channel management under SIGNAL/CMO. All DMs GUARDIAN-screened.', tools:['Social Scheduler','Engagement Tools','GUARDIAN Filter']},
+ FLOW: {n:'FLOW', r:'Director of Email', e:'💌', c:'#165436', tier:3, desc:'Email nurture and campaign execution under SIGNAL/CMO. All outbound GUARDIAN-filtered.', tools:['Email Platform','Automation','A/B Testing']},
+ LEDGE: {n:'LEDGE', r:'Director of Billing', e:'🧮', c:'#165436', tier:3, desc:'Invoice generation and collections. Payment changes → TREASURY (CIPHER) immediately. Reports to VAULT-VP.', tools:['Invoice Gen','Collections','TREASURY']},
+ AUDIT: {n:'AUDIT', r:'Director of Quality Assurance', e:'🔎', c:'#165436', tier:3, desc:'Daily output sampling across all tiers. PII in unexpected outputs → SENTINEL (CIPHER chain). Reports to RELAY.', tools:['Output Sampler','PII Detector','SENTINEL']},
+ BOND: {n:'BOND', r:'Director of Retention', e:'🔗', c:'#165436', tier:3, desc:'Churn risk and re-engagement. At-risk flag to human within 1 hour. Feeds expansion signals to HUNTER/CRO.', tools:['Churn Predictor','Re-engagement','HUNTER Integration']},
+ LENS: {n:'LENS', r:'Director of Analytics', e:'📈', c:'#165436', tier:3, desc:'KPI aggregation under DATUM governance. Feeds VISION dashboard. No raw PII in analytics output.', tools:['KPI Aggregator','VISION Dashboard','Data Aggregator']},
 
- // DATA LANE
- VAULTD: {n:'VAULT-D', r:'Data Warehouse', e:'🗄️', c:'#00dfc8', tier:'data', desc:'Single encrypted source of truth. AES-256. Reports to KEEPER.', tools:['AES-256 PostgreSQL','VERIFY Access','MASK','GDPR Erasure']},
- INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'🌊', c:'#00dfc8', tier:'data', desc:'Inbound data: classified, GUARDIAN-scanned, → VAULT-D.', tools:['Classifier','GUARDIAN','VAULT-D']},
- GUARDIAN_D: {n:'GUARDIAN-D', r:'Data Privacy & PII', e:'🔏', c:'#00dfc8', tier:'dlane', desc:'MASK & ISOLATE ops. Reports to TRUST.'},
- CURATOR: {n:'CURATOR', r:'Data Quality & Vault', e:'🗄️', c:'#00dfc8', tier:'dlane', desc:'VAULT-D & CLEAN ops. Reports to TRUST.'},
- RIVER: {n:'RIVER', r:'Data Pipeline & Viz', e:'🌊', c:'#00dfc8', tier:'dlane', desc:'INTAKE & VISION ops. Reports to FLOW.'},
+ // ═══════════════════════════════════════════════════
+ // DATA LANE DIRECTORS
+ // ═══════════════════════════════════════════════════
+ STEWARD: {n:'STEWARD', r:'Dir. Data Privacy & PII', e:'🔏', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of MASK (PII tokenization) and ISOLATE (session isolation). Enforces DATUM\'s PII sensitivity tier policies operationally. Reports to GOVERN/VP Data Governance.', tools:['MASK Operational Console','ISOLATE Session Monitor','PII Incident Log','Tokenization Audit Trail']},
+ CURATOR: {n:'CURATOR', r:'Dir. Data Quality & Vault', e:'🗄️', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of VAULT-D (encrypted data warehouse) and CLEAN (PoisonedRAG defense). Maintains data integrity, runs quality audits, processes GDPR erasure requests. Reports to GOVERN/VP Data Governance.', tools:['VAULT-D Operations Console','CLEAN Quality Dashboard','Data Integrity Audit','GDPR Erasure Workflow','Anomaly Alert Engine']},
+ STREAM: {n:'STREAM', r:'Dir. Data Pipeline & Viz', e:'🌊', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of INTAKE (data ingestion) and VISION (dashboards). Maintains all data pipelines, monitors ingestion health, ensures VISION dashboards stay accurate and PII-free. Reports to PIPELINE/VP Data Engineering.', tools:['INTAKE Health Monitor','VISION Dashboard Config','Pipeline Latency Tracker','Schema Validation Engine','Ingestion Failure Alerts']},
 
- // SECURITY LANE
- WATCH: {n:'WATCH', r:'Threat Operations', e:'👁️', c:'#C9A84C', tier:'slane', desc:'SENTINEL & GUARDIAN ops. Reports to VIGIL.'},
- RESOLVE: {n:'RESOLVE', r:'Incident Response', e:'🔧', c:'#C9A84C', tier:'slane', desc:'Incident response. Reports to VIGIL.'},
- RESPONSE: {n:'RESPONSE', r:'Dir. Incident & Trust', e:'🚒', c:'#ff4d6a', tier:'slane', desc:'CONTAIN ops. Runbooks, forensics, post-incident. Reports to VIGIL.', tools:['CONTAIN Console','Incident Runbook','Forensic Engine']},
- ACCESS: {n:'ACCESS', r:'Dir. Access & Audit', e:'🔒', c:'#ff4d6a', tier:'slane', desc:'VERIFY, LEDGER-S, TREASURY ops. Reports to ACCORD.', tools:['VERIFY Console','LEDGER-S Audit','TREASURY','API Key Rotation']},
- GATE: {n:'GATE', r:'Access & Audit', e:'🚪', c:'#C9A84C', tier:'slane', desc:'Access control & audit trails.'},
- VAULT: {n:'VAULT', r:'Data Warehouse', e:'🏦', c:'#C9A84C', tier:'slane', desc:'Encrypted warehouse.'},
- MASK: {n:'MASK', r:'PII Tokenization', e:'🎭', c:'#C9A84C', tier:'slane', desc:'PII tokenization.'},
- VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#C9A84C', tier:'slane', desc:'Dashboards.'},
- PURE: {n:'PURE', r:'Data Quality Guard', e:'💎', c:'#C9A84C', tier:'slane', desc:'Data validation.'},
- ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🛡️', c:'#C9A84C', tier:'slane', desc:'Session security.'},
- SENTINEL: {n:'SENTINEL', r:'Security Ops Monitor', e:'🩺', c:'#C9A84C', tier:'slane', desc:'Security monitoring.'},
- FILTER: {n:'FILTER', r:'Content Filter', e:'🔍', c:'#C9A84C', tier:'slane', desc:'Content filtering.'},
- TREASURY: {n:'TREASURY', r:'Transaction Security', e:'💰', c:'#C9A84C', tier:'slane', desc:'Transaction validation.'},
- VERIFY: {n:'VERIFY', r:'Identity & Access', e:'✅', c:'#C9A84C', tier:'slane', desc:'Identity verification.'},
- CHRONICLE: {n:'CHRONICLE', r:'Audit Log', e:'📜', c:'#C9A84C', tier:'slane', desc:'Audit logging.'},
- ZERO: {n:'ZERO', r:'Zero Trust', e:'⭕', c:'#C9A84C', tier:'slane', desc:'Zero trust enforcement.'},
- CONTAIN: {n:'CONTAIN', r:'Incident Containment', e:'📦', c:'#C9A84C', tier:'slane', desc:'Incident isolation.'}
+ // ═══════════════════════════════════════════════════
+ // DATA LANE AGENTS
+ // ═══════════════════════════════════════════════════
+ VAULTD: {n:'VAULT-D', r:'Data Warehouse', e:'🗄️', c:'#00dfc8', tier:'data', desc:'Single encrypted source of truth for all 4 sensitivity tiers. Local hardware, AES-256. Day-to-day operations managed by CURATOR (Dir. Data Quality & Vault). Policy set by DATUM. VERIFY access control enforced by ACCESS (Dir.) under COMPLY.', tools:['AES-256 PostgreSQL','VERIFY Access Control','MASK Integration','GDPR Erasure Orchestrator']},
+ INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'📥', c:'#00dfc8', tier:'data', desc:'All inbound classified by sensitivity tier, GUARDIAN-scanned, written to VAULT-D. Day-to-day operations managed by STREAM (Dir. Data Pipeline & Viz). Policy set by DATUM.', tools:['API Connector Hub','Schema Normalizer','GUARDIAN Integration','VAULT-D Write Bridge']},
+ MASK: {n:'MASK', r:'PII Tokenization', e:'🔏', c:'#00dfc8', tier:'data', desc:'SSNs and account numbers replaced with tokens before any LLM sees them. Day-to-day operations managed by STEWARD (Dir. Data Privacy & PII). Policy set by DATUM.', tools:['SSN Tokenizer','Bank Data Tokenizer','Isolated Token Store','Encrypted API Reconstruction']},
+ VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#00dfc8', tier:'data', desc:'Real-time dashboards for all C-Suite and founder. Aggregated only — no raw PII. Day-to-day operations managed by STREAM (Dir. Data Pipeline & Viz). Curated per DATUM policy.', tools:['Dashboard Builder','Aggregation Engine','Threshold Alert System','Mobile Report Delivery']},
+ CLEAN: {n:'CLEAN', r:'Data Quality Guard', e:'🔬', c:'#00dfc8', tier:'data', desc:'Validates all data for PoisonedRAG patterns before entering VAULT-D. Day-to-day operations managed by CURATOR (Dir. Data Quality & Vault). Standards set by DATUM.', tools:['PoisonedRAG Detection Model','Data Drift Monitor','Embedding Anomaly Detector','Integrity Check Engine']},
+ ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🔐', c:'#00dfc8', tier:'data', desc:'Every agent conversation runs in a clean isolated context. Prevents cross-tenant data bleed. Day-to-day operations managed by STEWARD (Dir. Data Privacy & PII). Policy set by DATUM.', tools:['Session Context Manager','Clean Start Enforcer','Identity Re-Verification Bridge','Cross-Tenant Isolation Monitor']},
+
+ // ═══════════════════════════════════════════════════
+ // SECURITY LANE DIRECTORS
+ // ═══════════════════════════════════════════════════
+ SENTRY: {n:'SENTRY', r:'Dir. Threat Operations', e:'🚨', c:'#ff4d6a', tier:'slane', desc:'Day-to-day management of SENTINEL (monitoring), GUARDIAN (input filtering), and ZERO (zero trust enforcement). Runs daily threat hunts, maintains OWASP LLM rules, enforces NIST SP 800-207 agent-to-agent trust policies. Reports to RISKWATCH/VP Cybersecurity Ops.', tools:['SENTINEL Operations Console','GUARDIAN Rule Engine','ZERO Trust Policy Manager','Threat Hunt Runbooks','AI-Specific Threat Feed','OWASP LLM Top 10 Library']},
+ RESPONSE: {n:'RESPONSE', r:'Dir. Incident & Trust', e:'🚒', c:'#ff4d6a', tier:'slane', desc:'Day-to-day management of CONTAIN (incident response). Owns the incident response runbook, maintains forensic evidence procedures, and coordinates post-incident reviews. Reports to RISKWATCH/VP Cybersecurity Ops.', tools:['CONTAIN Operations Console','Incident Runbook Manager','Forensic Preservation Engine','Post-Incident Review Builder','Dual-Alert System (CIPHER + Founder)']},
+ ACCESS: {n:'ACCESS', r:'Dir. Access, Audit & Trans.', e:'🔒', c:'#ff4d6a', tier:'slane', desc:'Day-to-day management of VERIFY (identity & access), LEDGER-S (immutable audit log), and TREASURY (transaction security). Enforces least-privilege, rotates API keys, monitors ATO fraud, maintains tamper-proof audit trails, and clears all financial transactions. Reports to COMPLY/VP Compliance & Risk.', tools:['VERIFY Access Console','LEDGER-S Audit Dashboard','TREASURY Transaction Monitor','API Key Rotation Engine','ATO Detection Feed','SOC 2 Evidence Collector']},
+
+ // ═══════════════════════════════════════════════════
+ // SECURITY LANE AGENTS
+ // ═══════════════════════════════════════════════════
+ SENTINEL:{n:'SENTINEL', r:'Security Ops Monitor', e:'🚨', c:'#ff4d6a', tier:'security', desc:'Day-to-day behavioral anomaly monitoring of all agents. Managed by SENTRY (Dir. Threat Ops). Escalation path: SENTRY → RISKWATCH → CIPHER. High-severity confirmed threats skip to CIPHER directly.', tools:['Behavioral Anomaly Detector','Multi-Agent Monitor','SMS+Push Alert','Threat Intel Feed']},
+ GUARDIAN:{n:'GUARDIAN', r:'Content & Input Filter',e:'🧱', c:'#ff4d6a', tier:'security', desc:'100% of inbound messages scanned before any agent reads them. Managed by SENTRY (Dir. Threat Ops). Rules set by CIPHER, executed per SENTRY runbooks. OWASP LLM Top 10 compliant.', tools:['OWASP LLM Top 10','Semantic Separator','Injection Classifier','Jailbreak Pattern Library']},
+ TREASURY:{n:'TREASURY', r:'Transaction Security', e:'🏦', c:'#ff4d6a', tier:'security', desc:'Every financial transaction requires TREASURY clearance. Managed by ACCESS (Dir. Access, Audit & Trans.). Thresholds set by CIPHER: <$500 auto, $500-$5K APEX confirms, >$5K human required.', tools:['Payment Validator','Pattern Analyzer','Velocity Check','Human Approval Push']},
+ VERIFY: {n:'VERIFY', r:'Identity & Access Mgr',e:'🪪', c:'#ff4d6a', tier:'security', desc:'Least-privilege access enforcement. Managed by ACCESS (Dir. Access, Audit & Trans.). Policy set by CIPHER. 30-day API key rotation. Monitors for ATO fraud.', tools:['Least-Privilege Engine','API Key Rotation','Scope Violation Detector','ATO Monitor']},
+ LEDGERS: {n:'LEDGER-S', r:'Immutable Audit Log', e:'📜', c:'#ff4d6a', tier:'security', desc:'Tamper-proof log of every agent action with full reasoning chain. Managed by ACCESS (Dir. Access, Audit & Trans.). Reports to CIPHER on any modification attempt. GDPR+CCPA+SOC2 ready.', tools:['Tamper-Proof Logger','Reasoning Chain Recorder','Compliance Reporter','Forensic Vault']},
+ ZERO: {n:'ZERO', r:'Zero Trust Enforcer', e:'🔒', c:'#ff4d6a', tier:'security', desc:'Validates every agent-to-agent communication before execution. Managed by SENTRY (Dir. Threat Ops). NIST SP 800-207. Policy set by CIPHER.', tools:['NIST SP 800-207','Behavioral Baseline','Inter-Agent Validation','Lateral Movement Detector']},
+ CONTAIN: {n:'CONTAIN', r:'Incident Response', e:'🚒', c:'#ff4d6a', tier:'security', desc:'On confirmed threat: isolate, pause, alert CIPHER+human simultaneously, preserve forensics, recover. Managed by RESPONSE (Dir. Incident & Trust). Escalation always simultaneous to CIPHER + Founder.', tools:['Agent Isolation Engine','Workflow Pause','Dual Alert System','Forensic Preservation']}
 };
 
 // ═══════════════════════════════════════════════════
@@ -608,7 +627,7 @@ let scale = 1, panX = 0, panY = 0, isDragging = false, startX, startY;
 const canvas = document.getElementById('canvas'), root = document.getElementById('root'), tip = document.getElementById('tip');
 
 const TIERS = {
- owner: {y:0, label:'FOUNDER'},
+ founder: {y:0, label:'FOUNDER'},
  0: {y:1, label:'TIER 0 — CEO'},
  1: {y:2, label:'TIER 1 — C-SUITE'},
  2: {y:3, label:'TIER 2 — VP'},
@@ -619,14 +638,14 @@ const TIERS = {
 };
 
 const TIER_COLORS = {
- owner: '#C9A84C',
+ founder: '#C9A84C',
  0: '#C9A84C',
  1: '#0A351D',
  2: '#7DA88A',
  3: '#165436',
  data: '#00dfc8',
  dlane: '#00dfc8',
- slane: '#C9A84C'
+ slane: '#ff4d6a'
 };
 
 function pos(tier, index, total) {
@@ -641,11 +660,11 @@ function drawNode(id, data, x, y, parentId) {
  g.style.cursor = 'pointer';
  g.dataset.id = id;
  
- const boxW = 120, boxH = data.tier === 0 ? 60 : 50;
+ const boxW = 120, boxH = data.tier === 0 || data.tier === 'founder' ? 60 : 50;
  const color = data.c || '#0A351D';
  
- // Glow for CEO
- if(data.tier === 0) {
+ // Glow for Founder and CEO
+ if(data.tier === 0 || data.tier === 'founder') {
   const glow = document.createElementNS('http://www.w3.org/2000/svg','rect');
   glow.setAttribute('x', -boxW/2 - 4);
   glow.setAttribute('y', -boxH/2 - 4);
@@ -666,7 +685,7 @@ function drawNode(id, data, x, y, parentId) {
  rect.setAttribute('rx', 6);
  rect.setAttribute('fill', '#0c1020');
  rect.setAttribute('stroke', color);
- rect.setAttribute('stroke-width', data.tier === 0 ? 2 : 1.5);
+ rect.setAttribute('stroke-width', data.tier === 0 || data.tier === 'founder' ? 2 : 1.5);
  rect.setAttribute('filter', 'url(#drop)');
  g.appendChild(rect);
  
@@ -674,15 +693,15 @@ function drawNode(id, data, x, y, parentId) {
  const emoji = document.createElementNS('http://www.w3.org/2000/svg','text');
  emoji.setAttribute('x', -boxW/2 + 12);
  emoji.setAttribute('y', 5);
- emoji.setAttribute('font-size', data.tier === 0 ? 24 : 18);
+ emoji.setAttribute('font-size', data.tier === 0 || data.tier === 'founder' ? 24 : 18);
  emoji.textContent = data.e || '●';
  g.appendChild(emoji);
  
  // Name
  const name = document.createElementNS('http://www.w3.org/2000/svg','text');
  name.setAttribute('x', -boxW/2 + 36);
- name.setAttribute('y', data.tier === 0 ? -8 : -6);
- name.setAttribute('font-size', data.tier === 0 ? 13 : 11);
+ name.setAttribute('y', data.tier === 0 || data.tier === 'founder' ? -8 : -6);
+ name.setAttribute('font-size', data.tier === 0 || data.tier === 'founder' ? 13 : 11);
  name.setAttribute('font-weight', '700');
  name.setAttribute('fill', '#FAF8F5');
  name.textContent = data.n;
@@ -691,7 +710,7 @@ function drawNode(id, data, x, y, parentId) {
  // Role
  const role = document.createElementNS('http://www.w3.org/2000/svg','text');
  role.setAttribute('x', -boxW/2 + 36);
- role.setAttribute('y', data.tier === 0 ? 8 : 10);
+ role.setAttribute('y', data.tier === 0 || data.tier === 'founder' ? 8 : 10);
  role.setAttribute('font-size', 8);
  role.setAttribute('fill', color);
  role.textContent = data.r.substring(0, 20);
@@ -700,7 +719,7 @@ function drawNode(id, data, x, y, parentId) {
  // Connection line
  if(parentId) {
   const parent = CORE[parentId];
-  const pp = TIERS[parent.tier]?.y ?? 3;
+  const pp = TIERS[parent?.tier]?.y ?? 3;
   const cp = TIERS[data.tier]?.y ?? 3;
   const line = document.createElementNS('http://www.w3.org/2000/svg','line');
   line.setAttribute('x1', x);
@@ -720,9 +739,9 @@ function drawNode(id, data, x, y, parentId) {
 }
 
 function showTip(e, id, data) {
- const t = data.tier === 0 ? 'TIER 0 — CEO' : data.tier === 1 ? 'TIER 1 — C-SUITE' : data.tier === 2 ? 'TIER 2 — VP' : data.tier === 3 ? 'TIER 3 — DIRECTOR' : data.tier === 'dlane' ? 'DATA LANE' : data.tier === 'slane' ? 'SECURITY LANE' : 'FOUNDER';
- let html = `<div class="tip-tier">${t}</div>
- <div class="tip-name">${data.n}</div>
+ const tierNames = {founder:'FOUNDER',0:'TIER 0 — CEO',1:'TIER 1 — C-SUITE',2:'TIER 2 — VP',3:'TIER 3 — DIRECTOR',dlane:'DATA LANE DIRECTOR',slane:'SECURITY LANE DIRECTOR',data:'DATA LANE AGENT',security:'SECURITY LANE AGENT'};
+ let html = `<div class="tip-tier">${tierNames[data.tier] || ''}</div>
+ <div class="tip-name">${data.e} ${data.n}</div>
  <div class="tip-role">${data.r}</div>`;
  
  if(data.mandate) {
@@ -734,13 +753,13 @@ function showTip(e, id, data) {
  }
  
  if(data.resp && data.resp.length) {
-  html += `<div class="tip-sec">Responsibilities</div><ul class="tip-list">`;
+  html += `<div class="tip-sec">Key Responsibilities</div><ul class="tip-list">`;
   data.resp.slice(0,5).forEach(r => html += `<li>${r}</li>`);
   html += `</ul>`;
  }
  
  if(data.tools && data.tools.length) {
-  html += `<div class="tip-sec">Tools</div><div class="tip-chips">`;
+  html += `<div class="tip-sec">Tools & Integrations</div><div class="tip-chips">`;
   data.tools.slice(0,6).forEach(t => html += `<span class="tip-chip">${t}</span>`);
   html += `</div>`;
  }
@@ -783,48 +802,85 @@ canvas.addEventListener('wheel', e => {
 function render() {
  root.innerHTML = '';
  
- // Owner
- const ownerPos = pos('owner', 0, 1);
- drawNode('HUMAN', CORE.HUMAN, ownerPos.x, ownerPos.y, null);
+ // Founder (top)
+ const founderPos = pos('founder', 0, 1);
+ drawNode('FOUNDER', CORE.FOUNDER, founderPos.x, founderPos.y, null);
  
- // CEO
+ // CEO (Tier 0)
  const ceoPos = pos(0, 0, 1);
- drawNode('ATLAS', CORE.ATLAS, ceoPos.x, ceoPos.y, 'HUMAN');
+ drawNode('APEX', CORE.APEX, ceoPos.x, ceoPos.y, 'FOUNDER');
  
  // C-Suite (9 agents)
- const csuite = ['STEWARD','BRIDGE','VOICE','HARVEST','CRAFT','HAVEN','SAGE','KEEPER','SHIELD'];
+ const csuite = ['LEDGER','CORTEX','SIGNAL','HUNTER','FORGE','ANCHOR','COUNSEL','DATUM','CIPHER'];
  csuite.forEach((id, i) => {
   const p = pos(1, i, csuite.length);
-  drawNode(id, CORE[id], p.x, p.y, 'ATLAS');
+  drawNode(id, CORE[id], p.x, p.y, 'APEX');
  });
  
- // VP Layer (17 agents)
- const vps = ['COMPASS','LEDGER','DELIVER','INSIGHT','GROW','SCOUT','QUILL','FOUNDATION','BUILDER','WARMTH','GUIDE','JUSTICE','CHARTER','TRUST','FLOW','VIGIL','ACCORD'];
+ // VP Layer
+ const vps = ['PULSE','VAULTVP','RELAY','PRISM','BOOST','SCOUT','QUILL','BEDROCK','ARCHITECT','WARMTH','GUIDE','SHIELD','COMPLY_L','GOVERN','PIPELINE','RISKWATCH','COMPLY'];
  vps.forEach((id, i) => {
   const p = pos(2, i, vps.length);
-  drawNode(id, CORE[id], p.x, p.y, id === 'COMPASS' || id === 'LEDGER' ? 'STEWARD' : id === 'DELIVER' || id === 'INSIGHT' || id === 'GUIDE' ? 'BRIDGE' : id === 'QUILL' || id === 'SCOUT' ? 'VOICE' : id === 'GROW' || id === 'COMPASS' ? 'HARVEST' : id === 'FOUNDATION' || id === 'BUILDER' ? 'CRAFT' : id === 'WARMTH' || id === 'GUIDE' ? 'HAVEN' : id === 'JUSTICE' || id === 'CHARTER' ? 'SAGE' : id === 'TRUST' || id === 'FLOW' ? 'KEEPER' : 'SHIELD');
+  const parent = id === 'PULSE' || id === 'VAULTVP' ? 'LEDGER' :
+                 id === 'RELAY' || id === 'PRISM' || id === 'BOOST' || id === 'SCOUT' ? 'CORTEX' :
+                 id === 'QUILL' ? 'SIGNAL' :
+                 id === 'BEDROCK' || id === 'ARCHITECT' ? 'FORGE' :
+                 id === 'WARMTH' || id === 'GUIDE' ? 'ANCHOR' :
+                 id === 'SHIELD' || id === 'COMPLY_L' ? 'COUNSEL' :
+                 id === 'GOVERN' || id === 'PIPELINE' ? 'DATUM' :
+                 'CIPHER';
+  drawNode(id, CORE[id], p.x, p.y, parent);
  });
  
  // Directors (10)
- const dirs = ['SEEK','RHYTHM','COVENANT','INK','THREAD','EMBER','TALLY','POLISH','BOND','LENS','FINDER','CADENCE','CLOSE','LEDGE','AUDIT'];
+ const dirs = ['FINDER','CADENCE','CLOSE','INK','THREAD','FLOW','LEDGE','AUDIT','BOND','LENS'];
  dirs.forEach((id, i) => {
   const p = pos(3, i, dirs.length);
-  drawNode(id, CORE[id], p.x, p.y, 'VOICE');
+  const parent = id === 'FINDER' || id === 'CADENCE' || id === 'CLOSE' ? 'HUNTER' :
+                 id === 'INK' || id === 'THREAD' || id === 'FLOW' ? 'QUILL' :
+                 id === 'LEDGE' ? 'VAULTVP' :
+                 id === 'LENS' ? 'PRISM' :
+                 'RELAY';
+  drawNode(id, CORE[id], p.x, p.y, parent);
  });
  
- // Data Lane (5)
- const dlane = ['VAULTD','INTAKE','GUARDIAN_D','CURATOR','RIVER'];
- dlane.forEach((id, i) => {
-  const p = pos('data', i, dlane.length);
-  const realId = id === 'GUARDIAN_D' ? 'GUARDIAN-D' : id;
-  drawNode(realId, CORE[id], p.x - 250, p.y + 180, 'KEEPER');
+ // Data Lane Directors (3)
+ const dlaneDir = ['STEWARD','CURATOR','STREAM'];
+ dlaneDir.forEach((id, i) => {
+  const p = pos('dlane', i, dlaneDir.length);
+  const parent = id === 'STEWARD' ? 'GOVERN' :
+                 id === 'CURATOR' ? 'GOVERN' :
+                 'PIPELINE';
+  drawNode(id, CORE[id], p.x - 200, p.y + 80, parent);
  });
  
- // Security Lane (18)
- const slane = ['WATCH','RESOLVE','RESPONSE','ACCESS','GATE','VAULT','MASK','VISION','PURE','ISOLATE','SENTINEL','FILTER','TREASURY','VERIFY','CHRONICLE','ZERO','CONTAIN'];
- slane.forEach((id, i) => {
-  const p = pos('slane', i, slane.length);
-  drawNode(id, CORE[id], p.x + 200, p.y + 180, 'SHIELD');
+ // Data Lane Agents (6)
+ const dataAgents = ['VAULTD','INTAKE','MASK','VISION','CLEAN','ISOLATE'];
+ dataAgents.forEach((id, i) => {
+  const p = pos('data', i, dataAgents.length);
+  drawNode(id, CORE[id], p.x - 250, p.y + 180, id === 'VAULTD' || id === 'CLEAN' ? 'CURATOR' :
+                                        id === 'INTAKE' || id === 'VISION' ? 'STREAM' :
+                                        'STEWARD');
+ });
+ 
+ // Security Lane Directors (3)
+ const slaneDir = ['SENTRY','RESPONSE','ACCESS'];
+ slaneDir.forEach((id, i) => {
+  const p = pos('slane', i, slaneDir.length);
+  const parent = id === 'SENTRY' ? 'RISKWATCH' :
+                 id === 'RESPONSE' ? 'RISKWATCH' :
+                 'COMPLY';
+  drawNode(id, CORE[id], p.x + 200, p.y + 80, parent);
+ });
+ 
+ // Security Lane Agents (7)
+ const secAgents = ['SENTINEL','GUARDIAN','ZERO','CONTAIN','VERIFY','LEDGERS','TREASURY'];
+ secAgents.forEach((id, i) => {
+  const p = pos('slane', i + 3, secAgents.length + 3);
+  const parent = id === 'SENTINEL' || id === 'GUARDIAN' || id === 'ZERO' ? 'SENTRY' :
+                 id === 'CONTAIN' ? 'RESPONSE' :
+                 'ACCESS';
+  drawNode(id, CORE[id], p.x + 200, p.y + 180, parent);
  });
 }
 
