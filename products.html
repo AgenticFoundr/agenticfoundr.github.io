@@ -11,7 +11,7 @@
   .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   @media (max-width: 768px) { .products-grid { grid-template-columns: 1fr; } }
   @media (min-width: 769px) and (max-width: 1024px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
-  .bundle-card { background: linear-gradient(135deg, #0D3320 0%, #1B5E3A 100%); color: #fff; border-radius: var(--radius); padding: 40px; text-align: center; margin-top: 40px; }
+  .bundle-card { background: linear-gradient(135deg, #061A0F 0%, #0A351D 100%); color: #fff; border-radius: var(--radius); padding: 40px; text-align: center; margin-top: 40px; }
   .bundle-card h2 { color: #fff; }
   .bundle-price { font-size: 48px; font-weight: 900; color: var(--accent); }
   .bundle-original { font-size: 18px; text-decoration: line-through; opacity: 0.5; margin-right: 8px; }
@@ -21,18 +21,17 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><span>Agentic</span><span>Foundr</span></a>
+    <a href="index.html" class="nav-logo"><span>Agentic</span><span>Foundr</span></a>
     <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links">
-      <li><a href="/">Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="products.html" class="active">Products</a></li>
       <li><a href="free.html">Free Resources</a></li>
       <li><a href="about.html">About</a></li>
         <li><a href="blog.html">Blog</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="#bundle" class="btn btn-primary btn-sm">Get Bundle →</a></li>
+      <li><a href="#bundle" class="btn btn-accent btn-sm">Get Bundle →</a></li>
     </ul>
   </div>
 </nav>
@@ -296,7 +295,6 @@
         <li><a href="free.html">Free Guides</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="blog.html">Blog</a></li>
-      <li><a href="blog.html">Blog</a></li>
       </ul>
     </div>
     <div>
