@@ -87,6 +87,18 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
 .card.csuite{border-top:4px solid #0A351D}
 .card.csuite .role{color:#0A351D;font-weight:600}
 
+/* Legal Lane (orange) */
+.card.legal{border-top:4px solid #F97316}
+.card.legal .role{color:#F97316;font-weight:600}
+.card.legal-vp{
+ border-top:4px solid #F97316;
+ padding:10px 14px;
+ min-width:90px;
+}
+.card.legal-vp .emoji{font-size:20px;margin-bottom:4px}
+.card.legal-vp .name{font-size:11px}
+.card.legal-vp .role{font-size:8px;color:#F97316;font-weight:600}
+
 /* VP */
 .card.vp{
  border-top:4px solid #7DA88A;
@@ -192,7 +204,7 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
     <div class="card csuite"><span class="emoji">🎯</span><div class="name">HARVEST</div><div class="role">CRO</div></div>
     <div class="card csuite"><span class="emoji">🔧</span><div class="name">CRAFT</div><div class="role">CTO</div></div>
     <div class="card csuite"><span class="emoji">🤝</span><div class="name">HAVEN</div><div class="role">CCO</div></div>
-    <div class="card csuite"><span class="emoji">⚖️</span><div class="name">SAGE</div><div class="role">CLO</div></div>
+    <div class="card legal"><span class="emoji">⚖️</span><div class="name">SAGE</div><div class="role">CLO</div></div>
     <div class="card csuite"><span class="emoji">🌐</span><div class="name">KEEPER</div><div class="role">CDO</div></div>
     <div class="card csuite"><span class="emoji">🛡️</span><div class="name">SHIELD</div><div class="role">CISO</div></div>
    </div>
@@ -215,8 +227,8 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
     <div class="card vp"><span class="emoji">🧩</span><div class="name">BUILDER</div><div class="role">VP Product</div></div>
     <div class="card vp"><span class="emoji">⭐</span><div class="name">WARMTH</div><div class="role">VP CX</div></div>
     <div class="card vp"><span class="emoji">🎓</span><div class="name">GUIDE</div><div class="role">VP Onboard</div></div>
-    <div class="card vp"><span class="emoji">🏛️</span><div class="name">JUSTICE</div><div class="role">VP Legal</div></div>
-    <div class="card vp"><span class="emoji">📜</span><div class="name">CHARTER</div><div class="role">VP Gov</div></div>
+    <div class="card legal-vp"><span class="emoji">🏛️</span><div class="name">JUSTICE</div><div class="role">VP Legal</div></div>
+    <div class="card legal-vp"><span class="emoji">📜</span><div class="name">CHARTER</div><div class="role">VP Gov</div></div>
     <div class="card vp"><span class="emoji">🔐</span><div class="name">TRUST</div><div class="role">VP Data Gov</div></div>
     <div class="card vp"><span class="emoji">🔩</span><div class="name">FLOW</div><div class="role">VP Eng</div></div>
     <div class="card vp"><span class="emoji">🔭</span><div class="name">VIGIL</div><div class="role">VP Security</div></div>
@@ -296,6 +308,7 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
  <div class="legend">
   <div class="legend-item"><div class="legend-dot" style="background:#C9A84C"></div>Founder / CEO</div>
   <div class="legend-item"><div class="legend-dot" style="background:#0A351D"></div>C-Suite</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#F97316"></div>Legal</div>
   <div class="legend-item"><div class="legend-dot" style="background:#7DA88A"></div>VP</div>
   <div class="legend-item"><div class="legend-dot" style="background:#165436"></div>Director</div>
   <div class="legend-item"><div class="legend-dot" style="background:#14B8A6"></div>Data</div>
@@ -327,6 +340,18 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
 
  <div class="defs">
   <h2>📖 Agent Role Definitions</h2>
+
+  <!-- FOUNDER -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#C9A84C">Founder</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#C9A84C">
+     <div class="def-name">👤 YOU</div>
+     <div class="def-title">Founder & Owner</div>
+     <div class="def-desc">The single point of strategic authority. Sets the vision, approves major decisions, and provides final sign-off on all critical matters. The founder's word is law — every agent in the enterprise ultimately serves the founder's mission. Owns the company, defines the culture, and ensures the servant leadership model stays true to its values.</div>
+    </div>
+   </div>
+  </div>
 
   <!-- CEO -->
   <div class="def-section">
@@ -381,7 +406,7 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
      <div class="def-desc">Client relationships — onboarding, satisfaction, renewals, and upsells. Ensures exceptional client experiences, drives retention, and identifies expansion opportunities.</div>
      <div class="def-reports">Reports to: ATLAS · Manages: WARMTH, GUIDE, BOND</div>
     </div>
-    <div class="def-item" style="border-color:#0A351D">
+    <div class="def-item" style="border-color:#F97316">
      <div class="def-name">⚖️ SAGE</div>
      <div class="def-title">Chief Legal Officer</div>
      <div class="def-desc">Contracts, regulatory compliance, risk management, and IP protection. Provides legal guidance, manages risk exposure, and protects intellectual property.</div>
@@ -417,8 +442,8 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
     <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🧩 BUILDER</div><div class="def-title">VP Product Development</div><div class="def-desc">R&D backlog, product roadmap, and performance patterns. Drives innovation and product evolution.</div><div class="def-reports">Reports to: CRAFT (CTO)</div></div>
     <div class="def-item" style="border-color:#7DA88A"><div class="def-name">⭐ WARMTH</div><div class="def-title">VP Client Experience</div><div class="def-desc">Client retention, NPS, satisfaction, and health scoring. Ensures clients feel valued, heard, and supported.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
     <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🎓 GUIDE</div><div class="def-title">VP Client Onboarding</div><div class="def-desc">New client setup, walkthroughs, and first-success journeys. Sets clients up for long-term success from day one.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🏛️ JUSTICE</div><div class="def-title">VP Legal Strategy</div><div class="def-desc">Legal ops, contracts, IP portfolio, and risk management. Handles strategic legal planning and execution.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
-    <div class="def-item" style="border-color:#7DA88A"><div class="def-name">📜 CHARTER</div><div class="def-title">VP Regulatory & Governance</div><div class="def-desc">Compliance calendar, governance frameworks, and policy management. Ensures adherence to all regulations.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
+    <div class="def-item" style="border-color:#F97316"><div class="def-name">🏛️ JUSTICE</div><div class="def-title">VP Legal Strategy</div><div class="def-desc">Legal ops, contracts, IP portfolio, and risk management. Handles strategic legal planning and execution.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
+    <div class="def-item" style="border-color:#F97316"><div class="def-name">📜 CHARTER</div><div class="def-title">VP Regulatory & Governance</div><div class="def-desc">Compliance calendar, governance frameworks, and policy management. Ensures adherence to all regulations.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
     <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🔐 TRUST</div><div class="def-title">VP Data Governance</div><div class="def-desc">Data policies, privacy, catalog, lineage, and GDPR compliance. Protects data as a strategic enterprise asset.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
     <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🔩 FLOW</div><div class="def-title">VP Data Engineering</div><div class="def-desc">Data pipelines, ingestion, warehousing, and flow management. Builds and maintains data infrastructure.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
     <div class="def-item" style="border-color:#7DA88A"><div class="def-name">🔭 VIGIL</div><div class="def-title">VP Cybersecurity Ops</div><div class="def-desc">Active threat operations, security monitoring, and posture management. Provides 24/7 security vigilance.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
@@ -447,15 +472,15 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
   <div class="def-section">
    <div class="def-section-title" style="background:#14B8A6">Data Lane</div>
    <div class="def-grid">
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔏 GUARDIAN-D</div><div class="def-title">Data Privacy & PII</div><div class="def-desc">PII handling, tokenization, and privacy protection. Ensures all sensitive data is properly safeguarded.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🗄️ CURATOR</div><div class="def-title">Data Quality & Vault</div><div class="def-desc">Data quality assurance, warehouse management, and vault integrity. Maintains data accuracy and secure storage.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🌊 RIVER</div><div class="def-title">Data Pipeline & Visualization</div><div class="def-desc">Data flow management, visualization, and dashboard delivery. Manages data streaming and reporting pipelines.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🏦 VAULT</div><div class="def-title">Data Warehouse</div><div class="def-desc">Secure encrypted storage and tamper-proof data warehousing. The single source of truth for enterprise data.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">📥 INTAKE</div><div class="def-title">Data Ingestion</div><div class="def-desc">Data intake, classification, and entry processing. Handles all incoming data from external and internal sources.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🎭 MASK</div><div class="def-title">PII Tokenization</div><div class="def-desc">PII masking and token replacement. Replaces sensitive data with tokens before any LLM sees it.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">📊 VISION</div><div class="def-title">Data Visualization</div><div class="def-desc">Real-time dashboards, reports, and visual insights for all C-Suite and the founder. Aggregated only — no raw PII.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">💎 PURE</div><div class="def-title">Data Quality Guard</div><div class="def-desc">Data purity, validation, and cleansing. Validates all data for PoisonedRAG patterns before entering VAULT.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
-    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🛡️ ISOLATE</div><div class="def-title">Session Isolation</div><div class="def-desc">Every agent conversation runs in a clean isolated context. Prevents cross-tenant data bleed and contamination.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔏 GUARDIAN-D</div><div class="def-title">Data Privacy & PII</div><div class="def-desc">PII handling, tokenization, and privacy protection. Ensures all sensitive data is properly safeguarded.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → GUARDIAN-D</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🗄️ CURATOR</div><div class="def-title">Data Quality & Vault</div><div class="def-desc">Data quality assurance, warehouse management, and vault integrity. Maintains data accuracy and secure storage.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → CURATOR</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🌊 RIVER</div><div class="def-title">Data Pipeline & Visualization</div><div class="def-desc">Data flow management, visualization, and dashboard delivery. Manages data streaming and reporting pipelines.</div><div class="def-reports">Chain: KEEPER (CDO) → FLOW (VP) → LENS (Dir) → RIVER</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🏦 VAULT</div><div class="def-title">Data Warehouse</div><div class="def-desc">Secure encrypted storage and tamper-proof data warehousing. The single source of truth for enterprise data.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → VAULT</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">📥 INTAKE</div><div class="def-title">Data Ingestion</div><div class="def-desc">Data intake, classification, and entry processing. Handles all incoming data from external and internal sources.</div><div class="def-reports">Chain: KEEPER (CDO) → FLOW (VP) → LENS (Dir) → INTAKE</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🎭 MASK</div><div class="def-title">PII Tokenization</div><div class="def-desc">PII masking and token replacement. Replaces sensitive data with tokens before any LLM sees it.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → MASK</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">📊 VISION</div><div class="def-title">Data Visualization</div><div class="def-desc">Real-time dashboards, reports, and visual insights for all C-Suite and the founder. Aggregated only — no raw PII.</div><div class="def-reports">Chain: KEEPER (CDO) → FLOW (VP) → LENS (Dir) → VISION</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">💎 PURE</div><div class="def-title">Data Quality Guard</div><div class="def-desc">Data purity, validation, and cleansing. Validates all data for PoisonedRAG patterns before entering VAULT.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → PURE</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🛡️ ISOLATE</div><div class="def-title">Session Isolation</div><div class="def-desc">Every agent conversation runs in a clean isolated context. Prevents cross-tenant data bleed and contamination.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → ISOLATE</div></div>
    </div>
   </div>
 
@@ -463,16 +488,16 @@ html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
   <div class="def-section">
    <div class="def-section-title" style="background:#EF4444">Security Lane</div>
    <div class="def-grid">
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">👁️ WATCH</div><div class="def-title">Threat Operations</div><div class="def-desc">Behavioral anomaly monitoring of all agents. Continuous surveillance for threats and suspicious activity.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🔧 RESOLVE</div><div class="def-title">Incident Response</div><div class="def-desc">Incident handling, resolution, and recovery. Responds to confirmed security incidents with speed and precision.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🚪 GATE</div><div class="def-title">Access & Audit</div><div class="def-desc">Access control, gatekeeping, and audit trail management. Controls who can access what resources.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🩺 SENTINEL</div><div class="def-title">Security Ops Monitor</div><div class="def-desc">24/7 security monitoring, health checks, and automated alerts. Continuous security surveillance.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🔍 FILTER</div><div class="def-title">Content & Input Filter</div><div class="def-desc">100% of inbound messages scanned before any agent reads them. OWASP LLM Top 10 compliant.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">💰 TREASURY</div><div class="def-title">Transaction Security</div><div class="def-desc">Every financial transaction requires TREASURY clearance. Thresholds: &lt;$500 auto, $500-$5K ATLAS confirms, &gt;$5K human required.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">✅ VERIFY</div><div class="def-title">Identity & Access Manager</div><div class="def-desc">Least-privilege access enforcement. 30-day API key rotation. Monitors for account takeover fraud.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">📜 CHRONICLE</div><div class="def-title">Immutable Audit Log</div><div class="def-desc">Tamper-proof log of every agent action with full reasoning chain. GDPR+CCPA+SOC2 ready.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">⭕ ZERO</div><div class="def-title">Zero Trust Enforcer</div><div class="def-desc">Validates every agent-to-agent communication before execution. NIST SP 800-207 compliant. Never trust, always verify.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
-    <div class="def-item" style="border-color:#EF4444"><div class="def-name">📦 CONTAIN</div><div class="def-title">Incident Containment</div><div class="def-desc">On confirmed threat: isolate, pause, alert SHIELD + human simultaneously, preserve forensics, recover.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">👁️ WATCH</div><div class="def-title">Threat Operations</div><div class="def-desc">Behavioral anomaly monitoring of all agents. Continuous surveillance for threats and suspicious activity.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → WATCH</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🔧 RESOLVE</div><div class="def-title">Incident Response</div><div class="def-desc">Incident handling, resolution, and recovery. Responds to confirmed security incidents with speed and precision.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → RESOLVE</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🚪 GATE</div><div class="def-title">Access & Audit</div><div class="def-desc">Access control, gatekeeping, and audit trail management. Controls who can access what resources.</div><div class="def-reports">Chain: SHIELD (CISO) → ACCORD (VP) → POLISH (Dir) → GATE</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🩺 SENTINEL</div><div class="def-title">Security Ops Monitor</div><div class="def-desc">24/7 security monitoring, health checks, and automated alerts. Continuous security surveillance.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → SENTINEL</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🔍 FILTER</div><div class="def-title">Content & Input Filter</div><div class="def-desc">100% of inbound messages scanned before any agent reads them. OWASP LLM Top 10 compliant.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → FILTER</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">💰 TREASURY</div><div class="def-title">Transaction Security</div><div class="def-desc">Every financial transaction requires TREASURY clearance. Thresholds: &lt;$500 auto, $500-$5K ATLAS confirms, &gt;$5K human required.</div><div class="def-reports">Chain: SHIELD (CISO) → ACCORD (VP) → POLISH (Dir) → TREASURY</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">✅ VERIFY</div><div class="def-title">Identity & Access Manager</div><div class="def-desc">Least-privilege access enforcement. 30-day API key rotation. Monitors for account takeover fraud.</div><div class="def-reports">Chain: SHIELD (CISO) → ACCORD (VP) → POLISH (Dir) → VERIFY</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">📜 CHRONICLE</div><div class="def-title">Immutable Audit Log</div><div class="def-desc">Tamper-proof log of every agent action with full reasoning chain. GDPR+CCPA+SOC2 ready.</div><div class="def-reports">Chain: SHIELD (CISO) → ACCORD (VP) → POLISH (Dir) → CHRONICLE</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">⭕ ZERO</div><div class="def-title">Zero Trust Enforcer</div><div class="def-desc">Validates every agent-to-agent communication before execution. NIST SP 800-207 compliant. Never trust, always verify.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → ZERO</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">📦 CONTAIN</div><div class="def-title">Incident Containment</div><div class="def-desc">On confirmed threat: isolate, pause, alert SHIELD + human simultaneously, preserve forensics, recover.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → CONTAIN</div></div>
    </div>
   </div>
 
