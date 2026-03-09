@@ -3,144 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgenticFoundr — Agent Org Chart</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>AgenticFoundr — Org Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
  --cream: #FAF8F5;
  --primary: #0A351D;
  --gold: #C9A84C;
- --sage: #7DA88A;
  --purple: #8B5CF6;
  --green: #10B981;
  --teal: #14B8A6;
  --blue: #3B82F6;
- --gray: #2A2A2A;
+ --dark: #1e293b;
 }
 * {margin: 0; padding: 0; box-sizing: border-box}
 html, body {
  width: 100%;
  background: var(--cream);
  font-family: 'Inter', sans-serif;
- color: var(--gray);
 }
-#container {
- max-width: 1100px;
- margin: 0 auto;
- padding: 30px 20px;
-}
+#container { padding: 20px; }
 
-h1 { font-size: 28px; color: var(--primary); text-align: center; }
+h1 { 
+ font-size: 32px; 
+ color: var(--primary); 
+ text-align: center;
+ font-weight: 800;
+}
 h1 span {color: var(--gold)}
-.subtitle { color: var(--sage); font-size: 14px; text-align: center; margin-bottom: 30px; }
+.subtitle { 
+ color: var(--green); 
+ font-size: 14px; 
+ text-align: center; 
+ margin-bottom: 30px;
+ font-weight: 500;
+}
 
+/* Stats */
 .stats {
  display: flex;
  justify-content: center;
- gap: 30px;
+ gap: 40px;
  margin-bottom: 40px;
  flex-wrap: wrap;
 }
 .stat {text-align: center}
-.stat-num {font-size: 28px; font-weight: 800; color: var(--primary)}
-.stat-lbl {font-size: 11px; color: #888; text-transform: uppercase;}
+.stat-num {font-size: 32px; font-weight: 800; color: var(--primary)}
+.stat-lbl {font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px}
 
-/* Tree */
-.tree {
+/* Org Chart */
+.chart {
  display: flex;
  flex-direction: column;
  align-items: center;
 }
 
-.level {
+.row {
  display: flex;
  justify-content: center;
- gap: 12px;
- flex-wrap: wrap;
+ gap: 20px;
  margin-bottom: 30px;
+ flex-wrap: wrap;
 }
 
-/* Card */
+/* Cards */
 .card {
  background: white;
- border-radius: 10px;
- padding: 14px 20px;
- box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+ border-radius: 16px;
+ padding: 16px 20px;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.08);
  text-align: center;
- min-width: 140px;
+ transition: all 0.3s ease;
+ cursor: pointer;
+ position: relative;
+ min-width: 120px;
 }
-.card .emoji { font-size: 24px; display: block; margin-bottom: 6px; }
-.card .name { font-weight: 700; font-size: 16px; color: var(--primary); }
-.card .role { font-size: 10px; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.card:hover {
+ transform: translateY(-8px) scale(1.02);
+ box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+ z-index: 10;
+}
+.card .emoji { font-size: 28px; display: block; margin-bottom: 8px; }
+.card .name { 
+ font-weight: 700; 
+ font-size: 14px; 
+ color: var(--dark);
+ letter-spacing: 0.5px;
+}
+.card .role { 
+ font-size: 10px; 
+ color: #666; 
+ margin-top: 4px; 
+ text-transform: uppercase; 
+ letter-spacing: 1px;
+}
 
-/* Border colors */
-.card.gold { border: 3px solid var(--gold); background: linear-gradient(135deg, #fff 0%, #fef9e7 100%); }
-.card.purple { border: 3px solid var(--purple); }
-.card.green { border: 3px solid var(--green); }
-.card.teal { border: 3px solid var(--teal); }
-.card.blue { border: 3px solid var(--blue); }
-.card.sage { border: 3px solid var(--sage); }
-.card.dark { border: 3px solid var(--primary); }
+/* Colors */
+.gold { border-bottom: 4px solid var(--gold); background: linear-gradient(180deg, #fff 0%, #fef9e7 100%); }
+.purple { border-bottom: 4px solid var(--purple); }
+.green { border-bottom: 4px solid var(--green); }
+.teal { border-bottom: 4px solid var(--teal); }
+.blue { border-bottom: 4px solid var(--blue); }
+.sage { border-bottom: 4px solid var(--green); }
 
 /* Connector */
 .connector {
- width: 2px;
- height: 24px;
- background: #ccc;
+ width: 3px;
+ height: 25px;
+ background: linear-gradient(180deg, #ccc 0%, #999 100%);
+ border-radius: 2px;
 }
 
-/* Executive blocks */
-.exec-block {
+/* Branch */
+.branch {
  display: flex;
  flex-direction: column;
  align-items: center;
- margin: 0 6px;
+ margin: 0 10px;
 }
-
-/* VP/Dir rows under each exec */
-.reports-row {
+.vp-row {
  display: flex;
- gap: 6px;
- margin-top: 10px;
+ gap: 8px;
+ margin-top: 12px;
  flex-wrap: wrap;
  justify-content: center;
 }
-
-.reports-row .card {
- padding: 8px 12px;
- min-width: 90px;
+.vp-row .card {
+ padding: 10px 14px;
+ min-width: 80px;
 }
-.reports-row .card .emoji { font-size: 16px; margin-bottom: 2px; }
-.reports-row .card .name { font-size: 11px; }
-.reports-row .card .role { font-size: 8px; }
+.vp-row .card .emoji { font-size: 18px; margin-bottom: 4px; }
+.vp-row .card .name { font-size: 11px; }
+.vp-row .card .role { font-size: 8px; }
 
-/* Section headers */
-.section-title {
- font-size: 12px;
+/* Simple line connector between rows */
+.line-row {
+ width: 80%;
+ height: 2px;
+ background: #ddd;
+ margin: 0 auto;
+}
+
+/* Label */
+.label {
+ font-size: 11px;
  font-weight: 700;
  letter-spacing: 2px;
  text-transform: uppercase;
  color: #888;
- margin: 30px 0 15px;
+ margin-bottom: 15px;
  text-align: center;
 }
 
 /* Footer */
 .footer {
  margin-top: 50px;
- padding: 20px;
- border-top: 1px solid #ddd;
  text-align: center;
- color: #666;
+ color: #999;
  font-size: 12px;
- line-height: 1.6;
+ padding: 20px;
 }
 </style>
 </head>
 <body>
 <div id="container">
  <h1>Agentic<span>Foundr</span></h1>
- <div class="subtitle">Enterprise Agent Roster — Servant Leadership Model</div>
+ <div class="subtitle">Servant Leadership Model</div>
  
  <div class="stats">
   <div class="stat"><div class="stat-num">57</div><div class="stat-lbl">Core</div></div>
@@ -150,10 +178,10 @@ h1 span {color: var(--gold)}
   <div class="stat"><div class="stat-num">19</div><div class="stat-lbl">Systems</div></div>
  </div>
 
- <div class="tree">
+ <div class="chart">
   
-  <!-- Founder -->
-  <div class="level">
+  <!-- FOUNDER -->
+  <div class="row">
    <div class="card gold">
     <span class="emoji">👤</span>
     <span class="name">YOU</span>
@@ -163,7 +191,7 @@ h1 span {color: var(--gold)}
   <div class="connector"></div>
   
   <!-- CEO -->
-  <div class="level">
+  <div class="row">
    <div class="card gold">
     <span class="emoji">🧠</span>
     <span class="name">ATLAS</span>
@@ -172,45 +200,45 @@ h1 span {color: var(--gold)}
   </div>
   <div class="connector"></div>
   
-  <!-- C-Suite -->
-  <div class="section-title">Direct Reports to ATLAS (C-Suite)</div>
-  <div class="level">
+  <!-- C-SUITE -->
+  <div class="label">C-Suite → Direct Reports</div>
+  <div class="row">
    
-   <!-- CFO -->
-   <div class="exec-block">
+   <!-- STEWARD -->
+   <div class="branch">
     <div class="card purple">
      <span class="emoji">💰</span>
      <span class="name">STEWARD</span>
      <span class="role">CFO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">📊</span><span class="name">COMPASS</span></div>
      <div class="card sage"><span class="emoji">🧾</span><span class="name">LEDGER</span></div>
      <div class="card sage"><span class="emoji">📒</span><span class="name">TALLY</span></div>
     </div>
    </div>
    
-   <!-- COO -->
-   <div class="exec-block">
+   <!-- BRIDGE -->
+   <div class="branch">
     <div class="card green">
      <span class="emoji">⚙️</span>
      <span class="name">BRIDGE</span>
      <span class="role">COO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">🔄</span><span class="name">DELIVER</span></div>
      <div class="card sage"><span class="emoji">🔬</span><span class="name">INSIGHT</span></div>
     </div>
    </div>
    
-   <!-- CMO -->
-   <div class="exec-block">
+   <!-- VOICE -->
+   <div class="branch">
     <div class="card teal">
      <span class="emoji">📣</span>
      <span class="name">VOICE</span>
      <span class="role">CMO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">✍️</span><span class="name">QUILL</span></div>
      <div class="card sage"><span class="emoji">📝</span><span class="name">INK</span></div>
      <div class="card sage"><span class="emoji">🧵</span><span class="name">THREAD</span></div>
@@ -218,14 +246,14 @@ h1 span {color: var(--gold)}
     </div>
    </div>
    
-   <!-- CRO -->
-   <div class="exec-block">
+   <!-- HARVEST -->
+   <div class="branch">
     <div class="card blue">
      <span class="emoji">🎯</span>
      <span class="name">HARVEST</span>
      <span class="role">CRO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">🚀</span><span class="name">GROW</span></div>
      <div class="card sage"><span class="emoji">🗺️</span><span class="name">SCOUT</span></div>
      <div class="card sage"><span class="emoji">🔍</span><span class="name">SEEK</span></div>
@@ -234,54 +262,54 @@ h1 span {color: var(--gold)}
     </div>
    </div>
    
-   <!-- CTO -->
-   <div class="exec-block">
+   <!-- CRAFT -->
+   <div class="branch">
     <div class="card purple">
      <span class="emoji">🔧</span>
      <span class="name">CRAFT</span>
      <span class="role">CTO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">🖥️</span><span class="name">FOUNDATION</span></div>
      <div class="card sage"><span class="emoji">🧩</span><span class="name">BUILDER</span></div>
     </div>
    </div>
    
-   <!-- CCO -->
-   <div class="exec-block">
+   <!-- HAVEN -->
+   <div class="branch">
     <div class="card green">
      <span class="emoji">🤝</span>
      <span class="name">HAVEN</span>
      <span class="role">CCO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">⭐</span><span class="name">WARMTH</span></div>
      <div class="card sage"><span class="emoji">🎓</span><span class="name">GUIDE</span></div>
      <div class="card sage"><span class="emoji">🔗</span><span class="name">BOND</span></div>
     </div>
    </div>
    
-   <!-- CLO -->
-   <div class="exec-block">
+   <!-- SAGE -->
+   <div class="branch">
     <div class="card teal">
      <span class="emoji">⚖️</span>
      <span class="name">SAGE</span>
      <span class="role">CLO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">🏛️</span><span class="name">JUSTICE</span></div>
      <div class="card sage"><span class="emoji">📜</span><span class="name">CHARTER</span></div>
     </div>
    </div>
    
-   <!-- CDO -->
-   <div class="exec-block">
+   <!-- KEEPER -->
+   <div class="branch">
     <div class="card blue">
      <span class="emoji">🌐</span>
      <span class="name">KEEPER</span>
      <span class="role">CDO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">🔐</span><span class="name">TRUST</span></div>
      <div class="card sage"><span class="emoji">🔩</span><span class="name">FLOW</span></div>
      <div class="card sage"><span class="emoji">🔭</span><span class="name">LENS</span></div>
@@ -294,14 +322,14 @@ h1 span {color: var(--gold)}
     </div>
    </div>
    
-   <!-- CISO -->
-   <div class="exec-block">
-    <div class="card dark">
+   <!-- SHIELD -->
+   <div class="branch">
+    <div class="card gold" style="border-bottom-color: var(--dark)">
      <span class="emoji">🛡️</span>
      <span class="name">SHIELD</span>
      <span class="role">CISO</span>
     </div>
-    <div class="reports-row">
+    <div class="vp-row">
      <div class="card sage"><span class="emoji">🔭</span><span class="name">VIGIL</span></div>
      <div class="card sage"><span class="emoji">📋</span><span class="name">ACCORD</span></div>
      <div class="card sage"><span class="emoji">✨</span><span class="name">POLISH</span></div>
@@ -322,7 +350,7 @@ h1 span {color: var(--gold)}
  </div>
 
  <div class="footer">
-  <strong>Servant Leadership Model</strong>
+  Servant Leadership Model — Each agent has clearly defined responsibilities
  </div>
 </div>
 </body>
