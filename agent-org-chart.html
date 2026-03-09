@@ -157,10 +157,10 @@ box-shadow:0 4px 12px rgba(0,0,0,0.06);
 <div id="stats">
  <h3>Agent Count</h3>
  <div class="stats-grid">
-  <div class="stat-item"><div class="stat-num">70+</div><div class="stat-lbl">Total</div></div>
+  <div class="stat-item"><div class="stat-num">57</div><div class="stat-lbl">Core</div></div>
+  <div class="stat-item"><div class="stat-num">8</div><div class="stat-lbl">Modules</div></div>
   <div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">C-Suite</div></div>
   <div class="stat-item"><div class="stat-num">17</div><div class="stat-lbl">VPs</div></div>
-  <div class="stat-item"><div class="stat-num">10</div><div class="stat-lbl">Directors</div></div>
  </div>
 </div>
 
@@ -195,74 +195,81 @@ box-shadow:0 4px 12px rgba(0,0,0,0.06);
 
 <script>
 // ═══════════════════════════════════════════════════
-// AGENT DATA
+// AGENTICFOUNDR AGENT DATA (SERVANT LEADERSHIP MODEL)
 // ═══════════════════════════════════════════════════
 const CORE = {
- FOUNDER: {n:'YOU', r:'Founder', e:'👤', c:'#C9A84C', tier:'founder', desc:'Strategic authority. Final approver on all major decisions.'},
- APEX: {n:'APEX', r:'Chief Executive Officer', e:'🧠', c:'#C9A84C', tier:0, desc:'Master orchestrator. Sets vision, strategy, delegates to C-Suite.'},
- LEDGER: {n:'LEDGER', r:'Chief Financial Officer', e:'💰', c:'#0A351D', tier:1, desc:'Financial health, planning, budgeting, risk management.'},
- CORTEX: {n:'CORTEX', r:'Chief Operating Officer', e:'⚙️', c:'#0A351D', tier:1, desc:'Day-to-day operations, client delivery, resource allocation.'},
- SIGNAL: {n:'SIGNAL', r:'Chief Marketing Officer', e:'📣', c:'#0A351D', tier:1, desc:'Brand strategy, market position, customer engagement.'},
- HUNTER: {n:'HUNTER', r:'Chief Revenue Officer', e:'🎯', c:'#0A351D', tier:1, desc:'Sales, marketing, client success — unified revenue machine.'},
- FORGE: {n:'FORGE', r:'Chief Technology Officer', e:'🔧', c:'#0A351D', tier:1, desc:'Tech vision, R&D, AI model selection, automation.'},
- ANCHOR: {n:'ANCHOR', r:'Chief Client Officer', e:'🤝', c:'#0A351D', tier:1, desc:'Customer experience, retention, expansion, advocacy.'},
- COUNSEL: {n:'COUNSEL', r:'Chief Legal Officer', e:'⚖️', c:'#7DA88A', tier:1, desc:'Legal strategy, contracts, compliance, risk management.'},
- DATUM: {n:'DATUM', r:'Chief Data Officer', e:'🌐', c:'#00dfc8', tier:1, desc:'Data strategy, governance, protection, analytics.'},
- CIPHER: {n:'CIPHER', r:'Chief Security Officer', e:'🛡️', c:'#ff4d6a', tier:1, desc:'Security vision, threat ops, compliance, risk posture.'},
- // VPs
- PULSE: {n:'PULSE', r:'VP Revenue Intelligence', e:'📊', c:'#7DA88A', tier:2, desc:'Pipeline health, forecasting.'},
- VAULTVP: {n:'VAULT-VP', r:'VP Finance & Billing', e:'🧾', c:'#7DA88A', tier:2, desc:'Billing, invoicing, collections.'},
- RELAY: {n:'RELAY', r:'VP Client Delivery', e:'🔄', c:'#7DA88A', tier:2, desc:'Client delivery, SLA compliance.'},
- PRISM: {n:'PRISM', r:'VP Data Intelligence', e:'🔬', c:'#7DA88A', tier:2, desc:'Analytics, reporting, insights.'},
- BOOST: {n:'BOOST', r:'VP Growth & Partnerships', e:'🚀', c:'#7DA88A', tier:2, desc:'Partnerships, expansion revenue.'},
- SCOUT: {n:'SCOUT', r:'VP Market Intelligence', e:'🗺️', c:'#7DA88A', tier:2, desc:'Competitive intel, market research.'},
- QUILL: {n:'QUILL', r:'VP Content & Brand', e:'✍️', c:'#7DA88A', tier:2, desc:'Content, brand, marketing execution.'},
- BEDROCK: {n:'BEDROCK', r:'VP Infrastructure', e:'🖥️', c:'#7DA88A', tier:2, desc:'Infra, Ollama, API health.'},
- ARCHITECT:{n:'ARCHITECT',r:'VP Product Development', e:'🧩', c:'#7DA88A', tier:2, desc:'R&D, product roadmap.'},
- WARMTH: {n:'WARMTH', r:'VP Client Experience', e:'⭐', c:'#7DA88A', tier:2, desc:'NPS, churn prediction, health scoring.'},
- GUIDE: {n:'GUIDE', r:'VP Client Onboarding', e:'🎓', c:'#7DA88A', tier:2, desc:'New client setup, onboarding flow.'},
- SHIELD: {n:'SHIELD', r:'VP Legal Strategy', e:'🏛️', c:'#7DA88A', tier:2, desc:'Legal ops, contracts, IP.'},
- COMPLY_L: {n:'COMPLY-L', r:'VP Regulatory & Gov', e:'📜', c:'#7DA88A', tier:2, desc:'Compliance, governance.'},
- GOVERN: {n:'GOVERN', r:'VP Data Governance', e:'📐', c:'#7DA88A', tier:2, desc:'Data policies, privacy, catalog.'},
- PIPELINE: {n:'PIPELINE', r:'VP Data Engineering', e:'🔩', c:'#7DA88A', tier:2, desc:'Pipelines, ingestion, warehousing.'},
- RISKWATCH:{n:'RISKWATCH',r:'VP Cybersecurity Ops', e:'🔭', c:'#ff4d6a', tier:2, desc:'Threat ops, monitoring.'},
- COMPLY: {n:'COMPLY', r:'VP Compliance & Risk', e:'📋', c:'#ff4d6a', tier:2, desc:'Risk register, SOC2, compliance.'},
- // Directors
- FINDER: {n:'FINDER', r:'Director Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Lead generation.'},
- CADENCE: {n:'CADENCE', r:'Director Outreach', e:'📧', c:'#165436', tier:3, desc:'Sales sequencing.'},
- CLOSE: {n:'CLOSE', r:'Director Proposals', e:'📃', c:'165436', tier:3, desc:'Proposal creation.'},
- INK: {n:'INK', r:'Director Content & SEO', e:'📝', c:'#165436', tier:3, desc:'Content, SEO.'},
- THREAD: {n:'THREAD', r:'Director Social Media', e:'📱', c:'#165436', tier:3, desc:'Social channels.'},
- FLOW: {n:'FLOW', r:'Director Email', e:'💌', c:'#165436', tier:3, desc:'Email campaigns.'},
- LEDGE: {n:'LEDGE', r:'Director Billing', e:'🧮', c:'#165436', tier:3, desc:'Invoicing.'},
- AUDIT: {n:'AUDIT', r:'Director QA', e:'🔎', c:'#165436', tier:3, desc:'Quality assurance.'},
- BOND: {n:'BOND', r:'Director Retention', e:'🔗', c:'#165436', tier:3, desc:'Retention, churn.'},
- LENS: {n:'LENS', r:'Director Analytics', e:'📈', c:'#165436', tier:3, desc:'KPI aggregation.'},
- // Data Lane
- STEWARD: {n:'STEWARD', r:'Dir. Data Privacy', e:'🔏', c:'#00dfc8', tier:'dlane', desc:'PII handling, MASK, ISOLATE.'},
- CURATOR: {n:'CURATOR', r:'Dir. Data Quality', e:'🗄️', c:'#00dfc8', tier:'dlane', desc:'VAULT-D, CLEAN.'},
- STREAM: {n:'STREAM', r:'Dir. Data Pipeline', e:'🌊', c:'#00dfc8', tier:'dlane', desc:'INTAKE, VISION.'},
- VAULTD: {n:'VAULT-D', r:'Data Warehouse', e:'🏦', c:'#00dfc8', tier:'data', desc:'Encrypted data store.'},
- INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'📥', c:'#00dfc8', tier:'data', desc:'Data classification.'},
- MASK: {n:'MASK', r:'PII Tokenization', e:'🎭', c:'#00dfc8', tier:'data', desc:'Tokenize sensitive data.'},
- VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#00dfc8', tier:'data', desc:'Dashboards.'},
- CLEAN: {n:'CLEAN', r:'Data Quality', e:'🔬', c:'#00dfc8', tier:'data', desc:'PoisonedRAG defense.'},
- ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🔐', c:'#00dfc8', tier:'data', desc:'Session security.'},
- // Security Lane
- SENTRY: {n:'SENTRY', r:'Dir. Threat Ops', e:'🚨', c:'#ff4d6a', tier:'slane', desc:'SENTINEL, GUARDIAN.'},
- RESPONSE: {n:'RESPONSE', r:'Dir. Incident', e:'🚒', c:'#ff4d6a', tier:'slane', desc:'CONTAIN, forensics.'},
- ACCESS: {n:'ACCESS', r:'Dir. Access & Audit', e:'🔒', c:'#ff4d6a', tier:'slane', desc:'VERIFY, TREASURY.'},
- SENTINEL:{n:'SENTINEL', r:'Security Monitor', e:'🩺', c:'#ff4d6a', tier:'security', desc:'Behavioral monitoring.'},
- GUARDIAN:{n:'GUARDIAN', r:'Content Filter', e:'🧱', c:'#ff4d6a', tier:'security', desc:'Input filtering.'},
- TREASURY:{n:'TREASURY', r:'Transaction Security', e:'💰', c:'#ff4d6a', tier:'security', desc:'Payment validation.'},
- VERIFY: {n:'VERIFY', r:'Identity & Access', e:'🪪', c:'#ff4d6a', tier:'security', desc:'Access control.'},
- LEDGERS: {n:'LEDGER-S', r:'Audit Log', e:'📜', c:'#ff4d6a', tier:'security', desc:'Immutable logging.'},
- ZERO: {n:'ZERO', r:'Zero Trust', e:'⭕', c:'#ff4d6a', tier:'security', desc:'Zero trust enforcement.'},
- CONTAIN: {n:'CONTAIN', r:'Incident Response', e:'📦', c:'#ff4d6a', tier:'security', desc:'Threat isolation.'}
+ // FOUNDER
+ FOUNDER: {n:'YOU', r:'Founder & Strategic Authority', e:'👤', c:'#C9A84C', tier:'founder', desc:'Single point of authority. Final approver on all major decisions. Owns the vision.'},
+ 
+ // TIER 0 — CEO
+ ATLAS: {n:'ATLAS', r:'Chief Executive Officer', e:'🧠', c:'#C9A84C', tier:0, desc:'The master orchestrator. Receives objectives from founder, decomposes into enterprise-wide missions, delegates to C-Suite.'},
+ 
+ // TIER 1 — C-SUITE
+ STEWARD: {n:'STEWARD', r:'Chief Financial Officer', e:'💰', c:'#0A351D', tier:1, desc:'Financial health, planning, budgeting, reporting, risk management.'},
+ BRIDGE: {n:'BRIDGE', r:'Chief Operating Officer', e:'⚙️', c:'#0A351D', tier:1, desc:'Orchestrates client delivery workflows, SLA compliance, vendor relationships.'},
+ VOICE: {n:'VOICE', r:'Chief Marketing Officer', e:'📣', c:'#0A351D', tier:1, desc:'Content creation, SEO, social media, email campaigns, brand presence.'},
+ HARVEST: {n:'HARVEST', r:'Chief Revenue Officer', e:'🎯', c:'#0A351D', tier:1, desc:'Full sales pipeline — lead research, outreach, proposals, deal closure.'},
+ CRAFT: {n:'CRAFT', r:'Chief Technology Officer', e:'🔧', c:'#0A351D', tier:1, desc:'Infrastructure health, agent deployments, integrations, model optimization.'},
+ HAVEN: {n:'HAVEN', r:'Chief Client Officer', e:'🤝', c:'#0A351D', tier:1, desc:'Client relationships — onboarding, satisfaction, renewals, upsells.'},
+ SAGE: {n:'SAGE', r:'Chief Legal Officer', e:'⚖️', c:'#7DA88A', tier:1, desc:'Contracts, regulatory compliance, risk monitoring, IP protection.'},
+ KEEPER: {n:'KEEPER', r:'Chief Data Officer', e:'🌐', c:'#00dfc8', tier:1, desc:'Data strategy, governance, protection, analytics infrastructure.'},
+ SHIELD: {n:'SHIELD', r:'Chief Security Officer', e:'🛡️', c:'#ff4d6a', tier:1, desc:'Security vision, threat operations, compliance, risk posture.'},
+ 
+ // TIER 2 — VP LAYER
+ COMPASS: {n:'COMPASS', r:'VP Revenue Intelligence', e:'📊', c:'#7DA88A', tier:2, desc:'Pipeline health, revenue forecasting, direction.'},
+ LEDGER: {n:'LEDGER', r:'VP Finance & Billing', e:'🧾', c:'#7DA88A', tier:2, desc:'Billing operations, invoicing, financial tracking.'},
+ DELIVER: {n:'DELIVER', r:'VP Client Delivery', e:'🔄', c:'#7DA88A', tier:2, desc:'Client delivery workflows, SLA enforcement, module agents.'},
+ INSIGHT: {n:'INSIGHT', r:'VP Data Intelligence', e:'🔬', c:'#7DA88A', tier:2, desc:'Analytics aggregation, dashboard feeds, pattern recognition.'},
+ GROW: {n:'GROW', r:'VP Growth & Partnerships', e:'🚀', c:'#7DA88A', tier:2, desc:'Partnership pipeline, expansion revenue, mutual value.'},
+ SCOUT: {n:'SCOUT', r:'VP Market Intelligence', e:'🗺️', c:'#7DA88A', tier:2, desc:'Market research, competitive intelligence, landscape scanning.'},
+ QUILL: {n:'QUILL', r:'VP Content & Brand', e:'✍️', c:'#7DA88A', tier:2, desc:'Content strategy, brand storytelling, marketing copy.'},
+ FOUNDATION: {n:'FOUNDATION', r:'VP Infrastructure', e:'🖥️', c:'#7DA88A', tier:2, desc:'Mac Mini, Ollama, API health, technical backbone.'},
+ BUILDER: {n:'BUILDER', r:'VP Product Development', e:'🧩', c:'#7DA88A', tier:2, desc:'R&D backlog, product roadmap, performance patterns.'},
+ WARMTH: {n:'WARMTH', r:'VP Client Experience', e:'⭐', c:'#7DA88A', tier:2, desc:'Client retention, NPS, satisfaction, health scoring.'},
+ GUIDE: {n:'GUIDE', r:'VP Client Onboarding', e:'🎓', c:'#7DA88A', tier:2, desc:'New client setup, walkthroughs, first-success journeys.'},
+ JUSTICE: {n:'JUSTICE', r:'VP Legal Strategy', e:'🏛️', c:'#7DA88A', tier:2, desc:'Legal ops, contracts, IP portfolio, risk management.'},
+ CHARTER: {n:'CHARTER', r:'VP Regulatory & Governance', e:'📜', c:'#7DA88A', tier:2, desc:'Compliance calendar, governance frameworks, policies.'},
+ TRUST: {n:'TRUST', r:'VP Data Governance', e:'🔐', c:'#7DA88A', tier:2, desc:'Data policies, privacy, catalog, lineage, GDPR.'},
+ FLOW: {n:'FLOW', r:'VP Data Engineering', e:'🔩', c:'#7DA88A', tier:2, desc:'Data pipelines, ingestion, warehousing, flow management.'},
+ VIGIL: {n:'VIGIL', r:'VP Cybersecurity Ops', e:'🔭', c:'#ff4d6a', tier:2, desc:'Active threat operations, monitoring, security posture.'},
+ ACCORD: {n:'ACCORD', r:'VP Compliance & Risk', e:'📋', c:'#ff4d6a', tier:2, desc:'Risk register, compliance, SOC2, regulatory alignment.'},
+ 
+ // TIER 3 — DIRECTORS
+ SEEK: {n:'SEEK', r:'Director of Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Lead generation, prospect identification.'},
+ RHYTHM: {n:'RHYTHM', r:'Director of Outreach', e:'🎵', c:'#165436', tier:3, desc:'Sales sequencing, outreach cadence, follow-ups.'},
+ COVENANT: {n:'COVENANT', r:'Director of Proposals', e:'🤝', c:'165436', tier:3, desc:'Proposal creation, mutual promises, terms.'},
+ INK: {n:'INK', r:'Director of Content & SEO', e:'📝', c:'#165436', tier:3, desc:'Content creation, SEO optimization, writing.'},
+ THREAD: {n:'THREAD', r:'Director of Social Media', e:'🧵', c:'#165436', tier:3, desc:'Social channels, community, engagement threads.'},
+ EMBER: {n:'EMBER', r:'Director of Email', e:'🔥', c:'#165436', tier:3, desc:'Email campaigns, nurturing, warm communications.'},
+ TALLY: {n:'TALLY', r:'Director of Billing', e:'📒', c:'#165436', tier:3, desc:'Invoice generation, payment tracking, counting.'},
+ POLISH: {n:'POLISH', r:'Director of Quality Assurance', e:'✨', c:'#165436', tier:3, desc:'Output quality, polish, excellence verification.'},
+ BOND: {n:'BOND', r:'Director of Retention', e:'🔗', c:'#165436', tier:3, desc:'Client retention, relationship bonds, renewals.'},
+ LENS: {n:'LENS', r:'Director of Analytics', e:'🔭', c:'#165436', tier:3, desc:'KPI aggregation, metrics, analytical clarity.'},
+ 
+ // DATA & SECURITY SYSTEMS
+ GUARDIAN_D: {n:'GUARDIAN-D', r:'Data Privacy & PII', e:'🔏', c:'#00dfc8', tier:'data', desc:'PII handling, tokenization, privacy protection.'},
+ CURATOR: {n:'CURATOR', r:'Data Quality & Vault', e:'🗄️', c:'#00dfc8', tier:'data', desc:'Data quality, warehouse, vault management.'},
+ RIVER: {n:'RIVER', r:'Data Pipeline & Viz', e:'🌊', c:'#00dfc8', tier:'data', desc:'Data flow, visualization, dashboard delivery.'},
+ WATCH: {n:'WATCH', r:'Threat Operations', e:'👁️', c:'#ff4d6a', tier:'security', desc:'Threat monitoring, surveillance, anomaly detection.'},
+ RESOLVE: {n:'RESOLVE', r:'Incident Response', e:'🔧', c:'#ff4d6a', tier:'security', desc:'Incident handling, resolution, recovery.'},
+ GATE: {n:'GATE', r:'Access & Audit', e:'🚪', c:'#ff4d6a', tier:'security', desc:'Access control, gatekeeping, audit trails.'},
+ VAULT: {n:'VAULT', r:'Data Warehouse', e:'🏦', c:'#ff4d6a', tier:'security', desc:'Secure storage, encrypted data vault.'},
+ INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'📥', c:'#ff4d6a', tier:'security', desc:'Data intake, classification, entry.'},
+ MASK: {n:'MASK', r:'PII Tokenization', e:'🎭', c:'#ff4d6a', tier:'security', desc:'PII masking, token replacement, privacy.'},
+ VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#ff4d6a', tier:'security', desc:'Dashboards, reports, visual insights.'},
+ PURE: {n:'PURE', r:'Data Quality Guard', e:'💎', c:'#ff4d6a', tier:'security', desc:'Data purity, validation, cleansing.'},
+ ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🛡️', c:'#ff4d6a', tier:'security', desc:'Session isolation, sandboxing, separation.'},
+ SENTINEL: {n:'SENTINEL', r:'Security Ops Monitor', e:'🩺', c:'#ff4d6a', tier:'security', desc:'Security monitoring, health checks, alerts.'},
+ FILTER: {n:'FILTER', r:'Content & Input Filter', e:'🔍', c:'#ff4d6a', tier:'security', desc:'Input filtering, content screening, validation.'},
+ TREASURY: {n:'TREASURY', r:'Transaction Security', e:'💰', c:'#ff4d6a', tier:'security', desc:'Financial transactions, payment security.'},
+ VERIFY: {n:'VERIFY', r:'Identity & Access', e:'✅', c:'#ff4d6a', tier:'security', desc:'Identity verification, access management.'},
+ CHRONICLE: {n:'CHRONICLE', r:'Immutable Audit Log', e:'📜', c:'#ff4d6a', tier:'security', desc:'Audit logging, history, immutable records.'},
+ ZERO: {n:'ZERO', r:'Zero Trust Enforcer', e:'⭕', c:'#ff4d6a', tier:'security', desc:'Zero trust model, never trust, always verify.'},
+ CONTAIN: {n:'CONTAIN', r:'Incident Containment', e:'📦', c:'#ff4d6a', tier:'security', desc:'Incident containment, isolation, breach control.'}
 };
 
 const TIERS = {
- founder: {y:0}, 0: {y:1}, 1: {y:2}, 2: {y:3}, 3: {y:4}, data: {y:5}, dlane: {y:3.5}, slane: {y:3.5}
+ founder: {y:0}, 0: {y:1}, 1: {y:2}, 2: {y:3}, 3: {y:4}, data: {y:5}, security: {y:5}
 };
 
 let scale = 1, panX = 0, panY = 0, isDragging = false, startX, startY;
@@ -335,8 +342,6 @@ function drawNode(id, data, x, y, parentId) {
  
  // Line to parent
  if(parentId && CORE[parentId]) {
-  const pp = TIERS[CORE[parentId].tier]?.y ?? 3;
-  const cp = TIERS[data.tier]?.y ?? 3;
   const line = document.createElementNS('http://www.w3.org/2000/svg','line');
   line.setAttribute('x1', x);
   line.setAttribute('y1', y - boxH/2);
@@ -358,7 +363,7 @@ function drawNode(id, data, x, y, parentId) {
 }
 
 function showTip(e, data) {
- const tierNames = {founder:'FOUNDER',0:'TIER 0 — CEO',1:'TIER 1 — C-SUITE',2:'TIER 2 — VP',3:'TIER 3 — DIRECTOR',dlane:'DATA LANE',slane:'SECURITY LANE',data:'DATA AGENT',security:'SECURITY AGENT'};
+ const tierNames = {founder:'FOUNDER',0:'TIER 0 — CEO',1:'TIER 1 — C-SUITE',2:'TIER 2 — VP',3:'TIER 3 — DIRECTOR',data:'DATA & SECURITY',security:'SECURITY'};
  tip.innerHTML = `
  <div class="tip-tier">${tierNames[data.tier] || ''}</div>
  <div class="tip-name">${data.e} ${data.n}</div>
@@ -384,61 +389,47 @@ function render() {
  drawNode('FOUNDER', CORE.FOUNDER, pos('founder', 0, 1).x, pos('founder', 0, 1).y, null);
  
  // CEO
- drawNode('APEX', CORE.APEX, pos(0, 0, 1).x, pos(0, 0, 1).y, 'FOUNDER');
+ drawNode('ATLAS', CORE.ATLAS, pos(0, 0, 1).x, pos(0, 0, 1).y, 'FOUNDER');
  
  // C-Suite
- const csuite = ['LEDGER','CORTEX','SIGNAL','HUNTER','FORGE','ANCHOR','COUNSEL','DATUM','CIPHER'];
- csuite.forEach((id, i) => drawNode(id, CORE[id], pos(1, i, csuite.length).x, pos(1, i, csuite.length).y, 'APEX'));
+ const csuite = ['STEWARD','BRIDGE','VOICE','HARVEST','CRAFT','HAVEN','SAGE','KEEPER','SHIELD'];
+ csuite.forEach((id, i) => drawNode(id, CORE[id], pos(1, i, csuite.length).x, pos(1, i, csuite.length).y, 'ATLAS'));
  
  // VPs
- const vps = ['PULSE','VAULTVP','RELAY','PRISM','BOOST','SCOUT','QUILL','BEDROCK','ARCHITECT','WARMTH','GUIDE','SHIELD','COMPLY_L','GOVERN','PIPELINE','RISKWATCH','COMPLY'];
+ const vps = ['COMPASS','LEDGER','DELIVER','INSIGHT','GROW','SCOUT','QUILL','FOUNDATION','BUILDER','WARMTH','GUIDE','JUSTICE','CHARTER','TRUST','FLOW','VIGIL','ACCORD'];
  vps.forEach((id, i) => {
-  const parent = id === 'PULSE' || id === 'VAULTVP' ? 'LEDGER' :
-                 id === 'RELAY' || id === 'PRISM' || id === 'BOOST' || id === 'SCOUT' ? 'CORTEX' :
-                 id === 'QUILL' ? 'SIGNAL' :
-                 id === 'BEDROCK' || id === 'ARCHITECT' ? 'FORGE' :
-                 id === 'WARMTH' || id === 'GUIDE' ? 'ANCHOR' :
-                 id === 'SHIELD' || id === 'COMPLY_L' ? 'COUNSEL' :
-                 id === 'GOVERN' || id === 'PIPELINE' ? 'DATUM' :
-                 'CIPHER';
+  const parent = id === 'COMPASS' || id === 'LEDGER' ? 'STEWARD' :
+                 id === 'DELIVER' || id === 'INSIGHT' || id === 'GUIDE' ? 'BRIDGE' :
+                 id === 'QUILL' || id === 'SCOUT' ? 'VOICE' :
+                 id === 'GROW' || id === 'COMPASS' ? 'HARVEST' :
+                 id === 'FOUNDATION' || id === 'BUILDER' ? 'CRAFT' :
+                 id === 'WARMTH' || id === 'GUIDE' ? 'HAVEN' :
+                 id === 'JUSTICE' || id === 'CHARTER' ? 'SAGE' :
+                 id === 'TRUST' || id === 'FLOW' ? 'KEEPER' :
+                 'SHIELD';
   drawNode(id, CORE[id], pos(2, i, vps.length).x, pos(2, i, vps.length).y, parent);
  });
  
  // Directors
- const dirs = ['FINDER','CADENCE','CLOSE','INK','THREAD','FLOW','LEDGE','AUDIT','BOND','LENS'];
+ const dirs = ['SEEK','RHYTHM','COVENANT','INK','THREAD','EMBER','TALLY','POLISH','BOND','LENS'];
  dirs.forEach((id, i) => {
-  const parent = id === 'FINDER' || id === 'CADENCE' || id === 'CLOSE' ? 'HUNTER' :
-                 id === 'INK' || id === 'THREAD' || id === 'FLOW' ? 'QUILL' :
-                 id === 'LEDGE' ? 'VAULTVP' :
-                 id === 'LENS' ? 'PRISM' :
-                 'RELAY';
+  const parent = id === 'SEEK' || id === 'RHYTHM' || id === 'COVENANT' ? 'HARVEST' :
+                 id === 'INK' || id === 'THREAD' || id === 'EMBER' ? 'QUILL' :
+                 id === 'TALLY' ? 'LEDGER' :
+                 id === 'LENS' ? 'INSIGHT' :
+                 'DELIVER';
   drawNode(id, CORE[id], pos(3, i, dirs.length).x, pos(3, i, dirs.length).y, parent);
  });
  
- // Data Lane
- const dlane = ['STEWARD','CURATOR','STREAM'];
- dlane.forEach((id, i) => {
-  const parent = id === 'STEWARD' ? 'GOVERN' : id === 'CURATOR' ? 'GOVERN' : 'PIPELINE';
-  drawNode(id, CORE[id], pos('dlane', i, dlane.length).x - 180, pos('dlane', i, dlane.length).y + 100, parent);
- });
- 
- const dataA = ['VAULTD','INTAKE','MASK','VISION','CLEAN','ISOLATE'];
- dataA.forEach((id, i) => {
-  drawNode(id, CORE[id], pos('data', i, dataA.length).x - 200, pos('data', i, dataA.length).y + 200, 
-           id === 'VAULTD' || id === 'CLEAN' ? 'CURATOR' : id === 'INTAKE' || id === 'VISION' ? 'STREAM' : 'STEWARD');
- });
- 
- // Security Lane
- const slane = ['SENTRY','RESPONSE','ACCESS'];
- slane.forEach((id, i) => {
-  const parent = id === 'SENTRY' ? 'RISKWATCH' : id === 'RESPONSE' ? 'RISKWATCH' : 'COMPLY';
-  drawNode(id, CORE[id], pos('slane', i, slane.length).x + 180, pos('slane', i, slane.length).y + 100, parent);
- });
- 
- const secA = ['SENTINEL','GUARDIAN','ZERO','CONTAIN','VERIFY','LEDGERS','TREASURY'];
- secA.forEach((id, i) => {
-  drawNode(id, CORE[id], pos('slane', i + 3, secA.length + 3).x + 180, pos('slane', i + 3, secA.length + 3).y + 200,
-          id === 'SENTINEL' || id === 'GUARDIAN' || id === 'ZERO' ? 'SENTRY' : id === 'CONTAIN' ? 'RESPONSE' : 'ACCESS');
+ // Data & Security Systems
+ const systems = ['GUARDIAN_D','CURATOR','RIVER','WATCH','RESOLVE','GATE','VAULT','INTAKE','MASK','VISION','PURE','ISOLATE','SENTINEL','FILTER','TREASURY','VERIFY','CHRONICLE','ZERO','CONTAIN'];
+ systems.forEach((id, i) => {
+  const realId = id === 'GUARDIAN_D' ? 'GUARDIAN-D' : id;
+  const parent = id === 'GUARDIAN_D' || id === 'MASK' || id === 'ISOLATE' ? 'KEEPER' :
+                 id === 'CURATOR' || id === 'VAULT' || id === 'PURE' ? 'KEEPER' :
+                 id === 'RIVER' || id === 'INTAKE' || id === 'VISION' ? 'KEEPER' :
+                 'SHIELD';
+  drawNode(realId, CORE[id], pos('data', i, systems.length).x - 100, pos('data', i, systems.length).y + 180, parent);
  });
 }
 
