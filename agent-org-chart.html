@@ -4,213 +4,136 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AgenticFoundr — Enterprise Agent Org Chart</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
- --bg: #060912;
- --surface: #0c1020;
- --surface2: #101828;
- --border: rgba(255,255,255,0.07);
- --text: #e8eaf2;
- --muted: rgba(255,255,255,0.38);
+ --cream: #FAF8F5;
+ --cream-dark: #F0EDE8;
  --primary: #0A351D;
  --primary-light: #165436;
  --gold: #C9A84C;
  --gold-light: #D4BC6A;
- --blue: #3b9eff;
- --cyan: #00dfc8;
- --red: #ff4d6a;
- --purple: #a855f7;
- --green: #22d67a;
- --orange: #ff8c42;
  --sage: #7DA88A;
+ --gray: #2A2A2A;
+ --gray-light: #5A5A5A;
+ --border: rgba(10, 53, 29, 0.1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:var(--bg);font-family:'Syne',sans-serif;overflow:hidden;color:var(--text)}
+html,body{width:100%;height:100%;background:var(--cream);font-family:'Inter',sans-serif;overflow:hidden;color:var(--gray)}
 
 /* ─── HEADER ─── */
 #hdr {
 position:fixed;top:0;left:0;right:0;z-index:200;
 height:52px;
-background:rgba(10,53,29,0.97);
+background:var(--primary);
 border-bottom:1px solid var(--border);
-backdrop-filter:blur(16px);
 display:flex;align-items:center;padding:0 20px;gap:12px;
 }
 .hdr-logo {
-font-family:'Syne',sans-serif;font-weight:800;font-size:14px;
+font-family:'Inter',sans-serif;font-weight:800;font-size:15px;
 letter-spacing:-0.3px;color:var(--gold);white-space:nowrap;
 }
-.hdr-logo span{color:#FAF8F5}
-.hdr-sep{width:1px;height:18px;background:var(--border);margin:0 4px}
+.hdr-logo span{color:var(--cream)}
+.hdr-sep{width:1px;height:18px;background:rgba(255,255,255,0.2);margin:0 4px}
 .hdr-tag {
-font-family:'IBM Plex Mono',monospace;font-size:8px;
-letter-spacing:2px;text-transform:uppercase;
+font-family:monospace;font-size:9px;
+letter-spacing:1px;text-transform:uppercase;
 padding:3px 10px;border-radius:3px;white-space:nowrap;
 }
-.hdr-tag-grey{color:var(--muted);border:1px solid rgba(255,255,255,0.08)}
-.hdr-tag-gold{color:var(--gold);background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2)}
-.hdr-tag-green{color:var(--sage);background:rgba(125,168,138,0.08);border:1px solid rgba(125,168,138,0.22)}
+.hdr-tag-cream{color:var(--cream);background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2)}
+.hdr-tag-gold{color:var(--primary);background:var(--gold);border:1px solid var(--gold)}
+.hdr-tag-sage{color:var(--cream);background:rgba(125,168,138,0.3);border:1px solid rgba(125,168,138,0.4)}
 .hdr-spacer{flex:1}
 .hdr-btns{display:flex;gap:7px}
 .hdr-btn {
-font-family:'Syne',sans-serif;font-size:11px;font-weight:600;
-background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
-color:var(--muted);border-radius:20px;padding:5px 14px;
+font-family:'Inter',sans-serif;font-size:11px;font-weight:600;
+background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+color:var(--cream);border-radius:20px;padding:5px 14px;
 cursor:pointer;transition:all .15s;white-space:nowrap;
 }
-.hdr-btn:hover{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:var(--gold)}
-.hdr-btn.active{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.4);color:var(--gold)}
-
-/* ─── MODULE DOCK PANEL ─── */
-#dock {
-position:fixed;right:0;top:52px;bottom:0;width:280px;
-background:rgba(10,53,29,0.97);
-border-left:1px solid var(--border);
-backdrop-filter:blur(16px);
-z-index:150;
-transform:translateX(100%);
-transition:transform .28s cubic-bezier(.16,1,.3,1);
-display:flex;flex-direction:column;overflow:hidden;
-}
-#dock.open{transform:translateX(0)}
-
-.dock-header {
-padding:20px 20px 14px;
-border-bottom:1px solid var(--border);
-flex-shrink:0;
-}
-.dock-title {
-font-family:'IBM Plex Mono',monospace;font-size:9px;
-letter-spacing:3px;text-transform:uppercase;color:var(--gold);
-margin-bottom:6px;display:flex;align-items:center;gap:8px;
-}
-.dock-title::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
-.dock-sub {
-font-size:11px;color:var(--muted);line-height:1.5;
-}
-
-.dock-scroll{overflow-y:auto;flex:1;padding:14px 16px 24px}
-.dock-scroll::-webkit-scrollbar{width:3px}
-.dock-scroll::-webkit-scrollbar-track{background:transparent}
-.dock-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
-
-.mod-card {
-border:1px solid rgba(255,255,255,0.07);border-radius:6px;
-padding:14px 14px 12px;margin-bottom:10px;
-cursor:pointer;transition:all .18s;position:relative;overflow:hidden;
-background:var(--surface);
-}
-.mod-card::before {
-content:'';position:absolute;top:0;left:0;right:0;height:2px;
-background:var(--gold);opacity:0.8;
-}
-.mod-card:hover{border-color:rgba(201,168,76,0.3);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
-.mod-card.active{border-color:var(--gold);background:var(--surface2)}
-
-.mod-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
-.mod-icon{font-size:20px;margin-right:10px;flex-shrink:0}
-.mod-info{flex:1}
-.mod-name {
-font-family:'Syne',sans-serif;font-weight:700;font-size:12px;
-letter-spacing:-0.2px;margin-bottom:2px;
-}
-.mod-industry {
-font-family:'IBM Plex Mono',monospace;font-size:7.5px;
-letter-spacing:1px;text-transform:uppercase;
-color:var(--muted);
-}
-.mod-toggle {
-width:32px;height:18px;border-radius:9px;flex-shrink:0;
-background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.12);
-cursor:pointer;position:relative;transition:background .2s;
-}
-.mod-toggle::after {
-content:'';position:absolute;top:2px;left:2px;
-width:12px;height:12px;border-radius:50%;
-background:rgba(255,255,255,0.4);transition:transform .2s, background .2s;
-}
-.mod-toggle.on{background:var(--gold);border-color:transparent}
-.mod-toggle.on::after{transform:translateX(14px);background:#0A351D}
-
-.mod-agents {
-display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;
-}
-.mod-chip {
-font-family:'IBM Plex Mono',monospace;font-size:7px;
-letter-spacing:0.3px;padding:2px 7px;border-radius:2px;
-background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);
-color:var(--gold);
-}
-.mod-desc{font-size:10px;color:var(--muted);line-height:1.5}
+.hdr-btn:hover{background:var(--gold);border-color:var(--gold);color:var(--primary)}
+.hdr-btn.active{background:var(--gold);border-color:var(--gold);color:var(--primary)}
 
 /* ─── CANVAS ─── */
 #canvas{
 position:fixed;inset:52px 0 0 0;
 width:100%;height:calc(100% - 52px);
 cursor:grab;user-select:none;
+background: var(--cream);
 }
 #canvas:active{cursor:grabbing}
 
 /* ─── TOOLTIP ─── */
 #tip {
-position:fixed;background:rgba(10,53,29,0.99);
-border:1px solid rgba(201,168,76,0.2);border-radius:10px;
+position:fixed;background:white;
+border:1px solid var(--primary);border-radius:10px;
 padding:18px 22px;max-width:360px;
 pointer-events:none;display:none;z-index:300;
-box-shadow:0 28px 72px rgba(0,0,0,0.8);
+box-shadow:0 8px 32px rgba(10,53,29,0.15);
 }
 .tip-tier {
-font-family:'IBM Plex Mono',monospace;font-size:7.5px;
-letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;
-color:var(--gold);
+font-family:monospace;font-size:9px;
+letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;
+color:var(--sage);
 }
-.tip-name{font-weight:800;font-size:18px;color:#FAF8F5;margin-bottom:2px;letter-spacing:-0.3px}
+.tip-name{font-weight:800;font-size:18px;color:var(--primary);margin-bottom:2px}
 .tip-role {
-font-family:'IBM Plex Mono',monospace;font-size:8.5px;
-letter-spacing:1px;text-transform:uppercase;
-color:var(--sage);margin-bottom:12px;
+font-family:monospace;font-size:10px;
+letter-spacing:0.5px;text-transform:uppercase;
+color:var(--gold-dark, #A68B3C);margin-bottom:12px;
 }
 .tip-mandate {
-font-size:11px;font-weight:600;line-height:1.6;
+font-size:12px;font-weight:500;line-height:1.6;
 padding:10px 12px;border-radius:4px;margin-bottom:10px;
 border-left:3px solid var(--gold);
-background:rgba(201,168,76,0.05);
+background:rgba(201,168,76,0.08);
 }
-.tip-desc{font-size:11px;color:rgba(250,248,245,0.7);line-height:1.7}
+.tip-desc{font-size:12px;color:var(--gray-light);line-height:1.6}
 .tip-sec {
-font-family:'IBM Plex Mono',monospace;font-size:7px;
-letter-spacing:2.5px;text-transform:uppercase;
-color:rgba(250,248,245,0.3);margin:12px 0 6px;
+font-family:monospace;font-size:8px;
+letter-spacing:2px;text-transform:uppercase;
+color:var(--sage);margin:12px 0 6px;
 }
-.tip-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:3px}
 .tip-list li {
-font-size:10.5px;color:rgba(250,248,245,0.6);
-padding-left:14px;position:relative;line-height:1.55;
+font-size:11px;color:var(--gray);
+padding-left:14px;position:relative;line-height:1.5;
 }
-.tip-list li::before{content:'›';position:absolute;left:0;opacity:.4}
-.tip-chips{display:flex;flex-wrap:wrap;gap:4px}
+.tip-list li::before{content:'›';position:absolute;left:0;color:var(--gold)}
+.tip-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
 .tip-chip {
-font-family:'IBM Plex Mono',monospace;font-size:7.5px;
-padding:2px 7px;border-radius:2px;
-color:var(--gold);border:1px solid rgba(201,168,76,0.2);
-background:rgba(201,168,76,0.05);
+font-family:monospace;font-size:9px;
+padding:3px 8px;border-radius:3px;
+color:var(--primary);border:1px solid var(--sage);
+background:rgba(125,168,138,0.1);
 }
 
 /* ─── LEGEND ─── */
 #legend {
 position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
-background:rgba(10,53,29,0.93);border:1px solid var(--border);
-border-radius:24px;padding:7px 18px;backdrop-filter:blur(14px);
-display:flex;gap:12px;align-items:center;z-index:100;
-flex-wrap:wrap;justify-content:center;
-max-width:90vw;
+background:white;border:1px solid var(--border);
+border-radius:24px;padding:8px 20px;
+display:flex;gap:14px;align-items:center;z-index:100;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 .leg{display:flex;align-items:center;gap:5px;white-space:nowrap}
-.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
-.leg-lbl{font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:0.5px;color:rgba(250,248,245,0.5)}
-.leg-sep{width:1px;height:12px;background:rgba(255,255,255,0.08)}
-.leg-module{border:1px dashed rgba(255,255,255,0.25);border-radius:2px}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.leg-lbl{font-size:10px;color:var(--gray);font-weight:500}
+.leg-sep{width:1px;height:14px;background:var(--border)}
+
+/* Stats */
+#stats {
+position:fixed;top:70px;left:20px;
+background:white;border:1px solid var(--border);
+border-radius:12px;padding:16px 20px;
+z-index:100;
+box-shadow:0 4px 12px rgba(0,0,0,0.06);
+}
+#stats h3{font-size:11px;color:var(--sage);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.stat-item{text-align:center}
+.stat-num{font-size:24px;font-weight:800;color:var(--primary)}
+.stat-lbl{font-size:9px;color:var(--gray-light);text-transform:uppercase;letter-spacing:0.5px}
 </style>
 </head>
 <body>
@@ -219,61 +142,35 @@ max-width:90vw;
 <div id="hdr">
  <div class="hdr-logo">Agentic<span>Foundr</span></div>
  <div class="hdr-sep"></div>
- <div class="hdr-tag hdr-tag-grey">Enterprise Agent Template</div>
+ <div class="hdr-tag hdr-tag-cream">Enterprise</div>
  <div class="hdr-tag hdr-tag-gold">v1.0</div>
- <div class="hdr-tag hdr-tag-green">Servant Leadership</div>
+ <div class="hdr-tag hdr-tag-sage">Servant Leadership</div>
  <div class="hdr-spacer"></div>
  <div class="hdr-btns">
- <button class="hdr-btn" onclick="resetView()">Reset View</button>
+ <button class="hdr-btn" onclick="resetView()">Reset</button>
  <button class="hdr-btn" onclick="zoomIn()">＋</button>
  <button class="hdr-btn" onclick="zoomOut()">−</button>
- <button class="hdr-btn" id="dockBtn" onclick="toggleDock()">Industry Modules ›</button>
  </div>
 </div>
 
-<!-- MODULE DOCK -->
-<div id="dock">
- <div class="dock-header">
- <div class="dock-title">Industry Modules</div>
- <div class="dock-sub">8 vertical plug-in slots. Activate a module to see which specialist agents populate.</div>
+<!-- STATS -->
+<div id="stats">
+ <h3>Agent Count</h3>
+ <div class="stats-grid">
+  <div class="stat-item"><div class="stat-num">70+</div><div class="stat-lbl">Total</div></div>
+  <div class="stat-item"><div class="stat-num">9</div><div class="stat-lbl">C-Suite</div></div>
+  <div class="stat-item"><div class="stat-num">17</div><div class="stat-lbl">VPs</div></div>
+  <div class="stat-item"><div class="stat-num">10</div><div class="stat-lbl">Directors</div></div>
  </div>
- <div class="dock-scroll" id="dockScroll"></div>
 </div>
 
 <!-- SVG CANVAS -->
 <svg id="canvas" xmlns="http://www.w3.org/2000/svg">
  <defs>
- <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
- <feGaussianBlur stdDeviation="6" result="b"/>
- <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
- </filter>
- <filter id="glow-sm" x="-40%" y="-40%" width="180%" height="180%">
- <feGaussianBlur stdDeviation="3" result="b"/>
- <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
- </filter>
  <filter id="drop" x="-20%" y="-20%" width="140%" height="140%">
- <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="rgba(0,0,0,0.6)"/>
+ <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(10,53,29,0.12)"/>
  </filter>
- <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
- <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.022)" stroke-width="1"/>
- </pattern>
- <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
- <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(255,255,255,0.1)"/>
- </marker>
- <marker id="arr-d" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
- <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(0,223,200,0.4)"/>
- </marker>
- <marker id="arr-s" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
- <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(255,77,106,0.4)"/>
- </marker>
- <marker id="arr-mod" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
- <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(255,255,255,0.35)"/>
- </marker>
- <marker id="arr-l" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
- <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(255,140,66,0.55)"/>
- </marker>
  </defs>
- <g id="bg-layer"></g>
  <g id="root"></g>
 </svg>
 
@@ -283,544 +180,219 @@ max-width:90vw;
 <div id="legend">
  <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">Founder</span></div>
  <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">Tier 0 — CEO</span></div>
+ <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">CEO</span></div>
  <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#0A351D"></div><span class="leg-lbl">Tier 1 — C-Suite</span></div>
+ <div class="leg"><div class="leg-dot" style="background:#0A351D"></div><span class="leg-lbl">C-Suite</span></div>
  <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#7DA88A"></div><span class="leg-lbl">Tier 2 — VP</span></div>
+ <div class="leg"><div class="leg-dot" style="background:#7DA88A"></div><span class="leg-lbl">VP</span></div>
  <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#165436"></div><span class="leg-lbl">Tier 3 — Director</span></div>
+ <div class="leg"><div class="leg-dot" style="background:#165436"></div><span class="leg-lbl">Director</span></div>
  <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot leg-module" style="background:rgba(255,255,255,0.05)"></div><span class="leg-lbl">Module Slot</span></div>
+ <div class="leg"><div class="leg-dot" style="background:#00dfc8"></div><span class="leg-lbl">Data</span></div>
  <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#00dfc8"></div><span class="leg-lbl">Data Lane</span></div>
- <div class="leg-sep"></div>
- <div class="leg"><div class="leg-dot" style="background:#ff4d6a"></div><span class="leg-lbl">Security Lane</span></div>
+ <div class="leg"><div class="leg-dot" style="background:#ff4d6a"></div><span class="leg-lbl">Security</span></div>
 </div>
 
 <script>
 // ═══════════════════════════════════════════════════
-// INDUSTRY MODULE DEFINITIONS
-// ═══════════════════════════════════════════════════
-const MODULES = [
- {id:'property', name:'Property Management', icon:'🏢', color:'#0A351D',
- industry:'Real Estate Operations',
- desc:'Tenant communications, maintenance dispatch, rent collection, lease renewals, applicant screening, weekly portfolio reports.',
- agents:[
- {id:'REPLY', name:'REPLY ×N', role:'Tenant Communication', emoji:'💬',
- desc:'24/7 tenant messaging via SMS/WhatsApp. Every inbound GUARDIAN-scanned. Session fully isolated by ISOLATE. One instance per portfolio.',
- tasks:['Inbound tenant messages','Maintenance request intake','Emergency escalation','Lease inquiry responses']},
- {id:'WRENCH', name:'WRENCH', role:'Maintenance Routing', emoji:'🔨',
- desc:'Classifies, prioritizes, and dispatches maintenance work orders to verified vendors. Address passed via MASK token only.',
- tasks:['Work order classification','Vendor dispatch','Status updates to tenants','Completion confirmation']},
- {id:'COLLECT', name:'COLLECT', role:'Rent Collection', emoji:'💵',
- desc:'Automated rent reminders and late-fee escalations. Payment anomaly alerts TREASURY + SENTINEL within 60 seconds.',
- tasks:['Pre-due reminders','Late notices','Payment reconciliation','Dispute flagging']},
- {id:'RENEW', name:'RENEW', role:'Lease Renewal', emoji:'📄',
- desc:'90-day renewal campaigns. Documents use MASK-tokenized PII. Human signature required before any lease activates.',
- tasks:['Renewal outreach at 90/60/30 days','Offer generation','DocuSign routing','Move-out coordination']},
- {id:'SCREEN', name:'SCREEN', role:'Applicant Screening', emoji:'🪪',
- desc:'Credit + background checks. SSN via MASK token only. Scoring model operates entirely on tokenized references.',
- tasks:['Application intake','TransUnion credit pull','Background check','Scoring + recommendation draft']},
- {id:'FRIDAY', name:'FRIDAY', role:'Portfolio Reports', emoji:'📋',
- desc:'Weekly owner reports — occupancy, rent collected, maintenance open/closed, cash flow. Aggregated only, no raw PII.',
- tasks:['Occupancy summary','Rent roll','Maintenance log','Cash flow snapshot']},
- ]
- },
- {id:'legal', name:'Legal Practice', icon:'⚖️', color:'#a855f7',
- industry:'Law Firms & Solo Attorneys',
- desc:'Client intake automation, deadline tracking, time billing, follow-up sequences, conflict of interest pre-screening.',
- agents:[
- {id:'INTAKE_L', name:'INTAKE-L', role:'Client Intake', emoji:'📋',
- desc:'Automated new client intake — gathers matter details, conflict checks, retainer requirements. PII MASK-tokenized immediately.',
- tasks:['New matter intake form','Conflict of interest pre-screen','Retainer agreement routing','CRM record creation']},
- {id:'DEADLINE', name:'DEADLINE', role:'Deadline Manager', emoji:'⏰',
- desc:'Court dates, filing deadlines, statute of limitations tracking. Alerts attorney 30/14/7/1 days before critical dates.',
- tasks:['Court calendar sync','Filing deadline alerts','Statute of limitations warnings','Discovery deadline tracking']},
- {id:'BILL_L', name:'BILL-L', role:'Time & Billing', emoji:'🧾',
- desc:'Logs time entries, generates invoices, tracks AR. TREASURY clearance on all collections.',
- tasks:['Time entry capture','Invoice generation','AR aging report','Collections follow-up']},
- {id:'FOLLOW_L', name:'FOLLOW-L', role:'Client Follow-Up', emoji:'📬',
- desc:'Automated client status updates and follow-up sequences. Keeps clients informed without attorney involvement.',
- tasks:['Case status updates','Document request follow-up','Appointment reminders','Satisfaction check-ins']},
- ]
- },
- {id:'restaurant', name:'Restaurant & Hospitality', icon:'🍽️', color:'#ff8c42',
- industry:'Food & Beverage Operations',
- desc:'Reservation management, review response, vendor ordering triggers, staff communications, reputation management.',
- agents:[
- {id:'RESERVE', name:'RESERVE', role:'Reservation Management', emoji:'🗓️',
- desc:'Handles booking requests, waitlist management, and table confirmation via SMS/email. Syncs with floor management system.',
- tasks:['Booking confirmation','Waitlist management','Cancellation handling','Special request logging']},
- {id:'REVIEWS', name:'REVIEWS', role:'Review Management', emoji:'⭐',
- desc:'Monitors Google/Yelp/TripAdvisor. Drafts responses within 2 hours. GUARDIAN blocks any legally risky response.',
- tasks:['Review monitoring','Response drafting','Escalation flag for negative reviews','Monthly reputation report']},
- {id:'VENDOR_R', name:'VENDOR-R', role:'Vendor & Ordering', emoji:'🚚',
- desc:'Inventory level monitoring triggers automated reorder requests to approved vendors. Human approves all orders over threshold.',
- tasks:['Inventory monitoring','Reorder trigger','Vendor communication','Order confirmation tracking']},
- {id:'PROMO', name:'PROMO', role:'Promotions & Campaigns', emoji:'📣',
- desc:'Manages SMS/email promotions, seasonal campaigns, and loyalty program communications. GUARDIAN-filtered pre-send.',
- tasks:['Promo scheduling','Loyalty program messages','Seasonal campaign execution','Campaign performance tracking']},
- ]
- },
- {id:'medical', name:'Medical & Dental Office', icon:'🏥', color:'#22d67a',
- industry:'Healthcare (Non-PHI LLM)',
- desc:'Appointment scheduling, patient reminders, billing follow-up, recall campaigns. PHI never enters LLM context — MASK handles all.',
- agents:[
- {id:'SCHEDULE', name:'SCHEDULE', role:'Appointment Scheduling', emoji:'📅',
- desc:'Books, confirms, and reschedules appointments via SMS/email. Patient identity verified by VERIFY before any record access.',
- tasks:['New appointment booking','Confirmation messages','Rescheduling handling','Cancellation follow-up']},
- {id:'REMIND_M', name:'REMIND-M', role:'Patient Reminders', emoji:'💬',
- desc:'Automated appointment reminders at 48hr and 2hr. Pre-appointment instructions. Post-visit follow-up.',
- tasks:['48hr appointment reminder','2hr day-of reminder','Pre-visit instructions','Post-visit satisfaction check']},
- {id:'BILL_M', name:'BILL-M', role:'Billing Follow-Up', emoji:'🧾',
- desc:'Insurance claim status tracking, patient balance reminders, payment plan communications. TREASURY clearance on collections.',
- tasks:['Insurance claim tracking','Balance due reminders','Payment plan management','EOB explanation']},
- {id:'RECALL', name:'RECALL', role:'Patient Recall', emoji:'🔔',
- desc:'Automated recall campaigns for preventive care — annual checkups, cleanings, vaccinations. No PHI in LLM context.',
- tasks:['Annual checkup recall','Preventive care reminders','Vaccination schedule alerts','Inactive patient re-engagement']},
- ]
- },
- {id:'homeservices', name:'Home Services', icon:'🔧', color:'#C9A84C',
- industry:'HVAC · Plumbing · Electrical · Landscaping',
- desc:'Job dispatch, quote follow-up, seasonal campaign triggers, review requests, recall reminders for maintenance contracts.',
- agents:[
- {id:'DISPATCH', name:'DISPATCH', role:'Job Dispatch', emoji:'🚐',
- desc:'Routes inbound service requests to the right technician based on location, skill, and availability. Customer address via MASK token.',
- tasks:['Service request intake','Technician matching','Dispatch confirmation','ETA communication']},
- {id:'QUOTE_H', name:'QUOTE-H', role:'Quote Follow-Up', emoji:'💲',
- desc:'Follows up on open quotes at 24hr, 3-day, and 7-day intervals. Flags stalled deals to HUNTER/CRO.',
- tasks:['Quote delivery','24hr/3-day/7-day follow-ups','Objection response','Acceptance confirmation']},
- {id:'SEASON', name:'SEASON', role:'Seasonal Campaigns', emoji:'🌡️',
- desc:'Triggers seasonal maintenance campaigns — HVAC tune-ups, winterization checks, spring cleanups — to past customers.',
- tasks:['Seasonal outreach lists','Campaign scheduling','Appointment booking','Revenue tracking']},
- {id:'REVIEW_H', name:'REVIEW-H', role:'Review & Referral', emoji:'⭐',
- desc:'Post-job review requests and referral program management. Sent 24hrs after job completion. GUARDIAN-filtered.',
- tasks:['Post-job review request','Google/Yelp direct link','Referral program invite','Review monitoring']},
- ]
- },
- {id:'insurance', name:'Insurance Agency', icon:'🏦', color:'#00dfc8',
- industry:'P&C · Life · Commercial Insurance',
- desc:'Lead nurturing, quote follow-up, policy renewal campaigns, claims triage routing, cross-sell identification.',
- agents:[
- {id:'LEAD_I', name:'LEAD-I', role:'Lead Nurture', emoji:'🎯',
- desc:'Multi-touch lead nurture sequences from first inquiry through quote. All data governed by DATUM. GUARDIAN-screened.',
- tasks:['First response within 5 min','Multi-touch drip sequence','Quote request routing','Lead scoring']},
- {id:'RENEW_I', name:'RENEW-I', role:'Policy Renewal', emoji:'🔄',
- desc:'Renewal campaigns starting 90 days before expiration. Identifies at-risk renewals for human outreach.',
- tasks:['90/60/30-day renewal outreach','At-risk flag to agent','Renewal confirmation','Coverage review prompt']},
- {id:'CLAIM', name:'CLAIM', role:'Claims Triage', emoji:'🚨',
- desc:'Initial claims intake and triage. Routes to appropriate adjuster. Keeps claimant informed of status. No PII in LLM.',
- tasks:['FNOL intake','Severity classification','Adjuster routing','Status update communications']},
- {id:'CROSS', name:'CROSS', role:'Cross-Sell Intelligence', emoji:'📊',
- desc:'Analyzes policy portfolio gaps and triggers targeted cross-sell outreach. Feeds opportunities to HUNTER/CRO pipeline.',
- tasks:['Coverage gap analysis','Cross-sell trigger detection','Targeted outreach','Opportunity handoff to agent']},
- ]
- },
- {id:'realestate', name:'Real Estate Brokerage', icon:'🏡', color:'#ff4d6a',
- industry:'Residential & Commercial Real Estate',
- desc:'Lead response, showing scheduling, transaction coordination, contract follow-up, client nurture between transactions.',
- agents:[
- {id:'RESPOND', name:'RESPOND', role:'Lead Response', emoji:'⚡',
- desc:'Instant lead response within 5 minutes across Zillow, Realtor.com, web forms. Qualifies and books showing appointments.',
- tasks:['Sub-5-min lead response','Buyer/seller qualification','Showing appointment booking','CRM record creation']},
- {id:'SHOW', name:'SHOW', role:'Showing Coordinator', emoji:'🗓️',
- desc:'Manages showing schedules, confirmations, and feedback collection. Syncs with MLS showing services.',
- tasks:['Showing request handling','Confirmation & reminders','Post-showing feedback','Schedule conflict resolution']},
- {id:'TRANSACT',name:'TRANSACT', role:'Transaction Coordinator', emoji:'📝',
- desc:'Tracks all transaction milestones, deadlines, and document requirements. Alerts agent and client to pending items.',
- tasks:['Contingency deadline tracking','Document checklist','Earnest money coordination','Closing countdown alerts']},
- {id:'NURTURE', name:'NURTURE', role:'Long-Term Nurture', emoji:'🤝',
- desc:'Keeps past clients and future prospects engaged with market updates, anniversary touches, and referral requests.',
- tasks:['Annual anniversary message','Market update delivery','Referral request (post-close)','Holiday/birthday touches']},
- ]
- },
- {id:'education', name:'Education & Tutoring', icon:'🎓', color:'#a855f7',
- industry:'Schools · Tutoring Centers · Online Courses',
- desc:'Enrollment inquiry handling, class reminders, progress reports, tuition billing, parent communications.',
- agents:[
- {id:'ENROLL', name:'ENROLL', role:'Enrollment Management', emoji:'📋',
- desc:'Handles enrollment inquiries, application processing, and onboarding communications. PII MASK-tokenized.',
- tasks:['Inquiry response','Application processing','Welcome sequence','Orientation scheduling']},
- {id:'REMIND_E',name:'REMIND-E', role:'Class Reminders', emoji:'🔔',
- desc:'Automated class reminders, schedule change notifications, and absence follow-ups to students and parents.',
- tasks:['Class reminders','Schedule change alerts','Absence notification','Makeup class coordination']},
- {id:'PROGRESS',name:'PROGRESS', role:'Progress Reporting', emoji:'📈',
- desc:'Generates and delivers student progress reports to parents on set intervals. Flags struggling students for instructor review.',
- tasks:['Weekly progress snapshot','Monthly detailed report','At-risk student flag','Parent communication log']},
- {id:'BILL_E', name:'BILL-E', role:'Tuition Billing', emoji:'💳',
- desc:'Tuition invoicing, payment reminders, and collection sequences. TREASURY clearance on all payments.',
- tasks:['Monthly invoice generation','Payment reminders','Late fee application','Scholarship/discount management']},
- ]
- }
-];
-
-// ═══════════════════════════════════════════════════
-// AGENTICFOUNDR CORE AGENT DATA (STACKHAND FORMAT)
+// AGENT DATA
 // ═══════════════════════════════════════════════════
 const CORE = {
- // ═══════════════════════════════════════════════════
- // FOUNDER — Top of org chart
- // ═══════════════════════════════════════════════════
- FOUNDER: {
- n:'YOU', r:'Founder & Strategic Authority', e:'👤', c:'#C9A84C', tier:'founder',
- mandate:null,
- desc:'Single point of authority. Approves all transactions over $500, security threats, and strategic decisions. You receive daily VISION dashboard and security briefings from ATLAS.',
- resp:['Approves all transactions above $500','Approves all bank routing changes','Reviews security alerts in real-time','Reviews ATLAS weekly executive summary','Final authority on all strategic direction'],
- tools:['VISION Dashboard','Security Alerts','Weekly Summary']
- },
-
- // ═══════════════════════════════════════════════════
- // TIER 0 — CEO (APEX)
- // ═══════════════════════════════════════════════════
- APEX: {
- n:'APEX', r:'Chief Executive Officer', e:'🧠', c:'#C9A84C', tier:0,
- mandate:'Sets enterprise vision, strategy, and growth direction. Orchestrates all 9 C-Suite agents. The sole agent that communicates with the human founder.',
- desc:'Master orchestrator. Reads DATUM data brief and CIPHER security brief every morning before the delegation cycle. Produces weekly executive summary for founder.',
- resp:['Sets enterprise mission, vision, and quarterly OKRs','Delegates strategic initiatives across all 9 C-Suite agents','Morning review: DATUM data brief + CIPHER security brief + SAGE legal risk brief','Produces weekly executive summary for founder','Final escalation decision-maker for all cross-C-Suite conflicts'],
- tools:['Mission Decomposer','VISION KPI Dashboard','DATUM Data Brief','CIPHER Security Brief','RAG Memory Store','Executive Report Builder']
- },
-
- // ═══════════════════════════════════════════════════
- // TIER 1 — C-SUITE (9 Agents)
- // ═══════════════════════════════════════════════════
- LEDGER: {
- n:'LEDGER', r:'Chief Financial Officer', e:'💰', c:'#0A351D', tier:1,
- mandate:'Responsible for the organization\'s overall financial health. Oversees financial planning, budgeting, reporting, and risk management. Strategic partner to APEX on growth, funding, and investment decisions.',
- desc:'Owns the full financial lifecycle — daily cash flow through long-term investment strategy. Every financial decision routes through LEDGER, who weighs risk against opportunity and keeps the enterprise financially healthy.',
- resp:['Owns financial planning, budgeting, and quarterly forecasting','Monitors cash flow, revenue, and profitability daily','Manages investment decisions and capital allocation','Partners with APEX on funding strategy and business growth','Oversees financial risk — identifies exposure before it becomes a crisis','All transactions cleared through TREASURY (CIPHER-governed)'],
- tools:['QuickBooks API','Stripe API','Budget Planning Engine','Cash Flow Monitor','Financial Risk Scorer','Investment Decision Framework','TREASURY Integration','VISION Financial Dashboard']
- },
- CORTEX: {
- n:'CORTEX', r:'Chief Operating Officer', e:'⚙️', c:'#0A351D', tier:1,
- mandate:'Second-in-command to APEX. Oversees day-to-day administrative and operational functions. The bridge between high-level strategy and daily execution — ensures processes run efficiently and long-term goals are met.',
- desc:'The operational engine and APEX\'s second-in-command. Turns strategy into execution. Orchestrates all operational workflows, manages resource allocation, and owns the gap between strategy and results.',
- resp:['Acts as second-in-command — represents APEX when needed','Translates APEX strategy into operational plans and agent assignments','Oversees all client delivery workflows and SLA compliance','Manages resource allocation and process efficiency','Coordinates cross-departmental execution','Reviews weekly operational performance and surfaces risks to APEX'],
- tools:['n8n Workflow Orchestrator','Operational Health Dashboard','Resource Allocation Engine','SLA Compliance Monitor','Cross-Department Coordination Hub','Agent Performance Tracker']
- },
- SIGNAL: {
- n:'SIGNAL', r:'Chief Marketing Officer', e:'📣', c:'#0A351D', tier:1,
- mandate:'Responsible for marketing activities, brand strategy, and customer engagement. Drives growth by aligning marketing with corporate strategy and optimizing ROI. Bridges the gap between market insights and company operations.',
- desc:'Owns market position and customer perception. Every marketing decision is grounded in VISION data. Collaborates with HUNTER/CRO on revenue pipeline and ANCHOR/CCO on customer experience consistency.',
- resp:['Owns enterprise brand strategy and market positioning','Aligns all marketing with corporate strategy set by APEX','Analyzes market data to surface insights for product and pricing','Optimizes marketing ROI across all channels','Collaborates with HUNTER/CRO so marketing feeds pipeline directly','Partners with ANCHOR/CCO on consistent customer experience','All outbound content GUARDIAN-filtered (CIPHER-governed)'],
- tools:['Buffer','Mailchimp','SEMrush','Google Analytics API','Brand Strategy Engine','ROI Attribution Model','Market Insight Aggregator','VISION Marketing Dashboard','GUARDIAN Content Filter']
- },
- HUNTER: {
- n:'HUNTER', r:'Chief Revenue Officer', e:'🎯', c:'#0A351D', tier:1,
- mandate:'Focused on maximizing revenue. Aligns ALL revenue-generating functions — sales, marketing, and client success — which traditionally operate in silos. HUNTER breaks down those silos into one unified revenue machine.',
- desc:'Owns the entire revenue engine — new business, renewals, expansions, and upsells. Aligns SIGNAL/CMO, direct sales, and ANCHOR/CCO into one coordinated motion. No revenue-touching function operates independently.',
- resp:['Owns total revenue — new business, renewals, expansions, upsells','Aligns sales, marketing, and client success into a unified revenue motion','Manages full pipeline from first contact through contract close','Sets and monitors revenue targets — weekly reviews, monthly forecasts','Coordinates with SIGNAL/CMO so marketing feeds pipeline directly','Partners with ANCHOR/CCO on expansion revenue opportunities','Reports revenue to LEDGER/CFO and APEX'],
- tools:['CRM Platform','Data Enrichment Tool','Revenue Pipeline Dashboard','Sales-Marketing Alignment Engine','Expansion Revenue Tracker','Revenue Forecast Model','DocuSign','GUARDIAN Security Integration']
- },
- FORGE: {
- n:'FORGE', r:'Chief Technology Officer', e:'🔧', c:'#0A351D', tier:1,
- mandate:'Responsible for technological vision, strategy, and R&D. Aligns technology with business goals to drive innovation, improve products, and maintain competitive edge. The architect of how technology creates competitive advantage.',
- desc:'Owns the technology roadmap — deciding what gets built, what gets automated, what AI models get deployed, and how technology creates business value. Infrastructure is delegated to BEDROCK so FORGE stays focused on vision.',
- resp:['Owns technology vision, innovation roadmap, and R&D agenda','Aligns all technology decisions with business goals','Leads AI model selection, automation R&D, and capability adoption','Manages competitive technology intelligence — stays ahead of the market','Requires DATUM + CIPHER joint approval for all new deployments','Drives workflow automation R&D — identifies new automation opportunities','Reports technology ROI and innovation progress to APEX quarterly'],
- tools:['Technology Roadmap Engine','Ollama Model Manager','AI Model Benchmark Suite','R&D Exploration Pipeline','Innovation Backlog','Docker Container Orchestration','API Integration Framework','Competitive Tech Intelligence Feed','DATUM + CIPHER Joint Approval Gate']
- },
- ANCHOR: {
- n:'ANCHOR', r:'Chief Client Officer', e:'🤝', c:'#0A351D', tier:1,
- mandate:'Responsible for the end-to-end customer experience, strategy, and advocacy. Unites cross-functional teams — sales, marketing, and operations — to ensure the company remains customer-centric. Drives growth through retention, expansion, and advocacy.',
- desc:'The customer\'s seat at the C-Suite table. Ensures every function stays oriented around client outcomes. Owns retention, expansion, and advocacy as growth levers in partnership with HUNTER/CRO.',
- resp:['Owns end-to-end client experience from onboarding through advocacy','Unites marketing, sales, and delivery around customer-centric strategy','Ensures customer voice is represented at every APEX strategy session','Owns client retention KPIs — churn, NPS, CSAT, health scores','Partners with HUNTER/CRO on expansion revenue identification','Partners with SIGNAL/CMO to align messaging with actual client needs','Manages full client lifecycle — onboarding, success, renewal, referral'],
- tools:['CRM Platform','NPS & CSAT Tracker','Client Health Score Engine','Churn Prediction Model','Expansion Signal Detector','Onboarding Flow Manager','Advocacy & Referral Program','Cross-Function CX Alignment Hub','DATUM PII Governance','CIPHER/VERIFY Identity Clearance']
- },
- COUNSEL: {
- n:'COUNSEL', r:'Chief Legal Officer', e:'⚖️', c:'#7DA88A', tier:1,
- mandate:'Serves as the primary legal advisor to the CEO, board of directors, and the entire C-Suite. Unlike traditional legal roles, COUNSEL functions as a strategic business partner — integrating legal expertise into corporate strategy, risk management, compliance, and governance.',
- desc:'COUNSEL is not a reactive legal department — it is a proactive strategic partner embedded at the highest level. Every C-Suite agent has a direct relationship with COUNSEL because legal risk touches every business function.',
- resp:['Serves as primary legal advisor to APEX and all C-Suite agents','Integrates legal expertise into corporate strategy, risk management, and governance','Reviews all commercial contracts before HUNTER/CRO closes any deal','Reviews IP, licensing, and open-source usage before FORGE/CTO deploys new technology','Co-owns data privacy law obligations (GDPR, CCPA, CPRA) with DATUM/CDO','Co-manages security regulatory obligations (SOC 2, AI Act, HIPAA) with CIPHER/CISO','Reviews all marketing claims and advertising copy from SIGNAL/CMO for legal defensibility','Produces weekly legal risk brief for APEX and quarterly governance report for founder'],
- tools:['Contract Review Engine','IP & Licensing Tracker','Legal Risk Register','Regulatory Intelligence Feed (AI Act / GDPR / CCPA / HIPAA)','NDA Management System','Litigation Hold System','Board Governance Dashboard','Weekly Legal Risk Brief Builder','Quarterly Governance Report Builder','Cross-C-Suite Legal Advisory Hub']
- },
- DATUM: {
- n:'DATUM', r:'Chief Data Officer', e:'🌐', c:'#00dfc8', tier:1,
- mandate:'Leads development of data-driven processes to achieve business goals. Manages data strategy, governance, and protection. Enables data-driven decision-making across the entire enterprise.',
- desc:'DATUM operates as a true CDO — setting strategy, policy, and governance standards, then delegating operational execution to GOVERN (VP Data Governance) and PIPELINE (VP Data Engineering). Day-to-day Data Lane operations flow through those two VPs and their Director reports. DATUM stays focused on enterprise data strategy, C-Suite advisory, regulatory positioning, and the Data & Security Council.',
- resp:['Defines enterprise data strategy and aligns it to business goals','Sets all 4 sensitivity tier policies — financial, PII, operational, comms','Approves all new data integrations before FORGE deploys them (joint gate with CIPHER)','Delegates Data Lane operations: GOVERN owns governance + privacy agents, PIPELINE owns ingestion + visualization','Reviews GOVERN and PIPELINE weekly status briefs — does not manage lane agents directly','Co-chairs Data & Security Council with CIPHER — joint veto on any PII or financial data system','Produces quarterly Data Strategy Report for APEX and founder','Serves as C-Suite advisor on data-driven decision-making across all 9 C-Suite agents'],
- tools:['Data Strategy Dashboard','Enterprise Data Policy Engine','Data & Security Council Hub','GDPR/CCPA Executive Console','Data Catalog (read)','Quarterly CDO Report Builder','C-Suite Data Advisory Interface','Integration Approval Gate (joint with CIPHER)']
- },
- CIPHER: {
- n:'CIPHER', r:'Chief Information Security Officer', e:'🛡️', c:'#ff4d6a', tier:1,
- mandate:'Establishes and maintains the organization\'s security vision, strategy, and program. Manages cybersecurity risks, oversees security operations, and ensures compliance with all regulatory requirements.',
- desc:'CIPHER operates as a true CISO — setting security vision, policy parameters, and risk thresholds, then delegating operational execution to RISKWATCH (VP Cybersecurity Ops) and COMPLY (VP Compliance & Risk). Day-to-day Security Lane operations flow through those two VPs and their Director reports. CIPHER stays focused on enterprise security strategy, threat posture, regulatory compliance positioning, and the Data & Security Council.',
- resp:['Defines information security vision, strategy, and enterprise risk posture','Sets operational parameters and thresholds for all 7 Security Lane agents — does not manage them directly','Delegates Security Lane ops: RISKWATCH owns active threat operations, COMPLY owns compliance and access control','Reviews RISKWATCH and COMPLY weekly security briefs — escalation only on confirmed high-severity events','Manages GDPR, CCPA, SOC 2, NIST SP 800-207, and AI Act strategic positioning','Approves all vendor and third-party security reviews before any integration goes live','Co-chairs Data & Security Council with DATUM — joint veto on any PII or financial data system','Produces quarterly Security Posture Report for APEX and founder'],
- tools:['Security Strategy Dashboard','Threat Intelligence Console','Risk Posture Scorecard','Compliance Framework Manager','Vendor Security Review Portal','AI Threat Feed','Quarterly CISO Report Builder','Data & Security Council Hub','Integration Security Approval Gate (joint with DATUM)']
- },
-
- // ═══════════════════════════════════════════════════
- // TIER 2 — VP LAYER (17 VPs)
- // ═══════════════════════════════════════════════════
- PULSE: {n:'PULSE', r:'VP Revenue Intelligence', e:'📊', c:'#7DA88A', tier:2, desc:'Pipeline health and revenue forecasting. Reports to LEDGER/CFO. Queries VAULT-D under DATUM governance.', tools:['CRM Analytics','Pipeline Tracker','Revenue Forecast Feed']},
- QUILL: {n:'QUILL', r:'VP Content & Brand', e:'✍️', c:'#7DA88A', tier:2, desc:'Executes SIGNAL/CMO brand strategy. All content GUARDIAN-filtered. Reports to SIGNAL.', tools:['LLM Writer','Brand Guide','CMS API','GUARDIAN Filter']},
- RELAY: {n:'RELAY', r:'VP Client Delivery', e:'🔄', c:'#7DA88A', tier:2, desc:'Executes CORTEX/COO operational plans at the client level. Manages module-layer agents. SLA enforcement.', tools:['Workflow Monitor','SLA Dashboard','Agent Health Monitor']},
- VAULTVP: {n:'VAULT-VP', r:'VP Finance & Billing', e:'🧾', c:'#7DA88A', tier:2, desc:'Billing operations under LEDGER/CFO. All unusual charges → TREASURY (CIPHER) within 60 seconds.', tools:['Billing Platform','Invoicing Engine','DocuSign','TREASURY Integration']},
- PRISM: {n:'PRISM', r:'VP Data Intelligence', e:'🔬', c:'#7DA88A', tier:2, desc:'Analytics aggregation for all C-Suite under DATUM governance. Feeds VISION dashboard.', tools:['Data Aggregator','Report Builder','CLEAN Integration','VISION Feed']},
- BOOST: {n:'BOOST', r:'VP Growth & Partnerships', e:'🚀', c:'#7DA88A', tier:2, desc:'Partnership pipeline and expansion revenue under HUNTER/CRO. VERIFY identity checks before data sharing.', tools:['Partner CRM','Commission Tracker','VERIFY Integration']},
- BEDROCK: {n:'BEDROCK', r:'VP Infrastructure', e:'🖥️', c:'#7DA88A', tier:2, desc:'Mac Mini, Ollama models, API health under FORGE/CTO direction. Infra changes require DATUM + CIPHER review.', tools:['Ollama','Docker','Uptime Monitor','VISION Health Feed']},
- WARMTH: {n:'WARMTH', r:'VP Client Experience', e:'⭐', c:'#7DA88A', tier:2, desc:'NPS, churn prediction, and client health scoring. Executes ANCHOR/CCO experience strategy.', tools:['NPS Tool','Sentiment Analysis','Churn Predictor']},
- GUIDE: {n:'GUIDE', r:'VP Client Onboarding', e:'🎓', c:'#7DA88A', tier:2, desc:'New client setup. DATUM governs PII collection. CIPHER confirms identity before data collection begins.', tools:['Onboarding Flow','n8n Deploy','Twilio','VERIFY Integration','MASK']},
- ARCHITECT:{n:'ARCHITECT',r:'VP Product Development', e:'🧩', c:'#7DA88A', tier:2, desc:'Executes FORGE/CTO R&D backlog. Identifies performance patterns and workflow improvements.', tools:['Performance Logs','Feedback Parser','Innovation Pipeline']},
- SCOUT: {n:'SCOUT', r:'VP Market Intelligence', e:'🗺️', c:'#7DA88A', tier:2, desc:'Competitive and market intelligence for SIGNAL/CMO and FORGE/CTO. CLEAN-validated under DATUM governance.', tools:['Web Scraper','News API','CLEAN Integration']},
- SHIELD: {n:'SHIELD', r:'VP Legal Strategy', e:'🏛️', c:'#7DA88A', tier:2, desc:'Executes COUNSEL/CLO legal strategy. Owns contract lifecycle, IP portfolio, and cross-enterprise legal risk monitoring.', tools:['Contract Management Platform','IP Portfolio Tracker','Legal Risk Monitor','NDA Management','Vendor Agreement Library','Monthly Risk Register Builder']},
- GOVERN: {n:'GOVERN', r:'VP Data Governance', e:'📐', c:'#7DA88A', tier:2, desc:'Executes DATUM/CDO governance program. Manages STEWARD (Dir. Data Privacy) and CURATOR (Dir. Data Quality & Vault). Owns data catalog, lineage maps, and GDPR/CCPA workflows. Reports to DATUM.', tools:['Data Catalog Manager','Data Dictionary','Lineage Tracker','DSAR Workflow Engine','GDPR Erasure Coordinator','Governance Audit Builder']},
- PIPELINE: {n:'PIPELINE', r:'VP Data Engineering', e:'🔩', c:'#7DA88A', tier:2, desc:'Owns all technical data pipeline infrastructure under DATUM direction. Manages STREAM (Dir. Data Pipeline & Viz) who runs INTAKE and VISION day-to-day. Partners with FORGE/CTO on new integrations. Reports to DATUM.', tools:['Pipeline Designer','Schema Registry','INTAKE Orchestrator','Pipeline Health Monitor','Integration Vetting Gate']},
- RISKWATCH:{n:'RISKWATCH',r:'VP Cybersecurity Ops', e:'🔭', c:'#ff4d6a', tier:2, desc:'Executes CIPHER/CISO active security operations. Manages SENTRY (Dir. Threat Ops) and RESPONSE (Dir. Incident & Trust). Translates CIPHER strategy into operational runbooks. Reports to CIPHER.', tools:['SOC Dashboard','AI Threat Intel Feed','SENTINEL Rule Engine','Threat Hunting Console','Weekly Security Brief Builder']},
- COMPLY_L: {n:'COMPLY-L', r:'VP Regulatory & Governance', e:'📜', c:'#7DA88A', tier:2, desc:'Manages regulatory compliance and corporate governance under COUNSEL direction. Owns legal compliance calendar. Partners with COMPLY (CIPHER) on overlapping security + legal areas, and with GOVERN (DATUM) on data law. Reports to COUNSEL.', tools:['Regulatory Intelligence Feed','Corporate Governance Dashboard','Legal Compliance Calendar','Government Affairs Tracker','Employment Law Monitor','Quarterly Governance Report Builder']},
- COMPLY: {n:'COMPLY', r:'VP Compliance & Risk', e:'📋', c:'#ff4d6a', tier:2, desc:'Owns security compliance calendar and enterprise risk register under CIPHER direction. Manages ACCESS (Dir. Access, Audit & Transactions) who runs VERIFY, LEDGER-S, and TREASURY day-to-day. Reports to CIPHER.', tools:['Compliance Calendar','Regulatory Monitor','Vendor Risk Matrix','Risk Register','SOC 2 Readiness Tracker']},
-
- // ═══════════════════════════════════════════════════
- // TIER 3 — DIRECTOR LAYER
- // ═══════════════════════════════════════════════════
- FINDER: {n:'FINDER', r:'Director of Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Lead generation via data enrichment tools. All prospect data written to VAULT-D under DATUM governance. Reports to HUNTER/CRO.', tools:['Data Enrichment','Lead Gen Tools','VAULT-D']},
- CADENCE: {n:'CADENCE', r:'Director of Outreach', e:'📧', c:'#165436', tier:3, desc:'Sales sequencing and outreach execution. All inbound GUARDIAN-screened before reading. Reports to HUNTER/CRO.', tools:['Outreach Platform','Sequencing','GUARDIAN']},
- CLOSE: {n:'CLOSE', r:'Director of Proposals', e:'📃', c:'#165436', tier:3, desc:'Custom proposals from VAULT-D data. All contracts require human e-signature via DocuSign. Reports to HUNTER/CRO.', tools:['Proposal Builder','DocuSign','VAULT-D']},
- INK: {n:'INK', r:'Director of Content & SEO', e:'📝', c:'#165436', tier:3, desc:'Content strategy and SEO execution under SIGNAL/CMO brand direction. GUARDIAN-filtered pre-publish.', tools:['LLM Writer','SEO Tools','CMS API','GUARDIAN Filter']},
- THREAD: {n:'THREAD', r:'Director of Social Media', e:'📱', c:'#165436', tier:3, desc:'Social channel management under SIGNAL/CMO. All DMs GUARDIAN-screened.', tools:['Social Scheduler','Engagement Tools','GUARDIAN Filter']},
- FLOW: {n:'FLOW', r:'Director of Email', e:'💌', c:'#165436', tier:3, desc:'Email nurture and campaign execution under SIGNAL/CMO. All outbound GUARDIAN-filtered.', tools:['Email Platform','Automation','A/B Testing']},
- LEDGE: {n:'LEDGE', r:'Director of Billing', e:'🧮', c:'#165436', tier:3, desc:'Invoice generation and collections. Payment changes → TREASURY (CIPHER) immediately. Reports to VAULT-VP.', tools:['Invoice Gen','Collections','TREASURY']},
- AUDIT: {n:'AUDIT', r:'Director of Quality Assurance', e:'🔎', c:'#165436', tier:3, desc:'Daily output sampling across all tiers. PII in unexpected outputs → SENTINEL (CIPHER chain). Reports to RELAY.', tools:['Output Sampler','PII Detector','SENTINEL']},
- BOND: {n:'BOND', r:'Director of Retention', e:'🔗', c:'#165436', tier:3, desc:'Churn risk and re-engagement. At-risk flag to human within 1 hour. Feeds expansion signals to HUNTER/CRO.', tools:['Churn Predictor','Re-engagement','HUNTER Integration']},
- LENS: {n:'LENS', r:'Director of Analytics', e:'📈', c:'#165436', tier:3, desc:'KPI aggregation under DATUM governance. Feeds VISION dashboard. No raw PII in analytics output.', tools:['KPI Aggregator','VISION Dashboard','Data Aggregator']},
-
- // ═══════════════════════════════════════════════════
- // DATA LANE DIRECTORS
- // ═══════════════════════════════════════════════════
- STEWARD: {n:'STEWARD', r:'Dir. Data Privacy & PII', e:'🔏', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of MASK (PII tokenization) and ISOLATE (session isolation). Enforces DATUM\'s PII sensitivity tier policies operationally. Reports to GOVERN/VP Data Governance.', tools:['MASK Operational Console','ISOLATE Session Monitor','PII Incident Log','Tokenization Audit Trail']},
- CURATOR: {n:'CURATOR', r:'Dir. Data Quality & Vault', e:'🗄️', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of VAULT-D (encrypted data warehouse) and CLEAN (PoisonedRAG defense). Maintains data integrity, runs quality audits, processes GDPR erasure requests. Reports to GOVERN/VP Data Governance.', tools:['VAULT-D Operations Console','CLEAN Quality Dashboard','Data Integrity Audit','GDPR Erasure Workflow','Anomaly Alert Engine']},
- STREAM: {n:'STREAM', r:'Dir. Data Pipeline & Viz', e:'🌊', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of INTAKE (data ingestion) and VISION (dashboards). Maintains all data pipelines, monitors ingestion health, ensures VISION dashboards stay accurate and PII-free. Reports to PIPELINE/VP Data Engineering.', tools:['INTAKE Health Monitor','VISION Dashboard Config','Pipeline Latency Tracker','Schema Validation Engine','Ingestion Failure Alerts']},
-
- // ═══════════════════════════════════════════════════
- // DATA LANE AGENTS
- // ═══════════════════════════════════════════════════
- VAULTD: {n:'VAULT-D', r:'Data Warehouse', e:'🗄️', c:'#00dfc8', tier:'data', desc:'Single encrypted source of truth for all 4 sensitivity tiers. Local hardware, AES-256. Day-to-day operations managed by CURATOR (Dir. Data Quality & Vault). Policy set by DATUM. VERIFY access control enforced by ACCESS (Dir.) under COMPLY.', tools:['AES-256 PostgreSQL','VERIFY Access Control','MASK Integration','GDPR Erasure Orchestrator']},
- INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'📥', c:'#00dfc8', tier:'data', desc:'All inbound classified by sensitivity tier, GUARDIAN-scanned, written to VAULT-D. Day-to-day operations managed by STREAM (Dir. Data Pipeline & Viz). Policy set by DATUM.', tools:['API Connector Hub','Schema Normalizer','GUARDIAN Integration','VAULT-D Write Bridge']},
- MASK: {n:'MASK', r:'PII Tokenization', e:'🔏', c:'#00dfc8', tier:'data', desc:'SSNs and account numbers replaced with tokens before any LLM sees them. Day-to-day operations managed by STEWARD (Dir. Data Privacy & PII). Policy set by DATUM.', tools:['SSN Tokenizer','Bank Data Tokenizer','Isolated Token Store','Encrypted API Reconstruction']},
- VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#00dfc8', tier:'data', desc:'Real-time dashboards for all C-Suite and founder. Aggregated only — no raw PII. Day-to-day operations managed by STREAM (Dir. Data Pipeline & Viz). Curated per DATUM policy.', tools:['Dashboard Builder','Aggregation Engine','Threshold Alert System','Mobile Report Delivery']},
- CLEAN: {n:'CLEAN', r:'Data Quality Guard', e:'🔬', c:'#00dfc8', tier:'data', desc:'Validates all data for PoisonedRAG patterns before entering VAULT-D. Day-to-day operations managed by CURATOR (Dir. Data Quality & Vault). Standards set by DATUM.', tools:['PoisonedRAG Detection Model','Data Drift Monitor','Embedding Anomaly Detector','Integrity Check Engine']},
- ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🔐', c:'#00dfc8', tier:'data', desc:'Every agent conversation runs in a clean isolated context. Prevents cross-tenant data bleed. Day-to-day operations managed by STEWARD (Dir. Data Privacy & PII). Policy set by DATUM.', tools:['Session Context Manager','Clean Start Enforcer','Identity Re-Verification Bridge','Cross-Tenant Isolation Monitor']},
-
- // ═══════════════════════════════════════════════════
- // SECURITY LANE DIRECTORS
- // ═══════════════════════════════════════════════════
- SENTRY: {n:'SENTRY', r:'Dir. Threat Operations', e:'🚨', c:'#ff4d6a', tier:'slane', desc:'Day-to-day management of SENTINEL (monitoring), GUARDIAN (input filtering), and ZERO (zero trust enforcement). Runs daily threat hunts, maintains OWASP LLM rules, enforces NIST SP 800-207 agent-to-agent trust policies. Reports to RISKWATCH/VP Cybersecurity Ops.', tools:['SENTINEL Operations Console','GUARDIAN Rule Engine','ZERO Trust Policy Manager','Threat Hunt Runbooks','AI-Specific Threat Feed','OWASP LLM Top 10 Library']},
- RESPONSE: {n:'RESPONSE', r:'Dir. Incident & Trust', e:'🚒', c:'#ff4d6a', tier:'slane', desc:'Day-to-day management of CONTAIN (incident response). Owns the incident response runbook, maintains forensic evidence procedures, and coordinates post-incident reviews. Reports to RISKWATCH/VP Cybersecurity Ops.', tools:['CONTAIN Operations Console','Incident Runbook Manager','Forensic Preservation Engine','Post-Incident Review Builder','Dual-Alert System (CIPHER + Founder)']},
- ACCESS: {n:'ACCESS', r:'Dir. Access, Audit & Trans.', e:'🔒', c:'#ff4d6a', tier:'slane', desc:'Day-to-day management of VERIFY (identity & access), LEDGER-S (immutable audit log), and TREASURY (transaction security). Enforces least-privilege, rotates API keys, monitors ATO fraud, maintains tamper-proof audit trails, and clears all financial transactions. Reports to COMPLY/VP Compliance & Risk.', tools:['VERIFY Access Console','LEDGER-S Audit Dashboard','TREASURY Transaction Monitor','API Key Rotation Engine','ATO Detection Feed','SOC 2 Evidence Collector']},
-
- // ═══════════════════════════════════════════════════
- // SECURITY LANE AGENTS
- // ═══════════════════════════════════════════════════
- SENTINEL:{n:'SENTINEL', r:'Security Ops Monitor', e:'🚨', c:'#ff4d6a', tier:'security', desc:'Day-to-day behavioral anomaly monitoring of all agents. Managed by SENTRY (Dir. Threat Ops). Escalation path: SENTRY → RISKWATCH → CIPHER. High-severity confirmed threats skip to CIPHER directly.', tools:['Behavioral Anomaly Detector','Multi-Agent Monitor','SMS+Push Alert','Threat Intel Feed']},
- GUARDIAN:{n:'GUARDIAN', r:'Content & Input Filter',e:'🧱', c:'#ff4d6a', tier:'security', desc:'100% of inbound messages scanned before any agent reads them. Managed by SENTRY (Dir. Threat Ops). Rules set by CIPHER, executed per SENTRY runbooks. OWASP LLM Top 10 compliant.', tools:['OWASP LLM Top 10','Semantic Separator','Injection Classifier','Jailbreak Pattern Library']},
- TREASURY:{n:'TREASURY', r:'Transaction Security', e:'🏦', c:'#ff4d6a', tier:'security', desc:'Every financial transaction requires TREASURY clearance. Managed by ACCESS (Dir. Access, Audit & Trans.). Thresholds set by CIPHER: <$500 auto, $500-$5K APEX confirms, >$5K human required.', tools:['Payment Validator','Pattern Analyzer','Velocity Check','Human Approval Push']},
- VERIFY: {n:'VERIFY', r:'Identity & Access Mgr',e:'🪪', c:'#ff4d6a', tier:'security', desc:'Least-privilege access enforcement. Managed by ACCESS (Dir. Access, Audit & Trans.). Policy set by CIPHER. 30-day API key rotation. Monitors for ATO fraud.', tools:['Least-Privilege Engine','API Key Rotation','Scope Violation Detector','ATO Monitor']},
- LEDGERS: {n:'LEDGER-S', r:'Immutable Audit Log', e:'📜', c:'#ff4d6a', tier:'security', desc:'Tamper-proof log of every agent action with full reasoning chain. Managed by ACCESS (Dir. Access, Audit & Trans.). Reports to CIPHER on any modification attempt. GDPR+CCPA+SOC2 ready.', tools:['Tamper-Proof Logger','Reasoning Chain Recorder','Compliance Reporter','Forensic Vault']},
- ZERO: {n:'ZERO', r:'Zero Trust Enforcer', e:'🔒', c:'#ff4d6a', tier:'security', desc:'Validates every agent-to-agent communication before execution. Managed by SENTRY (Dir. Threat Ops). NIST SP 800-207. Policy set by CIPHER.', tools:['NIST SP 800-207','Behavioral Baseline','Inter-Agent Validation','Lateral Movement Detector']},
- CONTAIN: {n:'CONTAIN', r:'Incident Response', e:'🚒', c:'#ff4d6a', tier:'security', desc:'On confirmed threat: isolate, pause, alert CIPHER+human simultaneously, preserve forensics, recover. Managed by RESPONSE (Dir. Incident & Trust). Escalation always simultaneous to CIPHER + Founder.', tools:['Agent Isolation Engine','Workflow Pause','Dual Alert System','Forensic Preservation']}
+ FOUNDER: {n:'YOU', r:'Founder', e:'👤', c:'#C9A84C', tier:'founder', desc:'Strategic authority. Final approver on all major decisions.'},
+ APEX: {n:'APEX', r:'Chief Executive Officer', e:'🧠', c:'#C9A84C', tier:0, desc:'Master orchestrator. Sets vision, strategy, delegates to C-Suite.'},
+ LEDGER: {n:'LEDGER', r:'Chief Financial Officer', e:'💰', c:'#0A351D', tier:1, desc:'Financial health, planning, budgeting, risk management.'},
+ CORTEX: {n:'CORTEX', r:'Chief Operating Officer', e:'⚙️', c:'#0A351D', tier:1, desc:'Day-to-day operations, client delivery, resource allocation.'},
+ SIGNAL: {n:'SIGNAL', r:'Chief Marketing Officer', e:'📣', c:'#0A351D', tier:1, desc:'Brand strategy, market position, customer engagement.'},
+ HUNTER: {n:'HUNTER', r:'Chief Revenue Officer', e:'🎯', c:'#0A351D', tier:1, desc:'Sales, marketing, client success — unified revenue machine.'},
+ FORGE: {n:'FORGE', r:'Chief Technology Officer', e:'🔧', c:'#0A351D', tier:1, desc:'Tech vision, R&D, AI model selection, automation.'},
+ ANCHOR: {n:'ANCHOR', r:'Chief Client Officer', e:'🤝', c:'#0A351D', tier:1, desc:'Customer experience, retention, expansion, advocacy.'},
+ COUNSEL: {n:'COUNSEL', r:'Chief Legal Officer', e:'⚖️', c:'#7DA88A', tier:1, desc:'Legal strategy, contracts, compliance, risk management.'},
+ DATUM: {n:'DATUM', r:'Chief Data Officer', e:'🌐', c:'#00dfc8', tier:1, desc:'Data strategy, governance, protection, analytics.'},
+ CIPHER: {n:'CIPHER', r:'Chief Security Officer', e:'🛡️', c:'#ff4d6a', tier:1, desc:'Security vision, threat ops, compliance, risk posture.'},
+ // VPs
+ PULSE: {n:'PULSE', r:'VP Revenue Intelligence', e:'📊', c:'#7DA88A', tier:2, desc:'Pipeline health, forecasting.'},
+ VAULTVP: {n:'VAULT-VP', r:'VP Finance & Billing', e:'🧾', c:'#7DA88A', tier:2, desc:'Billing, invoicing, collections.'},
+ RELAY: {n:'RELAY', r:'VP Client Delivery', e:'🔄', c:'#7DA88A', tier:2, desc:'Client delivery, SLA compliance.'},
+ PRISM: {n:'PRISM', r:'VP Data Intelligence', e:'🔬', c:'#7DA88A', tier:2, desc:'Analytics, reporting, insights.'},
+ BOOST: {n:'BOOST', r:'VP Growth & Partnerships', e:'🚀', c:'#7DA88A', tier:2, desc:'Partnerships, expansion revenue.'},
+ SCOUT: {n:'SCOUT', r:'VP Market Intelligence', e:'🗺️', c:'#7DA88A', tier:2, desc:'Competitive intel, market research.'},
+ QUILL: {n:'QUILL', r:'VP Content & Brand', e:'✍️', c:'#7DA88A', tier:2, desc:'Content, brand, marketing execution.'},
+ BEDROCK: {n:'BEDROCK', r:'VP Infrastructure', e:'🖥️', c:'#7DA88A', tier:2, desc:'Infra, Ollama, API health.'},
+ ARCHITECT:{n:'ARCHITECT',r:'VP Product Development', e:'🧩', c:'#7DA88A', tier:2, desc:'R&D, product roadmap.'},
+ WARMTH: {n:'WARMTH', r:'VP Client Experience', e:'⭐', c:'#7DA88A', tier:2, desc:'NPS, churn prediction, health scoring.'},
+ GUIDE: {n:'GUIDE', r:'VP Client Onboarding', e:'🎓', c:'#7DA88A', tier:2, desc:'New client setup, onboarding flow.'},
+ SHIELD: {n:'SHIELD', r:'VP Legal Strategy', e:'🏛️', c:'#7DA88A', tier:2, desc:'Legal ops, contracts, IP.'},
+ COMPLY_L: {n:'COMPLY-L', r:'VP Regulatory & Gov', e:'📜', c:'#7DA88A', tier:2, desc:'Compliance, governance.'},
+ GOVERN: {n:'GOVERN', r:'VP Data Governance', e:'📐', c:'#7DA88A', tier:2, desc:'Data policies, privacy, catalog.'},
+ PIPELINE: {n:'PIPELINE', r:'VP Data Engineering', e:'🔩', c:'#7DA88A', tier:2, desc:'Pipelines, ingestion, warehousing.'},
+ RISKWATCH:{n:'RISKWATCH',r:'VP Cybersecurity Ops', e:'🔭', c:'#ff4d6a', tier:2, desc:'Threat ops, monitoring.'},
+ COMPLY: {n:'COMPLY', r:'VP Compliance & Risk', e:'📋', c:'#ff4d6a', tier:2, desc:'Risk register, SOC2, compliance.'},
+ // Directors
+ FINDER: {n:'FINDER', r:'Director Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Lead generation.'},
+ CADENCE: {n:'CADENCE', r:'Director Outreach', e:'📧', c:'#165436', tier:3, desc:'Sales sequencing.'},
+ CLOSE: {n:'CLOSE', r:'Director Proposals', e:'📃', c:'165436', tier:3, desc:'Proposal creation.'},
+ INK: {n:'INK', r:'Director Content & SEO', e:'📝', c:'#165436', tier:3, desc:'Content, SEO.'},
+ THREAD: {n:'THREAD', r:'Director Social Media', e:'📱', c:'#165436', tier:3, desc:'Social channels.'},
+ FLOW: {n:'FLOW', r:'Director Email', e:'💌', c:'#165436', tier:3, desc:'Email campaigns.'},
+ LEDGE: {n:'LEDGE', r:'Director Billing', e:'🧮', c:'#165436', tier:3, desc:'Invoicing.'},
+ AUDIT: {n:'AUDIT', r:'Director QA', e:'🔎', c:'#165436', tier:3, desc:'Quality assurance.'},
+ BOND: {n:'BOND', r:'Director Retention', e:'🔗', c:'#165436', tier:3, desc:'Retention, churn.'},
+ LENS: {n:'LENS', r:'Director Analytics', e:'📈', c:'#165436', tier:3, desc:'KPI aggregation.'},
+ // Data Lane
+ STEWARD: {n:'STEWARD', r:'Dir. Data Privacy', e:'🔏', c:'#00dfc8', tier:'dlane', desc:'PII handling, MASK, ISOLATE.'},
+ CURATOR: {n:'CURATOR', r:'Dir. Data Quality', e:'🗄️', c:'#00dfc8', tier:'dlane', desc:'VAULT-D, CLEAN.'},
+ STREAM: {n:'STREAM', r:'Dir. Data Pipeline', e:'🌊', c:'#00dfc8', tier:'dlane', desc:'INTAKE, VISION.'},
+ VAULTD: {n:'VAULT-D', r:'Data Warehouse', e:'🏦', c:'#00dfc8', tier:'data', desc:'Encrypted data store.'},
+ INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'📥', c:'#00dfc8', tier:'data', desc:'Data classification.'},
+ MASK: {n:'MASK', r:'PII Tokenization', e:'🎭', c:'#00dfc8', tier:'data', desc:'Tokenize sensitive data.'},
+ VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#00dfc8', tier:'data', desc:'Dashboards.'},
+ CLEAN: {n:'CLEAN', r:'Data Quality', e:'🔬', c:'#00dfc8', tier:'data', desc:'PoisonedRAG defense.'},
+ ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🔐', c:'#00dfc8', tier:'data', desc:'Session security.'},
+ // Security Lane
+ SENTRY: {n:'SENTRY', r:'Dir. Threat Ops', e:'🚨', c:'#ff4d6a', tier:'slane', desc:'SENTINEL, GUARDIAN.'},
+ RESPONSE: {n:'RESPONSE', r:'Dir. Incident', e:'🚒', c:'#ff4d6a', tier:'slane', desc:'CONTAIN, forensics.'},
+ ACCESS: {n:'ACCESS', r:'Dir. Access & Audit', e:'🔒', c:'#ff4d6a', tier:'slane', desc:'VERIFY, TREASURY.'},
+ SENTINEL:{n:'SENTINEL', r:'Security Monitor', e:'🩺', c:'#ff4d6a', tier:'security', desc:'Behavioral monitoring.'},
+ GUARDIAN:{n:'GUARDIAN', r:'Content Filter', e:'🧱', c:'#ff4d6a', tier:'security', desc:'Input filtering.'},
+ TREASURY:{n:'TREASURY', r:'Transaction Security', e:'💰', c:'#ff4d6a', tier:'security', desc:'Payment validation.'},
+ VERIFY: {n:'VERIFY', r:'Identity & Access', e:'🪪', c:'#ff4d6a', tier:'security', desc:'Access control.'},
+ LEDGERS: {n:'LEDGER-S', r:'Audit Log', e:'📜', c:'#ff4d6a', tier:'security', desc:'Immutable logging.'},
+ ZERO: {n:'ZERO', r:'Zero Trust', e:'⭕', c:'#ff4d6a', tier:'security', desc:'Zero trust enforcement.'},
+ CONTAIN: {n:'CONTAIN', r:'Incident Response', e:'📦', c:'#ff4d6a', tier:'security', desc:'Threat isolation.'}
 };
 
-// ═══════════════════════════════════════════════════
-// VISUALIZATION ENGINE
-// ═══════════════════════════════════════════════════
+const TIERS = {
+ founder: {y:0}, 0: {y:1}, 1: {y:2}, 2: {y:3}, 3: {y:4}, data: {y:5}, dlane: {y:3.5}, slane: {y:3.5}
+};
 
 let scale = 1, panX = 0, panY = 0, isDragging = false, startX, startY;
 const canvas = document.getElementById('canvas'), root = document.getElementById('root'), tip = document.getElementById('tip');
 
-const TIERS = {
- founder: {y:0, label:'FOUNDER'},
- 0: {y:1, label:'TIER 0 — CEO'},
- 1: {y:2, label:'TIER 1 — C-SUITE'},
- 2: {y:3, label:'TIER 2 — VP'},
- 3: {y:4, label:'TIER 3 — DIRECTOR'},
- data: {y:5, label:'DATA LAYER'},
- dlane: {y:3.5, label:'DATA LANE'},
- slane: {y:3.5, label:'SECURITY LANE'}
-};
-
-const TIER_COLORS = {
- founder: '#C9A84C',
- 0: '#C9A84C',
- 1: '#0A351D',
- 2: '#7DA88A',
- 3: '#165436',
- data: '#00dfc8',
- dlane: '#00dfc8',
- slane: '#ff4d6a'
-};
-
 function pos(tier, index, total) {
- const y = TIERS[tier]?.y ?? 3;
- const x = (index - (total-1)/2) * 140;
- return {x: x*scale + 400 + panX, y: y*120*scale + 120 + panY};
+ const y = (TIERS[tier]?.y ?? 3) * 130 + 80;
+ const x = (index - (total-1)/2) * 145 + 400;
+ return {x: x * scale + panX, y: y * scale + panY};
 }
 
 function drawNode(id, data, x, y, parentId) {
  const g = document.createElementNS('http://www.w3.org/2000/svg','g');
  g.setAttribute('transform', `translate(${x},${y})`);
  g.style.cursor = 'pointer';
- g.dataset.id = id;
  
- const boxW = 120, boxH = data.tier === 0 || data.tier === 'founder' ? 60 : 50;
+ const boxW = 130, boxH = 48;
  const color = data.c || '#0A351D';
+ const isTop = data.tier === 0 || data.tier === 'founder';
  
- // Glow for Founder and CEO
- if(data.tier === 0 || data.tier === 'founder') {
-  const glow = document.createElementNS('http://www.w3.org/2000/svg','rect');
-  glow.setAttribute('x', -boxW/2 - 4);
-  glow.setAttribute('y', -boxH/2 - 4);
-  glow.setAttribute('width', boxW + 8);
-  glow.setAttribute('height', boxH + 8);
-  glow.setAttribute('rx', 8);
-  glow.setAttribute('fill', color);
-  glow.setAttribute('filter', 'url(#glow)');
-  g.appendChild(glow);
- }
- 
- // Card bg
+ // Card
  const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
  rect.setAttribute('x', -boxW/2);
  rect.setAttribute('y', -boxH/2);
  rect.setAttribute('width', boxW);
  rect.setAttribute('height', boxH);
- rect.setAttribute('rx', 6);
- rect.setAttribute('fill', '#0c1020');
+ rect.setAttribute('rx', 8);
+ rect.setAttribute('fill', 'white');
  rect.setAttribute('stroke', color);
- rect.setAttribute('stroke-width', data.tier === 0 || data.tier === 'founder' ? 2 : 1.5);
+ rect.setAttribute('stroke-width', isTop ? 2 : 1);
  rect.setAttribute('filter', 'url(#drop)');
  g.appendChild(rect);
+ 
+ // Top bar
+ const bar = document.createElementNS('http://www.w3.org/2000/svg','rect');
+ bar.setAttribute('x', -boxW/2 + 1);
+ bar.setAttribute('y', -boxH/2 + 1);
+ bar.setAttribute('width', boxW - 2);
+ bar.setAttribute('height', 4);
+ bar.setAttribute('rx', 2);
+ bar.setAttribute('fill', color);
+ g.appendChild(bar);
  
  // Emoji
  const emoji = document.createElementNS('http://www.w3.org/2000/svg','text');
  emoji.setAttribute('x', -boxW/2 + 12);
- emoji.setAttribute('y', 5);
- emoji.setAttribute('font-size', data.tier === 0 || data.tier === 'founder' ? 24 : 18);
- emoji.textContent = data.e || '●';
+ emoji.setAttribute('y', 6);
+ emoji.setAttribute('font-size', 18);
+ emoji.textContent = data.e;
  g.appendChild(emoji);
  
  // Name
  const name = document.createElementNS('http://www.w3.org/2000/svg','text');
  name.setAttribute('x', -boxW/2 + 36);
- name.setAttribute('y', data.tier === 0 || data.tier === 'founder' ? -8 : -6);
- name.setAttribute('font-size', data.tier === 0 || data.tier === 'founder' ? 13 : 11);
+ name.setAttribute('y', -4);
+ name.setAttribute('font-size', 12);
  name.setAttribute('font-weight', '700');
- name.setAttribute('fill', '#FAF8F5');
+ name.setAttribute('fill', '#2A2A2A');
  name.textContent = data.n;
  g.appendChild(name);
  
  // Role
  const role = document.createElementNS('http://www.w3.org/2000/svg','text');
  role.setAttribute('x', -boxW/2 + 36);
- role.setAttribute('y', data.tier === 0 || data.tier === 'founder' ? 8 : 10);
- role.setAttribute('font-size', 8);
+ role.setAttribute('y', 10);
+ role.setAttribute('font-size', 9);
  role.setAttribute('fill', color);
- role.textContent = data.r.substring(0, 20);
+ role.textContent = data.r.substring(0, 22);
  g.appendChild(role);
  
- // Connection line
- if(parentId) {
-  const parent = CORE[parentId];
-  const pp = TIERS[parent?.tier]?.y ?? 3;
+ // Line to parent
+ if(parentId && CORE[parentId]) {
+  const pp = TIERS[CORE[parentId].tier]?.y ?? 3;
   const cp = TIERS[data.tier]?.y ?? 3;
   const line = document.createElementNS('http://www.w3.org/2000/svg','line');
   line.setAttribute('x1', x);
   line.setAttribute('y1', y - boxH/2);
   line.setAttribute('x2', x);
-  line.setAttribute('y2', y - boxH/2 - 20*scale);
-  line.setAttribute('stroke', 'rgba(255,255,255,0.1)');
+  line.setAttribute('y2', y - boxH/2 - 15);
+  line.setAttribute('stroke', '#ccc');
   line.setAttribute('stroke-width', 1);
   root.insertBefore(line, g);
  }
  
- g.addEventListener('mouseenter', e => showTip(e, id, data));
- g.addEventListener('mouseleave', hideTip);
- g.addEventListener('mousemove', e => moveTip(e));
+ g.addEventListener('mouseenter', e => showTip(e, data));
+ g.addEventListener('mouseleave', () => tip.style.display = 'none');
+ g.addEventListener('mousemove', e => {
+  tip.style.left = (e.clientX + 15) + 'px';
+  tip.style.top = (e.clientY + 15) + 'px';
+ });
  
  root.appendChild(g);
 }
 
-function showTip(e, id, data) {
- const tierNames = {founder:'FOUNDER',0:'TIER 0 — CEO',1:'TIER 1 — C-SUITE',2:'TIER 2 — VP',3:'TIER 3 — DIRECTOR',dlane:'DATA LANE DIRECTOR',slane:'SECURITY LANE DIRECTOR',data:'DATA LANE AGENT',security:'SECURITY LANE AGENT'};
- let html = `<div class="tip-tier">${tierNames[data.tier] || ''}</div>
+function showTip(e, data) {
+ const tierNames = {founder:'FOUNDER',0:'TIER 0 — CEO',1:'TIER 1 — C-SUITE',2:'TIER 2 — VP',3:'TIER 3 — DIRECTOR',dlane:'DATA LANE',slane:'SECURITY LANE',data:'DATA AGENT',security:'SECURITY AGENT'};
+ tip.innerHTML = `
+ <div class="tip-tier">${tierNames[data.tier] || ''}</div>
  <div class="tip-name">${data.e} ${data.n}</div>
- <div class="tip-role">${data.r}</div>`;
- 
- if(data.mandate) {
-  html += `<div class="tip-mandate">${data.mandate}</div>`;
- }
- 
- if(data.desc) {
-  html += `<div class="tip-desc">${data.desc}</div>`;
- }
- 
- if(data.resp && data.resp.length) {
-  html += `<div class="tip-sec">Key Responsibilities</div><ul class="tip-list">`;
-  data.resp.slice(0,5).forEach(r => html += `<li>${r}</li>`);
-  html += `</ul>`;
- }
- 
- if(data.tools && data.tools.length) {
-  html += `<div class="tip-sec">Tools & Integrations</div><div class="tip-chips">`;
-  data.tools.slice(0,6).forEach(t => html += `<span class="tip-chip">${t}</span>`);
-  html += `</div>`;
- }
- 
- tip.innerHTML = html;
+ <div class="tip-role">${data.r}</div>
+ <div class="tip-desc">${data.desc}</div>
+ `;
  tip.style.display = 'block';
- moveTip(e);
 }
-
-function moveTip(e) {
- const x = e.clientX + 20, y = e.clientY + 20;
- tip.style.left = Math.min(x, window.innerWidth - 380) + 'px';
- tip.style.top = Math.min(y, window.innerHeight - 400) + 'px';
-}
-
-function hideTip() { tip.style.display = 'none'; }
 
 function resetView() { scale = 1; panX = 0; panY = 0; render(); }
-function zoomIn() { scale = Math.min(scale * 1.2, 3); render(); }
-function zoomOut() { scale = Math.max(scale / 1.2, 0.3); render(); }
+function zoomIn() { scale = Math.min(scale * 1.2, 3); }
+function zoomOut() { scale = Math.max(scale / 1.2, 0.3); }
 
-// Canvas drag
-canvas.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX - panX; startY = e.clientY - panY; canvas.style.cursor = 'grabbing'; });
+canvas.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX - panX; startY = e.clientY - panY; });
 canvas.addEventListener('mousemove', e => { if(!isDragging) return; panX = e.clientX - startX; panY = e.clientY - startY; render(); });
-canvas.addEventListener('mouseup', () => { isDragging = false; canvas.style.cursor = 'grab'; });
-canvas.addEventListener('mouseleave', () => { isDragging = false; });
-
-// Touch support
-canvas.addEventListener('touchstart', e => { isDragging = true; startX = e.touches[0].clientX - panX; startY = e.touches[0].clientY - panY; });
-canvas.addEventListener('touchmove', e => { if(!isDragging) return; panX = e.touches[0].clientX - startX; panY = e.touches[0].clientY - startY; render(); });
-canvas.addEventListener('touchend', () => isDragging = false);
-
-// Mouse wheel zoom
-canvas.addEventListener('wheel', e => {
- e.preventDefault();
- scale = e.deltaY > 0 ? Math.max(scale / 1.1, 0.3) : Math.min(scale * 1.1, 3);
- render();
-}, {passive: false});
+canvas.addEventListener('mouseup', () => isDragging = false);
+canvas.addEventListener('wheel', e => { e.preventDefault(); scale = e.deltaY > 0 ? Math.max(scale / 1.1, 0.3) : Math.min(scale * 1.1, 3); render(); }, {passive: false});
 
 function render() {
  root.innerHTML = '';
  
- // Founder (top)
- const founderPos = pos('founder', 0, 1);
- drawNode('FOUNDER', CORE.FOUNDER, founderPos.x, founderPos.y, null);
+ // Founder
+ drawNode('FOUNDER', CORE.FOUNDER, pos('founder', 0, 1).x, pos('founder', 0, 1).y, null);
  
- // CEO (Tier 0)
- const ceoPos = pos(0, 0, 1);
- drawNode('APEX', CORE.APEX, ceoPos.x, ceoPos.y, 'FOUNDER');
+ // CEO
+ drawNode('APEX', CORE.APEX, pos(0, 0, 1).x, pos(0, 0, 1).y, 'FOUNDER');
  
- // C-Suite (9 agents)
+ // C-Suite
  const csuite = ['LEDGER','CORTEX','SIGNAL','HUNTER','FORGE','ANCHOR','COUNSEL','DATUM','CIPHER'];
- csuite.forEach((id, i) => {
-  const p = pos(1, i, csuite.length);
-  drawNode(id, CORE[id], p.x, p.y, 'APEX');
- });
+ csuite.forEach((id, i) => drawNode(id, CORE[id], pos(1, i, csuite.length).x, pos(1, i, csuite.length).y, 'APEX'));
  
- // VP Layer
+ // VPs
  const vps = ['PULSE','VAULTVP','RELAY','PRISM','BOOST','SCOUT','QUILL','BEDROCK','ARCHITECT','WARMTH','GUIDE','SHIELD','COMPLY_L','GOVERN','PIPELINE','RISKWATCH','COMPLY'];
  vps.forEach((id, i) => {
-  const p = pos(2, i, vps.length);
   const parent = id === 'PULSE' || id === 'VAULTVP' ? 'LEDGER' :
                  id === 'RELAY' || id === 'PRISM' || id === 'BOOST' || id === 'SCOUT' ? 'CORTEX' :
                  id === 'QUILL' ? 'SIGNAL' :
@@ -829,86 +401,47 @@ function render() {
                  id === 'SHIELD' || id === 'COMPLY_L' ? 'COUNSEL' :
                  id === 'GOVERN' || id === 'PIPELINE' ? 'DATUM' :
                  'CIPHER';
-  drawNode(id, CORE[id], p.x, p.y, parent);
+  drawNode(id, CORE[id], pos(2, i, vps.length).x, pos(2, i, vps.length).y, parent);
  });
  
- // Directors (10)
+ // Directors
  const dirs = ['FINDER','CADENCE','CLOSE','INK','THREAD','FLOW','LEDGE','AUDIT','BOND','LENS'];
  dirs.forEach((id, i) => {
-  const p = pos(3, i, dirs.length);
   const parent = id === 'FINDER' || id === 'CADENCE' || id === 'CLOSE' ? 'HUNTER' :
                  id === 'INK' || id === 'THREAD' || id === 'FLOW' ? 'QUILL' :
                  id === 'LEDGE' ? 'VAULTVP' :
                  id === 'LENS' ? 'PRISM' :
                  'RELAY';
-  drawNode(id, CORE[id], p.x, p.y, parent);
+  drawNode(id, CORE[id], pos(3, i, dirs.length).x, pos(3, i, dirs.length).y, parent);
  });
  
- // Data Lane Directors (3)
- const dlaneDir = ['STEWARD','CURATOR','STREAM'];
- dlaneDir.forEach((id, i) => {
-  const p = pos('dlane', i, dlaneDir.length);
-  const parent = id === 'STEWARD' ? 'GOVERN' :
-                 id === 'CURATOR' ? 'GOVERN' :
-                 'PIPELINE';
-  drawNode(id, CORE[id], p.x - 200, p.y + 80, parent);
+ // Data Lane
+ const dlane = ['STEWARD','CURATOR','STREAM'];
+ dlane.forEach((id, i) => {
+  const parent = id === 'STEWARD' ? 'GOVERN' : id === 'CURATOR' ? 'GOVERN' : 'PIPELINE';
+  drawNode(id, CORE[id], pos('dlane', i, dlane.length).x - 180, pos('dlane', i, dlane.length).y + 100, parent);
  });
  
- // Data Lane Agents (6)
- const dataAgents = ['VAULTD','INTAKE','MASK','VISION','CLEAN','ISOLATE'];
- dataAgents.forEach((id, i) => {
-  const p = pos('data', i, dataAgents.length);
-  drawNode(id, CORE[id], p.x - 250, p.y + 180, id === 'VAULTD' || id === 'CLEAN' ? 'CURATOR' :
-                                        id === 'INTAKE' || id === 'VISION' ? 'STREAM' :
-                                        'STEWARD');
+ const dataA = ['VAULTD','INTAKE','MASK','VISION','CLEAN','ISOLATE'];
+ dataA.forEach((id, i) => {
+  drawNode(id, CORE[id], pos('data', i, dataA.length).x - 200, pos('data', i, dataA.length).y + 200, 
+           id === 'VAULTD' || id === 'CLEAN' ? 'CURATOR' : id === 'INTAKE' || id === 'VISION' ? 'STREAM' : 'STEWARD');
  });
  
- // Security Lane Directors (3)
- const slaneDir = ['SENTRY','RESPONSE','ACCESS'];
- slaneDir.forEach((id, i) => {
-  const p = pos('slane', i, slaneDir.length);
-  const parent = id === 'SENTRY' ? 'RISKWATCH' :
-                 id === 'RESPONSE' ? 'RISKWATCH' :
-                 'COMPLY';
-  drawNode(id, CORE[id], p.x + 200, p.y + 80, parent);
+ // Security Lane
+ const slane = ['SENTRY','RESPONSE','ACCESS'];
+ slane.forEach((id, i) => {
+  const parent = id === 'SENTRY' ? 'RISKWATCH' : id === 'RESPONSE' ? 'RISKWATCH' : 'COMPLY';
+  drawNode(id, CORE[id], pos('slane', i, slane.length).x + 180, pos('slane', i, slane.length).y + 100, parent);
  });
  
- // Security Lane Agents (7)
- const secAgents = ['SENTINEL','GUARDIAN','ZERO','CONTAIN','VERIFY','LEDGERS','TREASURY'];
- secAgents.forEach((id, i) => {
-  const p = pos('slane', i + 3, secAgents.length + 3);
-  const parent = id === 'SENTINEL' || id === 'GUARDIAN' || id === 'ZERO' ? 'SENTRY' :
-                 id === 'CONTAIN' ? 'RESPONSE' :
-                 'ACCESS';
-  drawNode(id, CORE[id], p.x + 200, p.y + 180, parent);
+ const secA = ['SENTINEL','GUARDIAN','ZERO','CONTAIN','VERIFY','LEDGERS','TREASURY'];
+ secA.forEach((id, i) => {
+  drawNode(id, CORE[id], pos('slane', i + 3, secA.length + 3).x + 180, pos('slane', i + 3, secA.length + 3).y + 200,
+          id === 'SENTINEL' || id === 'GUARDIAN' || id === 'ZERO' ? 'SENTRY' : id === 'CONTAIN' ? 'RESPONSE' : 'ACCESS');
  });
 }
 
-// Dock
-function toggleDock() {
- document.getElementById('dock').classList.toggle('open');
- document.getElementById('dockBtn').classList.toggle('active');
-}
-
-MODULES.forEach(m => {
- const card = document.createElement('div');
- card.className = 'mod-card';
- card.innerHTML = `
-  <div class="mod-top">
-   <div class="mod-icon">${m.icon}</div>
-   <div class="mod-info">
-    <div class="mod-name">${m.name}</div>
-    <div class="mod-industry">${m.industry}</div>
-   </div>
-   <div class="mod-toggle" onclick="this.classList.toggle('on');event.stopPropagation()"></div>
-  </div>
-  <div class="mod-agents">${m.agents.slice(0,4).map(a => `<span class="mod-chip">${a.id}</span>`).join('')}</div>
-  <div class="mod-desc">${m.desc}</div>
- `;
- document.getElementById('dockScroll').appendChild(card);
-});
-
-// Init
 render();
 </script>
 
