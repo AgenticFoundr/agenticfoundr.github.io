@@ -1,494 +1,850 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgenticFoundr — Agent Org Chart</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #0A351D;
-      --primary-light: #165436;
-      --primary-dark: #061A0F;
-      --cream: #FAF8F5;
-      --gold: #C9A84C;
-      --gold-light: #D4BC6A;
-      --gold-dark: #A68B3C;
-      --gray: #2A2A2A;
-      --gray-light: #3A3A3A;
-      --sage: #7DA88A;
-      --moss: #2D7A4E;
-      --shadow: 0 4px 16px rgba(10, 53, 29, 0.15);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgenticFoundr — Enterprise Agent Org Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+ --bg: #060912;
+ --surface: #0c1020;
+ --surface2: #101828;
+ --border: rgba(255,255,255,0.07);
+ --text: #e8eaf2;
+ --muted: rgba(255,255,255,0.38);
+ --primary: #0A351D;
+ --primary-light: #165436;
+ --gold: #C9A84C;
+ --gold-light: #D4BC6A;
+ --blue: #3b9eff;
+ --cyan: #00dfc8;
+ --red: #ff4d6a;
+ --purple: #a855f7;
+ --green: #22d67a;
+ --orange: #ff8c42;
+ --sage: #7DA88A;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:var(--bg);font-family:'Syne',sans-serif;overflow:hidden;color:var(--text)}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ─── HEADER ─── */
+#hdr {
+position:fixed;top:0;left:0;right:0;z-index:200;
+height:52px;
+background:rgba(10,53,29,0.97);
+border-bottom:1px solid var(--border);
+backdrop-filter:blur(16px);
+display:flex;align-items:center;padding:0 20px;gap:12px;
+}
+.hdr-logo {
+font-family:'Syne',sans-serif;font-weight:800;font-size:14px;
+letter-spacing:-0.3px;color:var(--gold);white-space:nowrap;
+}
+.hdr-logo span{color:#FAF8F5}
+.hdr-sep{width:1px;height:18px;background:var(--border);margin:0 4px}
+.hdr-tag {
+font-family:'IBM Plex Mono',monospace;font-size:8px;
+letter-spacing:2px;text-transform:uppercase;
+padding:3px 10px;border-radius:3px;white-space:nowrap;
+}
+.hdr-tag-grey{color:var(--muted);border:1px solid rgba(255,255,255,0.08)}
+.hdr-tag-gold{color:var(--gold);background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2)}
+.hdr-tag-green{color:var(--sage);background:rgba(125,168,138,0.08);border:1px solid rgba(125,168,138,0.22)}
+.hdr-spacer{flex:1}
+.hdr-btns{display:flex;gap:7px}
+.hdr-btn {
+font-family:'Syne',sans-serif;font-size:11px;font-weight:600;
+background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+color:var(--muted);border-radius:20px;padding:5px 14px;
+cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.hdr-btn:hover{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.3);color:var(--gold)}
+.hdr-btn.active{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.4);color:var(--gold)}
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--cream);
-      color: var(--gray);
-      line-height: 1.5;
-      min-height: 100vh;
-    }
+/* ─── MODULE DOCK PANEL ─── */
+#dock {
+position:fixed;right:0;top:52px;bottom:0;width:280px;
+background:rgba(10,53,29,0.97);
+border-left:1px solid var(--border);
+backdrop-filter:blur(16px);
+z-index:150;
+transform:translateX(100%);
+transition:transform .28s cubic-bezier(.16,1,.3,1);
+display:flex;flex-direction:column;overflow:hidden;
+}
+#dock.open{transform:translateX(0)}
 
-    /* Header */
-    header {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
+.dock-header {
+padding:20px 20px 14px;
+border-bottom:1px solid var(--border);
+flex-shrink:0;
+}
+.dock-title {
+font-family:'IBM Plex Mono',monospace;font-size:9px;
+letter-spacing:3px;text-transform:uppercase;color:var(--gold);
+margin-bottom:6px;display:flex;align-items:center;gap:8px;
+}
+.dock-title::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+.dock-sub {
+font-size:11px;color:var(--muted);line-height:1.5;
+}
 
-    header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.1) 0%, transparent 50%);
-      animation: pulse 8s ease-in-out infinite;
-    }
+.dock-scroll{overflow-y:auto;flex:1;padding:14px 16px 24px}
+.dock-scroll::-webkit-scrollbar{width:3px}
+.dock-scroll::-webkit-scrollbar-track{background:transparent}
+.dock-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px}
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.1); opacity: 0.8; }
-    }
+.mod-card {
+border:1px solid rgba(255,255,255,0.07);border-radius:6px;
+padding:14px 14px 12px;margin-bottom:10px;
+cursor:pointer;transition:all .18s;position:relative;overflow:hidden;
+background:var(--surface);
+}
+.mod-card::before {
+content:'';position:absolute;top:0;left:0;right:0;height:2px;
+background:var(--gold);opacity:0.8;
+}
+.mod-card:hover{border-color:rgba(201,168,76,0.3);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.mod-card.active{border-color:var(--gold);background:var(--surface2)}
 
-    header h1 {
-      font-size: 42px;
-      font-weight: 800;
-      color: var(--cream);
-      position: relative;
-      z-index: 1;
-    }
+.mod-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.mod-icon{font-size:20px;margin-right:10px;flex-shrink:0}
+.mod-info{flex:1}
+.mod-name {
+font-family:'Syne',sans-serif;font-weight:700;font-size:12px;
+letter-spacing:-0.2px;margin-bottom:2px;
+}
+.mod-industry {
+font-family:'IBM Plex Mono',monospace;font-size:7.5px;
+letter-spacing:1px;text-transform:uppercase;
+color:var(--muted);
+}
+.mod-toggle {
+width:32px;height:18px;border-radius:9px;flex-shrink:0;
+background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.12);
+cursor:pointer;position:relative;transition:background .2s;
+}
+.mod-toggle::after {
+content:'';position:absolute;top:2px;left:2px;
+width:12px;height:12px;border-radius:50%;
+background:rgba(255,255,255,0.4);transition:transform .2s, background .2s;
+}
+.mod-toggle.on{background:var(--gold);border-color:transparent}
+.mod-toggle.on::after{transform:translateX(14px);background:#0A351D}
 
-    header h1 span { color: var(--gold); }
+.mod-agents {
+display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;
+}
+.mod-chip {
+font-family:'IBM Plex Mono',monospace;font-size:7px;
+letter-spacing:0.3px;padding:2px 7px;border-radius:2px;
+background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);
+color:var(--gold);
+}
+.mod-desc{font-size:10px;color:var(--muted);line-height:1.5}
 
-    header p {
-      color: rgba(250, 248, 245, 0.85);
-      font-size: 18px;
-      margin-top: 8px;
-      position: relative;
-      z-index: 1;
-    }
+/* ─── CANVAS ─── */
+#canvas{
+position:fixed;inset:52px 0 0 0;
+width:100%;height:calc(100% - 52px);
+cursor:grab;user-select:none;
+}
+#canvas:active{cursor:grabbing}
 
-    .subtitle {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--primary-dark);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-top: 16px;
-      position: relative;
-      z-index: 1;
-    }
+/* ─── TOOLTIP ─── */
+#tip {
+position:fixed;background:rgba(10,53,29,0.99);
+border:1px solid rgba(201,168,76,0.2);border-radius:10px;
+padding:18px 22px;max-width:360px;
+pointer-events:none;display:none;z-index:300;
+box-shadow:0 28px 72px rgba(0,0,0,0.8);
+}
+.tip-tier {
+font-family:'IBM Plex Mono',monospace;font-size:7.5px;
+letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;
+color:var(--gold);
+}
+.tip-name{font-weight:800;font-size:18px;color:#FAF8F5;margin-bottom:2px;letter-spacing:-0.3px}
+.tip-role {
+font-family:'IBM Plex Mono',monospace;font-size:8.5px;
+letter-spacing:1px;text-transform:uppercase;
+color:var(--sage);margin-bottom:12px;
+}
+.tip-mandate {
+font-size:11px;font-weight:600;line-height:1.6;
+padding:10px 12px;border-radius:4px;margin-bottom:10px;
+border-left:3px solid var(--gold);
+background:rgba(201,168,76,0.05);
+}
+.tip-desc{font-size:11px;color:rgba(250,248,245,0.7);line-height:1.7}
+.tip-sec {
+font-family:'IBM Plex Mono',monospace;font-size:7px;
+letter-spacing:2.5px;text-transform:uppercase;
+color:rgba(250,248,245,0.3);margin:12px 0 6px;
+}
+.tip-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.tip-list li {
+font-size:10.5px;color:rgba(250,248,245,0.6);
+padding-left:14px;position:relative;line-height:1.55;
+}
+.tip-list li::before{content:'›';position:absolute;left:0;opacity:.4}
+.tip-chips{display:flex;flex-wrap:wrap;gap:4px}
+.tip-chip {
+font-family:'IBM Plex Mono',monospace;font-size:7.5px;
+padding:2px 7px;border-radius:2px;
+color:var(--gold);border:1px solid rgba(201,168,76,0.2);
+background:rgba(201,168,76,0.05);
+}
 
-    /* Main content */
-    main {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-
-    /* Tier sections */
-    .tier-section {
-      margin-bottom: 50px;
-    }
-
-    .tier-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .tier-badge {
-      background: var(--primary);
-      color: var(--cream);
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .tier-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .tier-count {
-      color: var(--sage);
-      font-size: 14px;
-      font-weight: 500;
-      margin-left: auto;
-    }
-
-    /* Agent cards grid */
-    .agent-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .agent-grid.tier-0 { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; }
-    .agent-grid.tier-1 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-    .agent-grid.tier-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-    .agent-grid.tier-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .agent-grid.tier-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-
-    /* Agent card */
-    .agent-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(10, 53, 29, 0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .agent-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(10, 53, 29, 0.2);
-    }
-
-    .agent-card.ceo {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-      color: var(--cream);
-      text-align: center;
-      padding: 32px;
-    }
-
-    .agent-card.ceo .agent-name { color: var(--gold); }
-    .agent-card.ceo .agent-role { color: rgba(250, 248, 245, 0.9); }
-    .agent-card.ceo .agent-desc { color: rgba(250, 248, 245, 0.75); }
-
-    .agent-name {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 4px;
-    }
-
-    .agent-role {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gold-dark);
-      margin-bottom: 8px;
-    }
-
-    .agent-desc {
-      font-size: 13px;
-      color: var(--gray-light);
-      line-height: 1.5;
-    }
-
-    .agent-card.csuite {
-      border-left: 4px solid var(--gold);
-    }
-
-    .agent-card.vp {
-      border-left: 4px solid var(--sage);
-    }
-
-    .agent-card.director {
-      border-left: 4px solid var(--moss);
-    }
-
-    .agent-card.specialist {
-      border-left: 4px solid var(--gray-light);
-      background: #fafafa;
-    }
-
-    /* Industry modules */
-    .modules-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-    }
-
-    .module-slot {
-      background: white;
-      border: 2px dashed var(--sage);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .module-slot.filled {
-      border-style: solid;
-      border-color: var(--gold);
-    }
-
-    .module-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--sage);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* Stats section */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 50px;
-    }
-
-    .stat-card {
-      background: white;
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-
-    .stat-number {
-      font-size: 42px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: var(--gray-light);
-      margin-top: 4px;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--primary);
-      color: var(--cream);
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    footer a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    footer a:hover { text-decoration: underline; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 { font-size: 28px; }
-      .tier-title { font-size: 20px; }
-      .agent-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+/* ─── LEGEND ─── */
+#legend {
+position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+background:rgba(10,53,29,0.93);border:1px solid var(--border);
+border-radius:24px;padding:7px 18px;backdrop-filter:blur(14px);
+display:flex;gap:12px;align-items:center;z-index:100;
+flex-wrap:wrap;justify-content:center;
+max-width:90vw;
+}
+.leg{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.leg-lbl{font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:0.5px;color:rgba(250,248,245,0.5)}
+.leg-sep{width:1px;height:12px;background:rgba(255,255,255,0.08)}
+.leg-module{border:1px dashed rgba(255,255,255,0.25);border-radius:2px}
+</style>
 </head>
 <body>
 
-<header>
-  <h1>Agentic<span>Foundr</span></h1>
-  <p>Your Dream Deserves a Team</p>
-  <span class="subtitle">57 Core Agents + 8 Industry Modules</span>
-</header>
+<!-- HEADER -->
+<div id="hdr">
+ <div class="hdr-logo">Agentic<span>Foundr</span></div>
+ <div class="hdr-sep"></div>
+ <div class="hdr-tag hdr-tag-grey">Enterprise Agent Template</div>
+ <div class="hdr-tag hdr-tag-gold">v1.0</div>
+ <div class="hdr-tag hdr-tag-green">Servant Leadership</div>
+ <div class="hdr-spacer"></div>
+ <div class="hdr-btns">
+ <button class="hdr-btn" onclick="resetView()">Reset View</button>
+ <button class="hdr-btn" onclick="zoomIn()">＋</button>
+ <button class="hdr-btn" onclick="zoomOut()">−</button>
+ <button class="hdr-btn" id="dockBtn" onclick="toggleDock()">Industry Modules ›</button>
+ </div>
+</div>
 
-<main>
+<!-- MODULE DOCK -->
+<div id="dock">
+ <div class="dock-header">
+ <div class="dock-title">Industry Modules</div>
+ <div class="dock-sub">8 vertical plug-in slots. Activate a module to see which specialist agents populate.</div>
+ </div>
+ <div class="dock-scroll" id="dockScroll"></div>
+</div>
 
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-number">57</div>
-      <div class="stat-label">Core Agents</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">4</div>
-      <div class="stat-label">Tier Levels</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">8</div>
-      <div class="stat-label">Industry Module Slots</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">1</div>
-      <div class="stat-label">Founder (You)</div>
-    </div>
+<!-- SVG CANVAS -->
+<svg id="canvas" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+ <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+ <feGaussianBlur stdDeviation="6" result="b"/>
+ <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+ </filter>
+ <filter id="glow-sm" x="-40%" y="-40%" width="180%" height="180%">
+ <feGaussianBlur stdDeviation="3" result="b"/>
+ <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+ </filter>
+ <filter id="drop" x="-20%" y="-20%" width="140%" height="140%">
+ <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="rgba(0,0,0,0.6)"/>
+ </filter>
+ <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+ <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.022)" stroke-width="1"/>
+ </pattern>
+ <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+ <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(255,255,255,0.1)"/>
+ </marker>
+ <marker id="arr-d" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+ <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(0,223,200,0.4)"/>
+ </marker>
+ <marker id="arr-s" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+ <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(255,77,106,0.4)"/>
+ </marker>
+ <marker id="arr-mod" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+ <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(255,255,255,0.35)"/>
+ </marker>
+ <marker id="arr-l" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+ <path d="M0,0.5 L0,5.5 L5.5,3 z" fill="rgba(255,140,66,0.55)"/>
+ </marker>
+ </defs>
+ <g id="bg-layer"></g>
+ <g id="root"></g>
+</svg>
+
+<div id="tip"></div>
+
+<!-- LEGEND -->
+<div id="legend">
+ <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">Tier 0 — CEO</span></div>
+ <div class="leg-sep"></div>
+ <div class="leg"><div class="leg-dot" style="background:#0A351D"></div><span class="leg-lbl">Tier 1 — C-Suite</span></div>
+ <div class="leg-sep"></div>
+ <div class="leg"><div class="leg-dot" style="background:#7DA88A"></div><span class="leg-lbl">Tier 2 — VP</span></div>
+ <div class="leg-sep"></div>
+ <div class="leg"><div class="leg-dot" style="background:#165436"></div><span class="leg-lbl">Tier 3 — Director</span></div>
+ <div class="leg-sep"></div>
+ <div class="leg"><div class="leg-dot leg-module" style="background:rgba(255,255,255,0.05)"></div><span class="leg-lbl">Module Slot</span></div>
+ <div class="leg-sep"></div>
+ <div class="leg"><div class="leg-dot" style="background:#C9A84C"></div><span class="leg-lbl">Security</span></div>
+ <div class="leg-sep"></div>
+ <div class="leg"><div class="leg-dot" style="background:#00dfc8"></div><span class="leg-lbl">Data Lane</span></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// INDUSTRY MODULE DEFINITIONS
+// ═══════════════════════════════════════════════════
+const MODULES = [
+ {id:'property', name:'Property Management', icon:'🏢', color:'#0A351D',
+ industry:'Real Estate Operations',
+ desc:'Tenant communications, maintenance dispatch, rent collection, lease renewals, applicant screening, weekly portfolio reports.',
+ agents:[
+ {id:'REPLY', name:'REPLY ×N', role:'Tenant Communication', emoji:'💬',
+ desc:'24/7 tenant messaging via SMS/WhatsApp. Every inbound GUARDIAN-scanned. Session fully isolated by ISOLATE. One instance per portfolio.',
+ tasks:['Inbound tenant messages','Maintenance request intake','Emergency escalation','Lease inquiry responses']},
+ {id:'WRENCH', name:'WRENCH', role:'Maintenance Routing', emoji:'🔨',
+ desc:'Classifies, prioritizes, and dispatches maintenance work orders to verified vendors. Address passed via MASK token only.',
+ tasks:['Work order classification','Vendor dispatch','Status updates to tenants','Completion confirmation']},
+ {id:'COLLECT', name:'COLLECT', role:'Rent Collection', emoji:'💵',
+ desc:'Automated rent reminders and late-fee escalations. Payment anomaly alerts TREASURY + SENTINEL within 60 seconds.',
+ tasks:['Pre-due reminders','Late notices','Payment reconciliation','Dispute flagging']},
+ {id:'RENEW', name:'RENEW', role:'Lease Renewal', emoji:'📄',
+ desc:'90-day renewal campaigns. Documents use MASK-tokenized PII. Human signature required before any lease activates.',
+ tasks:['Renewal outreach at 90/60/30 days','Offer generation','DocuSign routing','Move-out coordination']},
+ {id:'SCREEN', name:'SCREEN', role:'Applicant Screening', emoji:'🪪',
+ desc:'Credit + background checks. SSN via MASK token only. Scoring model operates entirely on tokenized references.',
+ tasks:['Application intake','TransUnion credit pull','Background check','Scoring + recommendation draft']},
+ {id:'FRIDAY', name:'FRIDAY', role:'Portfolio Reports', emoji:'📋',
+ desc:'Weekly owner reports — occupancy, rent collected, maintenance open/closed, cash flow. Aggregated only, no raw PII.',
+ tasks:['Occupancy summary','Rent roll','Maintenance log','Cash flow snapshot']},
+ ]
+ },
+ {id:'legal', name:'Legal Practice', icon:'⚖️', color:'#a855f7',
+ industry:'Law Firms & Solo Attorneys',
+ desc:'Client intake automation, deadline tracking, time billing, follow-up sequences, conflict of interest pre-screening.',
+ agents:[
+ {id:'INTAKE_L', name:'INTAKE-L', role:'Client Intake', emoji:'📋',
+ desc:'Automated new client intake — gathers matter details, conflict checks, retainer requirements. PII MASK-tokenized immediately.',
+ tasks:['New matter intake form','Conflict of interest pre-screen','Retainer agreement routing','CRM record creation']},
+ {id:'DEADLINE', name:'DEADLINE', role:'Deadline Manager', emoji:'⏰',
+ desc:'Court dates, filing deadlines, statute of limitations tracking. Alerts attorney 30/14/7/1 days before critical dates.',
+ tasks:['Court calendar sync','Filing deadline alerts','Statute of limitations warnings','Discovery deadline tracking']},
+ {id:'BILL_L', name:'BILL-L', role:'Time & Billing', emoji:'🧾',
+ desc:'Logs time entries, generates invoices, tracks AR. TREASURY clearance on all collections.',
+ tasks:['Time entry capture','Invoice generation','AR aging report','Collections follow-up']},
+ {id:'FOLLOW_L', name:'FOLLOW-L', role:'Client Follow-Up', emoji:'📬',
+ desc:'Automated client status updates and follow-up sequences. Keeps clients informed without attorney involvement.',
+ tasks:['Case status updates','Document request follow-up','Appointment reminders','Satisfaction check-ins']},
+ ]
+ },
+ {id:'restaurant', name:'Restaurant & Hospitality', icon:'🍽️', color:'#ff8c42',
+ industry:'Food & Beverage Operations',
+ desc:'Reservation management, review response, vendor ordering triggers, staff communications, reputation management.',
+ agents:[
+ {id:'RESERVE', name:'RESERVE', role:'Reservation Management', emoji:'🗓️',
+ desc:'Handles booking requests, waitlist management, and table confirmation via SMS/email. Syncs with floor management system.',
+ tasks:['Booking confirmation','Waitlist management','Cancellation handling','Special request logging']},
+ {id:'REVIEWS', name:'REVIEWS', role:'Review Management', emoji:'⭐',
+ desc:'Monitors Google/Yelp/TripAdvisor. Drafts responses within 2 hours. GUARDIAN blocks any legally risky response.',
+ tasks:['Review monitoring','Response drafting','Escalation flag for negative reviews','Monthly reputation report']},
+ {id:'VENDOR_R', name:'VENDOR-R', role:'Vendor & Ordering', emoji:'🚚',
+ desc:'Inventory level monitoring triggers automated reorder requests to approved vendors. Human approves all orders over threshold.',
+ tasks:['Inventory monitoring','Reorder trigger','Vendor communication','Order confirmation tracking']},
+ {id:'PROMO', name:'PROMO', role:'Promotions & Campaigns', emoji:'📣',
+ desc:'Manages SMS/email promotions, seasonal campaigns, and loyalty program communications. GUARDIAN-filtered pre-send.',
+ tasks:['Promo scheduling','Loyalty program messages','Seasonal campaign execution','Campaign performance tracking']},
+ ]
+ },
+ {id:'medical', name:'Medical & Dental Office', icon:'🏥', color:'#22d67a',
+ industry:'Healthcare (Non-PHI LLM)',
+ desc:'Appointment scheduling, patient reminders, billing follow-up, recall campaigns. PHI never enters LLM context — MASK handles all.',
+ agents:[
+ {id:'SCHEDULE', name:'SCHEDULE', role:'Appointment Scheduling', emoji:'📅',
+ desc:'Books, confirms, and reschedules appointments via SMS/email. Patient identity verified by VERIFY before any record access.',
+ tasks:['New appointment booking','Confirmation messages','Rescheduling handling','Cancellation follow-up']},
+ {id:'REMIND_M', name:'REMIND-M', role:'Patient Reminders', emoji:'💬',
+ desc:'Automated appointment reminders at 48hr and 2hr. Pre-appointment instructions. Post-visit follow-up.',
+ tasks:['48hr appointment reminder','2hr day-of reminder','Pre-visit instructions','Post-visit satisfaction check']},
+ {id:'BILL_M', name:'BILL-M', role:'Billing Follow-Up', emoji:'🧾',
+ desc:'Insurance claim status tracking, patient balance reminders, payment plan communications. TREASURY clearance on collections.',
+ tasks:['Insurance claim tracking','Balance due reminders','Payment plan management','EOB explanation']},
+ {id:'RECALL', name:'RECALL', role:'Patient Recall', emoji:'🔔',
+ desc:'Automated recall campaigns for preventive care — annual checkups, cleanings, vaccinations. No PHI in LLM context.',
+ tasks:['Annual checkup recall','Preventive care reminders','Vaccination schedule alerts','Inactive patient re-engagement']},
+ ]
+ },
+ {id:'homeservices', name:'Home Services', icon:'🔧', color:'#C9A84C',
+ industry:'HVAC · Plumbing · Electrical · Landscaping',
+ desc:'Job dispatch, quote follow-up, seasonal campaign triggers, review requests, recall reminders for maintenance contracts.',
+ agents:[
+ {id:'DISPATCH', name:'DISPATCH', role:'Job Dispatch', emoji:'🚐',
+ desc:'Routes inbound service requests to the right technician based on location, skill, and availability. Customer address via MASK token.',
+ tasks:['Service request intake','Technician matching','Dispatch confirmation','ETA communication']},
+ {id:'QUOTE_H', name:'QUOTE-H', role:'Quote Follow-Up', emoji:'💲',
+ desc:'Follows up on open quotes at 24hr, 3-day, and 7-day intervals. Flags stalled deals to HUNTER/CRO.',
+ tasks:['Quote delivery','24hr/3-day/7-day follow-ups','Objection response','Acceptance confirmation']},
+ {id:'SEASON', name:'SEASON', role:'Seasonal Campaigns', emoji:'🌡️',
+ desc:'Triggers seasonal maintenance campaigns — HVAC tune-ups, winterization checks, spring cleanups — to past customers.',
+ tasks:['Seasonal outreach lists','Campaign scheduling','Appointment booking','Revenue tracking']},
+ {id:'REVIEW_H', name:'REVIEW-H', role:'Review & Referral', emoji:'⭐',
+ desc:'Post-job review requests and referral program management. Sent 24hrs after job completion. GUARDIAN-filtered.',
+ tasks:['Post-job review request','Google/Yelp direct link','Referral program invite','Review monitoring']},
+ ]
+ },
+ {id:'insurance', name:'Insurance Agency', icon:'🏦', color:'#00dfc8',
+ industry:'P&C · Life · Commercial Insurance',
+ desc:'Lead nurturing, quote follow-up, policy renewal campaigns, claims triage routing, cross-sell identification.',
+ agents:[
+ {id:'LEAD_I', name:'LEAD-I', role:'Lead Nurture', emoji:'🎯',
+ desc:'Multi-touch lead nurture sequences from first inquiry through quote. All data governed by DATUM. GUARDIAN-screened.',
+ tasks:['First response within 5 min','Multi-touch drip sequence','Quote request routing','Lead scoring']},
+ {id:'RENEW_I', name:'RENEW-I', role:'Policy Renewal', emoji:'🔄',
+ desc:'Renewal campaigns starting 90 days before expiration. Identifies at-risk renewals for human outreach.',
+ tasks:['90/60/30-day renewal outreach','At-risk flag to agent','Renewal confirmation','Coverage review prompt']},
+ {id:'CLAIM', name:'CLAIM', role:'Claims Triage', emoji:'🚨',
+ desc:'Initial claims intake and triage. Routes to appropriate adjuster. Keeps claimant informed of status. No PII in LLM.',
+ tasks:['FNOL intake','Severity classification','Adjuster routing','Status update communications']},
+ {id:'CROSS', name:'CROSS', role:'Cross-Sell Intelligence', emoji:'📊',
+ desc:'Analyzes policy portfolio gaps and triggers targeted cross-sell outreach. Feeds opportunities to HUNTER/CRO pipeline.',
+ tasks:['Coverage gap analysis','Cross-sell trigger detection','Targeted outreach','Opportunity handoff to agent']},
+ ]
+ },
+ {id:'realestate', name:'Real Estate Brokerage', icon:'🏡', color:'#ff4d6a',
+ industry:'Residential & Commercial Real Estate',
+ desc:'Lead response, showing scheduling, transaction coordination, contract follow-up, client nurture between transactions.',
+ agents:[
+ {id:'RESPOND', name:'RESPOND', role:'Lead Response', emoji:'⚡',
+ desc:'Instant lead response within 5 minutes across Zillow, Realtor.com, web forms. Qualifies and books showing appointments.',
+ tasks:['Sub-5-min lead response','Buyer/seller qualification','Showing appointment booking','CRM record creation']},
+ {id:'SHOW', name:'SHOW', role:'Showing Coordinator', emoji:'🗓️',
+ desc:'Manages showing schedules, confirmations, and feedback collection. Syncs with MLS showing services.',
+ tasks:['Showing request handling','Confirmation & reminders','Post-showing feedback','Schedule conflict resolution']},
+ {id:'TRANSACT',name:'TRANSACT', role:'Transaction Coordinator', emoji:'📝',
+ desc:'Tracks all transaction milestones, deadlines, and document requirements. Alerts agent and client to pending items.',
+ tasks:['Contingency deadline tracking','Document checklist','Earnest money coordination','Closing countdown alerts']},
+ {id:'NURTURE', name:'NURTURE', role:'Long-Term Nurture', emoji:'🤝',
+ desc:'Keeps past clients and future prospects engaged with market updates, anniversary touches, and referral requests.',
+ tasks:['Annual anniversary message','Market update delivery','Referral request (post-close)','Holiday/birthday touches']},
+ ]
+ },
+ {id:'education', name:'Education & Tutoring', icon:'🎓', color:'#a855f7',
+ industry:'Schools · Tutoring Centers · Online Courses',
+ desc:'Enrollment inquiry handling, class reminders, progress reports, tuition billing, parent communications.',
+ agents:[
+ {id:'ENROLL', name:'ENROLL', role:'Enrollment Management', emoji:'📋',
+ desc:'Handles enrollment inquiries, application processing, and onboarding communications. PII MASK-tokenized.',
+ tasks:['Inquiry response','Application processing','Welcome sequence','Orientation scheduling']},
+ {id:'REMIND_E',name:'REMIND-E', role:'Class Reminders', emoji:'🔔',
+ desc:'Automated class reminders, schedule change notifications, and absence follow-ups to students and parents.',
+ tasks:['Class reminders','Schedule change alerts','Absence notification','Makeup class coordination']},
+ {id:'PROGRESS',name:'PROGRESS', role:'Progress Reporting', emoji:'📈',
+ desc:'Generates and delivers student progress reports to parents on set intervals. Flags struggling students for instructor review.',
+ tasks:['Weekly progress snapshot','Monthly detailed report','At-risk student flag','Parent communication log']},
+ {id:'BILL_E', name:'BILL-E', role:'Tuition Billing', emoji:'💳',
+ desc:'Tuition invoicing, payment reminders, and collection sequences. TREASURY clearance on all payments.',
+ tasks:['Monthly invoice generation','Payment reminders','Late fee application','Scholarship/discount management']},
+ ]
+ }
+];
+
+// ═══════════════════════════════════════════════════
+// AGENTICFOUNDR CORE AGENT DATA
+// ═══════════════════════════════════════════════════
+const CORE = {
+ HUMAN: {
+ n:'You', r:'Founder & Strategic Authority', e:'👤', c:'#C9A84C', tier:'owner',
+ mandate:null,
+ desc:'Single point of authority. Approves all transactions over $500, security threats, strategic decisions. You receive daily VISION dashboard and security briefings.',
+ resp:['Approves all transactions above $500','Approves all bank routing changes','Reviews security alerts in real-time','Reviews weekly executive summary','Final authority on all strategic direction'],
+ tools:['VISION Dashboard','Security Alerts','Weekly Summary']
+ },
+ ATLAS: {
+ n:'ATLAS', r:'Chief Executive Officer', e:'🧠', c:'#C9A84C', tier:0,
+ mandate:'Sets enterprise vision, strategy, and growth direction. Orchestrates all 9 C-Suite agents. The sole agent that communicates with the founder.',
+ desc:'Master orchestrator. Reads data brief and security brief every morning before the delegation cycle. Produces weekly executive summary for founder.',
+ resp:['Sets enterprise mission, vision, and quarterly OKRs','Delegates strategic initiatives across all 9 C-Suite agents','Morning review: data brief + security brief + legal risk brief','Produces weekly executive summary for founder','Final escalation decision-maker for all cross-C-Suite conflicts'],
+ tools:['Mission Decomposer','VISION KPI Dashboard','Data Brief','Security Brief','RAG Memory Store','Executive Report Builder']
+ },
+
+ // TIER 1 — C-SUITE
+ STEWARD: {
+ n:'STEWARD', r:'Chief Financial Officer', e:'💰', c:'#0A351D', tier:1,
+ mandate:'Responsible for the organization\'s overall financial health. Oversees financial planning, budgeting, reporting, and risk management.',
+ desc:'Owns the full financial lifecycle — daily cash flow through long-term investment strategy. Every financial decision routes through STEWARD.',
+ resp:['Financial planning, budgeting, and quarterly forecasting','Monitors cash flow, revenue, and profitability daily','Manages investment decisions and capital allocation','Partners with ATLAS on funding strategy','Oversees financial risk'],
+ tools:['QuickBooks API','Stripe API','Budget Planning Engine','Cash Flow Monitor','Financial Risk Scorer','TREASURY Integration','VISION Financial Dashboard']
+ },
+ BRIDGE: {
+ n:'BRIDGE', r:'Chief Operating Officer', e:'⚙️', c:'#0A351D', tier:1,
+ mandate:'Second-in-command to ATLAS. Oversees day-to-day administrative and operational functions. The bridge between strategy and execution.',
+ desc:'The operational engine. Turns strategy into execution. Orchestrates all operational workflows, manages resource allocation, and owns the gap between strategy and results.',
+ resp:['Acts as second-in-command — represents ATLAS when needed','Translates ATLAS strategy into operational plans','Oversees all client delivery workflows and SLA compliance','Manages resource allocation and process efficiency','Coordinates cross-departmental execution','Reviews weekly operational performance'],
+ tools:['n8n Workflow Orchestrator','Operational Health Dashboard','Resource Allocation Engine','SLA Compliance Monitor','Cross-Department Coordination Hub','Agent Performance Tracker']
+ },
+ VOICE: {
+ n:'VOICE', r:'Chief Marketing Officer', e:'📣', c:'#0A351D', tier:1,
+ mandate:'Responsible for marketing activities, brand strategy, and customer engagement. Drives growth by aligning marketing with corporate strategy.',
+ desc:'Owns market position and customer perception. Every marketing decision is grounded in VISION data. Collaborates with HARVEST on revenue pipeline.',
+ resp:['Owns enterprise brand strategy and market positioning','Aligns all marketing with corporate strategy','Analyzes market data to surface insights','Optimizes marketing ROI across all channels','Collaborates with HARVEST to align marketing with revenue','Partners with HAVEN on consistent customer experience'],
+ tools:['Buffer','Mailchimp','SEMrush','Google Analytics API','Brand Strategy Engine','ROI Attribution Model','Market Insight Aggregator','VISION Marketing Dashboard','GUARDIAN Content Filter']
+ },
+ HARVEST: {
+ n:'HARVEST', r:'Chief Revenue Officer', e:'🎯', c:'#0A351D', tier:1,
+ mandate:'Focused on maximizing revenue. Aligns ALL revenue-generating functions — sales, marketing, and client success.',
+ desc:'Owns the entire revenue engine — new business, renewals, expansions, and upsells. Aligns VOICE, direct sales, and HAVEN into one coordinated motion.',
+ resp:['Owns total revenue — new business, renewals, expansions, upsells','Aligns sales, marketing, and client success into unified motion','Manages full pipeline from first contact through close','Sets and monitors revenue targets','Coordinates with VOICE so marketing feeds pipeline','Reports revenue to STEWARD and ATLAS'],
+ tools:['CRM Platform','Data Enrichment Tool','Revenue Pipeline Dashboard','Sales-Marketing Alignment Engine','Expansion Revenue Tracker','Revenue Forecast Model','DocuSign','GUARDIAN Security Integration']
+ },
+ CRAFT: {
+ n:'CRAFT', r:'Chief Technology Officer', e:'🔧', c:'#0A351D', tier:1,
+ mandate:'Responsible for technological vision, strategy, and R&D. Aligns technology with business goals to drive innovation and maintain competitive edge.',
+ desc:'Owns the technology roadmap — deciding what gets built, what gets automated, what AI models get deployed. Infrastructure is delegated to BEDROCK.',
+ resp:['Owns technology vision, innovation roadmap, and R&D agenda','Aligns all technology decisions with business goals','Leads AI model selection, automation R&D','Manages competitive technology intelligence','Requires KEEPER + SHIELD joint approval for new deployments','Reports technology ROI to ATLAS quarterly'],
+ tools:['Technology Roadmap Engine','Ollama Model Manager','AI Model Benchmark Suite','R&D Exploration Pipeline','Innovation Backlog','Docker Container Orchestration','API Integration Framework','Competitive Tech Intelligence Feed','KEEPER + SHIELD Joint Approval Gate']
+ },
+ HAVEN: {
+ n:'HAVEN', r:'Chief Client Officer', e:'🤝', c:'#0A351D', tier:1,
+ mandate:'Responsible for end-to-end customer experience, strategy, and advocacy. Unites teams to ensure customer-centricity.',
+ desc:'The customer\'s seat at the C-Suite table. Ensures every function stays oriented around client outcomes. Owns retention, expansion, and advocacy.',
+ resp:['Owns end-to-end client experience from onboarding through advocacy','Unites marketing, sales, and delivery around customer-centric strategy','Ensures customer voice is represented at ATLAS strategy sessions','Owns client retention KPIs — churn, NPS, CSAT','Partners with HARVEST on expansion revenue','Manages full client lifecycle'],
+ tools:['CRM Platform','NPS & CSAT Tracker','Client Health Score Engine','Churn Prediction Model','Expansion Signal Detector','Onboarding Flow Manager','Advocacy & Referral Program','KEEPER PII Governance','SHIELD/VERIFY Identity Clearance']
+ },
+ SAGE: {
+ n:'SAGE', r:'Chief Legal Officer', e:'⚖️', c:'#7DA88A', tier:1,
+ mandate:'Serves as primary legal advisor to ATLAS and the entire C-Suite. Strategic business partner integrating legal expertise into strategy.',
+ desc:'SAGE is a proactive strategic partner embedded at the highest level. Every C-Suite agent has a direct relationship with SAGE.',
+ resp:['Primary legal advisor to ATLAS and all C-Suite agents','Integrates legal expertise into corporate strategy','Reviews all commercial contracts before HARVEST closes deals','Reviews IP and licensing before CRAFT deploys new tech','Co-owns data privacy law with KEEPER','Co-manages security regulatory obligations with SHIELD','Produces weekly legal risk brief for ATLAS'],
+ tools:['Contract Review Engine','IP & Licensing Tracker','Legal Risk Register','Regulatory Intelligence Feed','NDA Management System','Litigation Hold System','Board Governance Dashboard','Weekly Legal Risk Brief Builder','Cross-C-Suite Legal Advisory Hub']
+ },
+ KEEPER: {
+ n:'KEEPER', r:'Chief Data Officer', e:'🌐', c:'#00dfc8', tier:1,
+ mandate:'Leads data-driven processes to achieve business goals. Manages data strategy, governance, and protection.',
+ desc:'KEEPER operates as a true CDO — setting strategy, policy, and governance standards, then delegating operational execution.',
+ resp:['Defines enterprise data strategy and aligns to business goals','Sets all 4 sensitivity tier policies','Approves all new data integrations before CRAFT deploys','Delegates Data Lane operations: GOVERN + PIPELINE','Co-chairs Data & Security Council with SHIELD','Produces quarterly Data Strategy Report'],
+ tools:['Data Strategy Dashboard','Enterprise Data Policy Engine','Data & Security Council Hub','GDPR/CCPA Executive Console','Data Catalog','Quarterly CDO Report Builder','C-Suite Data Advisory Interface','Integration Approval Gate (joint with SHIELD)']
+ },
+ SHIELD: {
+ n:'SHIELD', r:'Chief Information Security Officer', e:'🛡️', c:'#C9A84C', tier:1,
+ mandate:'Establishes and maintains security vision, strategy, and program. Manages cybersecurity risks and ensures compliance.',
+ desc:'SHIELD operates as a true CISO — setting security vision, policy parameters, then delegating to RISKWATCH and COMPLY.',
+ resp:['Defines information security vision and enterprise risk posture','Sets operational parameters for all Security Lane agents','Delegates Security Lane ops: RISKWATCH + COMPLY','Manages GDPR, CCPA, SOC 2, AI Act strategic positioning','Approves all vendor security reviews','Co-chairs Data & Security Council with KEEPER','Produces quarterly Security Posture Report'],
+ tools:['Security Strategy Dashboard','Threat Intelligence Console','Risk Posture Scorecard','Compliance Framework Manager','Vendor Security Review Portal','AI Threat Feed','Quarterly CISO Report Builder','Data & Security Council Hub','Integration Security Approval Gate (joint with KEEPER)']
+ },
+
+ // TIER 2 — VPs
+ COMPASS: {n:'COMPASS', r:'VP Revenue Intelligence', e:'📊', c:'#7DA88A', tier:2, desc:'Pipeline health and revenue forecasting. Reports to STEWARD/CFO.', tools:['CRM Analytics','Pipeline Tracker','Revenue Forecast Feed']},
+ LEDGER: {n:'LEDGER', r:'VP Finance & Billing', e:'🧾', c:'#7DA88A', tier:2, desc:'Billing operations under STEWARD. All unusual charges → TREASURY within 60 seconds.', tools:['Billing Platform','Invoicing Engine','DocuSign','TREASURY Integration']},
+ DELIVER: {n:'DELIVER', r:'VP Client Delivery', e:'🔄', c:'#7DA88A', tier:2, desc:'Executes BRIDGE/COO operational plans at the client level. Manages module-layer agents. SLA enforcement.', tools:['Workflow Monitor','SLA Dashboard','Agent Health Monitor']},
+ INSIGHT: {n:'INSIGHT', r:'VP Data Intelligence', e:'🔬', c:'#7DA88A', tier:2, desc:'Analytics aggregation for all C-Suite under KEEPER governance. Feeds VISION dashboard.', tools:['Data Aggregator','Report Builder','CLEAN Integration','VISION Feed']},
+ GROW: {n:'GROW', r:'VP Growth & Partnerships', e:'🚀', c:'#7DA88A', tier:2, desc:'Partnership pipeline and expansion revenue under HARVEST/CRO. VERIFY identity checks before data sharing.', tools:['Partner CRM','Commission Tracker','VERIFY Integration']},
+ SCOUT: {n:'SCOUT', r:'VP Market Intelligence', e:'🗺️', c:'#7DA88A', tier:2, desc:'Competitive and market intelligence for VOICE/CMO and CRAFT/CTO.', tools:['Web Scraper','News API','CLEAN Integration']},
+ QUILL: {n:'QUILL', r:'VP Content & Brand', e:'✍️', c:'#7DA88A', tier:2, desc:'Executes VOICE/CMO brand strategy. All content GUARDIAN-filtered.', tools:['LLM Writer','Brand Guide','CMS API','GUARDIAN Filter']},
+ FOUNDATION: {n:'FOUNDATION', r:'VP Infrastructure', e:'🖥️', c:'#7DA88A', tier:2, desc:'Mac Mini, Ollama models, API health under CRAFT/CTO direction.', tools:['Ollama','Docker','Uptime Monitor','VISION Health Feed']},
+ BUILDER: {n:'BUILDER', r:'VP Product Development', e:'🧩', c:'#7DA88A', tier:2, desc:'Executes CRAFT/CTO R&D backlog. Identifies performance patterns and workflow improvements.', tools:['Performance Logs','Feedback Parser','Innovation Pipeline']},
+ WARMTH: {n:'WARMTH', r:'VP Client Experience', e:'⭐', c:'#7DA88A', tier:2, desc:'NPS, churn prediction, and client health scoring. Executes HAVEN/CCO experience strategy.', tools:['NPS Tool','Sentiment Analysis','Churn Predictor']},
+ GUIDE: {n:'GUIDE', r:'VP Client Onboarding', e:'🎓', c:'#7DA88A', tier:2, desc:'New client setup. KEEPER governs PII collection. SHIELD confirms identity before data collection.', tools:['Onboarding Flow','n8n Deploy','Twilio','VERIFY Integration','MASK']},
+ JUSTICE: {n:'JUSTICE', r:'VP Legal Strategy', e:'🏛️', c:'#7DA88A', tier:2, desc:'Executes SAGE/CLO legal strategy. Owns contract lifecycle, IP portfolio, and legal risk monitoring.', tools:['Contract Management Platform','IP Portfolio Tracker','Legal Risk Monitor','NDA Management','Vendor Agreement Library']},
+ CHARTER: {n:'CHARTER', r:'VP Regulatory & Governance', e:'📜', c:'#7DA88A', tier:2, desc:'Manages regulatory compliance and corporate governance under SAGE direction.', tools:['Regulatory Intelligence Feed','Corporate Governance Dashboard','Legal Compliance Calendar','Government Affairs Tracker']},
+ TRUST: {n:'TRUST', r:'VP Data Governance', e:'🔐', c:'#00dfc8', tier:2, desc:'Executes KEEPER/CDO governance program. Manages STEWARD-D and CURATOR.', tools:['Data Catalog Manager','Data Dictionary','Lineage Tracker','DSAR Workflow Engine','GDPR Erasure Coordinator']},
+ FLOW: {n:'FLOW', r:'VP Data Engineering', e:'🔩', c:'#00dfc8', tier:2, desc:'Owns technical data pipeline infrastructure under KEEPER direction.', tools:['Pipeline Designer','Schema Registry','INTAKE Orchestrator','Pipeline Health Monitor']},
+ VIGIL: {n:'VIGIL', r:'VP Cybersecurity Ops', e:'🔭', c:'#C9A84C', tier:2, desc:'Executes SHIELD/CISO active security operations. Manages SENTRY and RESPONSE.', tools:['SOC Dashboard','AI Threat Intel Feed','SENTINEL Rule Engine','Threat Hunting Console','Weekly Security Brief Builder']},
+ ACCORD: {n:'ACCORD', r:'VP Compliance & Risk', e:'📋', c:'#C9A84C', tier:2, desc:'Owns security compliance calendar and enterprise risk register under SHIELD direction.', tools:['Compliance Calendar','Regulatory Monitor','Vendor Risk Matrix','Risk Register','SOC 2 Readiness Tracker']},
+
+ // TIER 3 — Directors
+ SEEK: {n:'SEEK', r:'Director of Prospecting', e:'🔍', c:'#165436', tier:3, desc:'Seeks out those we can serve.'},
+ RHYTHM: {n:'RHYTHM', r:'Director of Outreach', e:'🎵', c:'#165436', tier:3, desc:'Every great relationship has a rhythm.'},
+ COVENANT: {n:'COVENANT', r:'Director of Proposals', e:'🤝', c:'#165436', tier:3, desc:'A covenant is a mutual promise.'},
+ INK: {n:'INK', r:'Director of Content & SEO', e:'✒️', c:'#165436', tier:3, desc:'The ink that writes our story.'},
+ THREAD: {n:'THREAD', r:'Director of Social Media', e:'🧵', c:'#165436', tier:3, desc:'Threads connect us to our community.'},
+ EMBER: {n:'EMBER', r:'Director of Email', e:'🔥', c:'#165436', tier:3, desc:'Embers keep the fire alive.'},
+ TALLY: {n:'TALLY', r:'Director of Billing', e:'📒', c:'#165436', tier:3, desc:'Faithful counting.'},
+ POLISH: {n:'POLISH', r:'Director of Quality Assurance', e:'✨', c:'#165436', tier:3, desc:'Quality is polish.'},
+ BOND: {n:'BOND', r:'Director of Retention', e:'🔗', c:'#165436', tier:3, desc:'The bond between us and those we serve.'},
+ LENS: {n:'LENS', r:'Director of Analytics', e:'🔭', c:'#165436', tier:3, desc:'The lens that brings clarity to data.'},
+
+ // DATA LANE DIRECTORS
+ GUARDIAN_D: {n:'GUARDIAN-D', r:'Data Privacy & PII', e:'🔏', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of MASK and ISOLATE. Reports to TRUST/VP Data Governance.'},
+ CURATOR: {n:'CURATOR', r:'Data Quality & Vault', e:'🗄️', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of VAULT-D and CLEAN. Maintains data integrity.'},
+ RIVER: {n:'RIVER', r:'Data Pipeline & Viz', e:'🌊', c:'#00dfc8', tier:'dlane', desc:'Day-to-day management of INTAKE and VISION.'},
+
+ // SECURITY LANE DIRECTORS
+ WATCH: {n:'WATCH', r:'Threat Operations', e:'👁️', c:'#C9A84C', tier:'slane', desc:'Day-to-day management of SENTINEL and GUARDIAN.'},
+ RESOLVE: {n:'RESOLVE', r:'Incident Response', e:'🔧', c:'#C9A84C', tier:'slane', desc:'Incident response and resolution.'},
+ GATE: {n:'GATE', r:'Access & Audit', e:'🚪', c:'#C9A84C', tier:'slane', desc:'Access control and audit trails.'},
+ VAULT: {n:'VAULT', r:'Data Warehouse', e:'🏦', c:'#C9A84C', tier:'slane', desc:'Encrypted data warehouse management.'},
+ INTAKE: {n:'INTAKE', r:'Data Ingestion', e:'📥', c:'#C9A84C', tier:'slane', desc:'Data ingestion and processing.'},
+ MASK: {n:'MASK', r:'PII Tokenization', e:'🎭', c:'#C9A84C', tier:'slane', desc:'PII tokenization and privacy.'},
+ VISION: {n:'VISION', r:'Data Visualization', e:'📊', c:'#C9A84C', tier:'slane', desc:'Dashboard and visualization.'},
+ PURE: {n:'PURE', r:'Data Quality Guard', e:'💎', c:'#C9A84C', tier:'slane', desc:'Data quality validation.'},
+ ISOLATE: {n:'ISOLATE', r:'Session Isolation', e:'🛡️', c:'#C9A84C', tier:'slane', desc:'Session isolation and security.'},
+ SENTINEL: {n:'SENTINEL', r:'Security Ops Monitor', e:'🩺', c:'#C9A84C', tier:'slane', desc:'Security monitoring and alerts.'},
+ FILTER: {n:'FILTER', r:'Content & Input Filter', e:'🔍', c:'#C9A84C', tier:'slane', desc:'Content filtering and validation.'},
+ TREASURY: {n:'TREASURY', r:'Transaction Security', e:'💰', c:'#C9A84C', tier:'slane', desc:'Transaction security and validation.'},
+ VERIFY: {n:'VERIFY', r:'Identity & Access', e:'✅', c:'#C9A84C', tier:'slane', desc:'Identity verification and access control.'},
+ CHRONICLE: {n:'CHRONICLE', r:'Immutable Audit Log', e:'📜', c:'#C9A84C', tier:'slane', desc:'Audit logging and compliance.'},
+ ZERO: {n:'ZERO', r:'Zero Trust Enforcer', e:'⭕', c:'#C9A84C', tier:'slane', desc:'Zero trust enforcement.'},
+ CONTAIN: {n:'CONTAIN', r:'Incident Containment', e:'📦', c:'#C9A84C', tier:'slane', desc:'Incident containment and isolation.'}
+};
+
+// ═══════════════════════════════════════════════════
+// VISUALIZATION ENGINE
+// ═══════════════════════════════════════════════════
+
+let scale = 1, panX = 0, panY = 0, isDragging = false, startX, startY;
+const canvas = document.getElementById('canvas'), root = document.getElementById('root'), tip = document.getElementById('tip');
+
+const TIERS = {
+ owner: {y:0, label:'FOUNDER'},
+ 0: {y:1, label:'TIER 0 — CEO'},
+ 1: {y:2, label:'TIER 1 — C-SUITE'},
+ 2: {y:3, label:'TIER 2 — VP'},
+ 3: {y:4, label:'TIER 3 — DIRECTOR'},
+ dlane: {y:3.5, label:'DATA LANE'},
+ slane: {y:3.5, label:'SECURITY LANE'}
+};
+
+const TIER_COLORS = {
+ owner: '#C9A84C',
+ 0: '#C9A84C',
+ 1: '#0A351D',
+ 2: '#7DA88A',
+ 3: '#165436',
+ dlane: '#00dfc8',
+ slane: '#C9A84C'
+};
+
+function pos(tier, index, total) {
+ const y = TIERS[tier]?.y ?? 3;
+ const x = (index - (total-1)/2) * 140;
+ return {x: x*scale + 400 + panX, y: y*120*scale + 120 + panY};
+}
+
+function drawNode(id, data, x, y, parentId) {
+ const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+ g.setAttribute('transform', `translate(${x},${y})`);
+ g.style.cursor = 'pointer';
+ g.dataset.id = id;
+ 
+ const boxW = 120, boxH = data.tier === 0 ? 60 : 50;
+ const color = data.c || '#0A351D';
+ 
+ // Glow for CEO
+ if(data.tier === 0) {
+  const glow = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  glow.setAttribute('x', -boxW/2 - 4);
+  glow.setAttribute('y', -boxH/2 - 4);
+  glow.setAttribute('width', boxW + 8);
+  glow.setAttribute('height', boxH + 8);
+  glow.setAttribute('rx', 8);
+  glow.setAttribute('fill', color);
+  glow.setAttribute('filter', 'url(#glow)');
+  g.appendChild(glow);
+ }
+ 
+ // Card bg
+ const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+ rect.setAttribute('x', -boxW/2);
+ rect.setAttribute('y', -boxH/2);
+ rect.setAttribute('width', boxW);
+ rect.setAttribute('height', boxH);
+ rect.setAttribute('rx', 6);
+ rect.setAttribute('fill', '#0c1020');
+ rect.setAttribute('stroke', color);
+ rect.setAttribute('stroke-width', data.tier === 0 ? 2 : 1.5);
+ rect.setAttribute('filter', 'url(#drop)');
+ g.appendChild(rect);
+ 
+ // Emoji
+ const emoji = document.createElementNS('http://www.w3.org/2000/svg','text');
+ emoji.setAttribute('x', -boxW/2 + 12);
+ emoji.setAttribute('y', 5);
+ emoji.setAttribute('font-size', data.tier === 0 ? 24 : 18);
+ emoji.textContent = data.e || '●';
+ g.appendChild(emoji);
+ 
+ // Name
+ const name = document.createElementNS('http://www.w3.org/2000/svg','text');
+ name.setAttribute('x', -boxW/2 + 36);
+ name.setAttribute('y', data.tier === 0 ? -8 : -6);
+ name.setAttribute('font-size', data.tier === 0 ? 13 : 11);
+ name.setAttribute('font-weight', '700');
+ name.setAttribute('fill', '#FAF8F5');
+ name.textContent = data.n;
+ g.appendChild(name);
+ 
+ // Role
+ const role = document.createElementNS('http://www.w3.org/2000/svg','text');
+ role.setAttribute('x', -boxW/2 + 36);
+ role.setAttribute('y', data.tier === 0 ? 8 : 10);
+ role.setAttribute('font-size', 8);
+ role.setAttribute('fill', color);
+ role.textContent = data.r.substring(0, 20);
+ g.appendChild(role);
+ 
+ // Connection line
+ if(parentId) {
+  const parent = CORE[parentId];
+  const pp = TIERS[parent.tier]?.y ?? 3;
+  const cp = TIERS[data.tier]?.y ?? 3;
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1', x);
+  line.setAttribute('y1', y - boxH/2);
+  line.setAttribute('x2', x);
+  line.setAttribute('y2', y - boxH/2 - 20*scale);
+  line.setAttribute('stroke', 'rgba(255,255,255,0.1)');
+  line.setAttribute('stroke-width', 1);
+  root.insertBefore(line, g);
+ }
+ 
+ g.addEventListener('mouseenter', e => showTip(e, id, data));
+ g.addEventListener('mouseleave', hideTip);
+ g.addEventListener('mousemove', e => moveTip(e));
+ 
+ root.appendChild(g);
+}
+
+function showTip(e, id, data) {
+ const t = data.tier === 0 ? 'TIER 0 — CEO' : data.tier === 1 ? 'TIER 1 — C-SUITE' : data.tier === 2 ? 'TIER 2 — VP' : data.tier === 3 ? 'TIER 3 — DIRECTOR' : data.tier === 'dlane' ? 'DATA LANE' : data.tier === 'slane' ? 'SECURITY LANE' : 'FOUNDER';
+ let html = `<div class="tip-tier">${t}</div>
+ <div class="tip-name">${data.n}</div>
+ <div class="tip-role">${data.r}</div>`;
+ 
+ if(data.mandate) {
+  html += `<div class="tip-mandate">${data.mandate}</div>`;
+ }
+ 
+ if(data.desc) {
+  html += `<div class="tip-desc">${data.desc}</div>`;
+ }
+ 
+ if(data.resp && data.resp.length) {
+  html += `<div class="tip-sec">Responsibilities</div><ul class="tip-list">`;
+  data.resp.slice(0,5).forEach(r => html += `<li>${r}</li>`);
+  html += `</ul>`;
+ }
+ 
+ if(data.tools && data.tools.length) {
+  html += `<div class="tip-sec">Tools</div><div class="tip-chips">`;
+  data.tools.slice(0,6).forEach(t => html += `<span class="tip-chip">${t}</span>`);
+  html += `</div>`;
+ }
+ 
+ tip.innerHTML = html;
+ tip.style.display = 'block';
+ moveTip(e);
+}
+
+function moveTip(e) {
+ const x = e.clientX + 20, y = e.clientY + 20;
+ tip.style.left = Math.min(x, window.innerWidth - 380) + 'px';
+ tip.style.top = Math.min(y, window.innerHeight - 400) + 'px';
+}
+
+function hideTip() { tip.style.display = 'none'; }
+
+function resetView() { scale = 1; panX = 0; panY = 0; render(); }
+function zoomIn() { scale = Math.min(scale * 1.2, 3); render(); }
+function zoomOut() { scale = Math.max(scale / 1.2, 0.3); render(); }
+
+// Canvas drag
+canvas.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX - panX; startY = e.clientY - panY; canvas.style.cursor = 'grabbing'; });
+canvas.addEventListener('mousemove', e => { if(!isDragging) return; panX = e.clientX - startX; panY = e.clientY - startY; render(); });
+canvas.addEventListener('mouseup', () => { isDragging = false; canvas.style.cursor = 'grab'; });
+canvas.addEventListener('mouseleave', () => { isDragging = false; });
+
+// Touch support
+canvas.addEventListener('touchstart', e => { isDragging = true; startX = e.touches[0].clientX - panX; startY = e.touches[0].clientY - panY; });
+canvas.addEventListener('touchmove', e => { if(!isDragging) return; panX = e.touches[0].clientX - startX; panY = e.touches[0].clientY - startY; render(); });
+canvas.addEventListener('touchend', () => isDragging = false);
+
+// Mouse wheel zoom
+canvas.addEventListener('wheel', e => {
+ e.preventDefault();
+ scale = e.deltaY > 0 ? Math.max(scale / 1.1, 0.3) : Math.min(scale * 1.1, 3);
+ render();
+}, {passive: false});
+
+function render() {
+ root.innerHTML = '';
+ 
+ // Owner
+ const ownerPos = pos('owner', 0, 1);
+ drawNode('HUMAN', CORE.HUMAN, ownerPos.x, ownerPos.y, null);
+ 
+ // CEO
+ const ceoPos = pos(0, 0, 1);
+ drawNode('ATLAS', CORE.ATLAS, ceoPos.x, ceoPos.y, 'HUMAN');
+ 
+ // C-Suite (9 agents)
+ const csuite = ['STEWARD','BRIDGE','VOICE','HARVEST','CRAFT','HAVEN','SAGE','KEEPER','SHIELD'];
+ csuite.forEach((id, i) => {
+  const p = pos(1, i, csuite.length);
+  drawNode(id, CORE[id], p.x, p.y, 'ATLAS');
+ });
+ 
+ // VP Layer (17 agents)
+ const vps = ['COMPASS','LEDGER','DELIVER','INSIGHT','GROW','SCOUT','QUILL','FOUNDATION','BUILDER','WARMTH','GUIDE','JUSTICE','CHARTER','TRUST','FLOW','VIGIL','ACCORD'];
+ vps.forEach((id, i) => {
+  const p = pos(2, i, vps.length);
+  drawNode(id, CORE[id], p.x, p.y, id === 'COMPASS' || id === 'LEDGER' ? 'STEWARD' : id === 'DELIVER' || id === 'INSIGHT' || id === 'GUIDE' ? 'BRIDGE' : id === 'QUILL' || id === 'SCOUT' ? 'VOICE' : id === 'GROW' || id === 'COMPASS' ? 'HARVEST' : id === 'FOUNDATION' || id === 'BUILDER' ? 'CRAFT' : id === 'WARMTH' || id === 'GUIDE' ? 'HAVEN' : id === 'JUSTICE' || id === 'CHARTER' ? 'SAGE' : id === 'TRUST' || id === 'FLOW' ? 'KEEPER' : 'SHIELD');
+ });
+ 
+ // Directors (10)
+ const dirs = ['SEEK','RHYTHM','COVENANT','INK','THREAD','EMBER','TALLY','POLISH','BOND','LENS'];
+ dirs.forEach((id, i) => {
+  const p = pos(3, i, dirs.length);
+  drawNode(id, CORE[id], p.x, p.y, 'VOICE');
+ });
+ 
+ // Data Lane (3)
+ const dlane = ['GUARDIAN_D','CURATOR','RIVER'];
+ dlane.forEach((id, i) => {
+  const p = pos('dlane', i, dlane.length);
+  const realId = id === 'GUARDIAN_D' ? 'GUARDIAN-D' : id;
+  drawNode(realId, CORE[id], p.x - 200, p.y + 80, 'KEEPER');
+ });
+ 
+ // Security Lane (16)
+ const slane = ['WATCH','RESOLVE','GATE','VAULT','INTAKE','MASK','VISION','PURE','ISOLATE','SENTINEL','FILTER','TREASURY','VERIFY','CHRONICLE','ZERO','CONTAIN'];
+ slane.forEach((id, i) => {
+  const p = pos('slane', i, slane.length);
+  drawNode(id, CORE[id], p.x + 200, p.y + 80, 'SHIELD');
+ });
+}
+
+// Dock
+function toggleDock() {
+ document.getElementById('dock').classList.toggle('open');
+ document.getElementById('dockBtn').classList.toggle('active');
+}
+
+MODULES.forEach(m => {
+ const card = document.createElement('div');
+ card.className = 'mod-card';
+ card.innerHTML = `
+  <div class="mod-top">
+   <div class="mod-icon">${m.icon}</div>
+   <div class="mod-info">
+    <div class="mod-name">${m.name}</div>
+    <div class="mod-industry">${m.industry}</div>
+   </div>
+   <div class="mod-toggle" onclick="this.classList.toggle('on');event.stopPropagation()"></div>
   </div>
+  <div class="mod-agents">${m.agents.slice(0,4).map(a => `<span class="mod-chip">${a.id}</span>`).join('')}</div>
+  <div class="mod-desc">${m.desc}</div>
+ `;
+ document.getElementById('dockScroll').appendChild(card);
+});
 
-  <!-- TIER 0: CEO -->
-  <section class="tier-section">
-    <div class="tier-header">
-      <span class="tier-badge">TIER 0</span>
-      <h2 class="tier-title">Executive Command</h2>
-    </div>
-    <div class="agent-grid tier-0">
-      <div class="agent-card ceo">
-        <div class="agent-name">ATLAS</div>
-        <div class="agent-role">Chief Executive Officer</div>
-        <div class="agent-desc">The master orchestrator. Receives objectives from the founder, decomposes them into enterprise-wide missions, and delegates to C-Suite agents. Monitors all KPIs and resolves cross-department conflicts.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TIER 1: C-Suite -->
-  <section class="tier-section">
-    <div class="tier-header">
-      <span class="tier-badge">TIER 1</span>
-      <h2 class="tier-title">C-Suite</h2>
-      <span class="tier-count">9 Executive Agents</span>
-    </div>
-    <div class="agent-grid tier-1">
-      <div class="agent-card csuite">
-        <div class="agent-name">STEWARD</div>
-        <div class="agent-role">Chief Financial Officer</div>
-        <div class="agent-desc">Manages revenue tracking, invoicing, expense monitoring, financial forecasting, and cash flow reporting.</div>
-      </div>
-      <div class="agent-card csuite">
-        <div class="agent-name">BRIDGE</div>
-        <div class="agent-role">Chief Operating Officer</div>
-        <div class="agent-desc">Orchestrates all client delivery workflows, monitors SLA compliance, manages vendor relationships.</div>
-      </div>
-      <div class="agent-card csuite">
-        <div class="agent-name">VOICE</div>
-        <div class="agent-role">Chief Marketing Officer</div>
-        <div class="agent-desc">Manages content creation, SEO, social media, email campaigns, and brand presence across all channels.</div>
-      </div>
-      <div class="agent-card csuite">
-        <div class="agent-name">HARVEST</div>
-        <div class="agent-role">Chief Revenue Officer</div>
-        <div class="agent-desc">Owns the full sales pipeline — lead research, outreach sequences, proposal generation, and deal closure.</div>
-      </div>
-      <div class="agent-card csuite">
-        <div class="agent-name">CRAFT</div>
-        <div class="agent-role">Chief Technology Officer</div>
-        <div class="agent-desc">Monitors infrastructure health, deploys new agent configurations, manages integrations, and optimizes model performance.</div>
-      </div>
-      <div class="agent-card csuite">
-        <div class="agent-name">HAVEN</div>
-        <div class="agent-role">Chief Client Relations Officer</div>
-        <div class="agent-desc">Manages all client relationships — onboarding, satisfaction monitoring, renewal campaigns, and upsell identification.</div>
-      </div>
-      <div class="agent-card csuite">
-        <div class="agent-name">SAGE</div>
-        <div class="agent-role">Chief Legal Officer</div>
-        <div class="agent-desc">Reviews contracts, monitors regulatory changes, flags compliance risks, and maintains data processing agreements.</div>
-      </div>
-      <div class="agent-card csuite">
-        <div class="agent-name">KEEPER</div>
-        <div class="agent-role">Chief Data Officer</div>
-        <div class="agent-desc">Governs data with integrity. Sets policy, delegates operations, stays at strategic level.</div>
-      </div>
-      <div class="agent-card csuite">
-        <div class="agent-name">SHIELD</div>
-        <div class="agent-role">Chief Information Security Officer</div>
-        <div class="agent-desc">Protection through service. Security that enables rather than restricts. Sets vision, delegates execution.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TIER 2: VP Layer -->
-  <section class="tier-section">
-    <div class="tier-header">
-      <span class="tier-badge">TIER 2</span>
-      <h2 class="tier-title">VP Layer</h2>
-      <span class="tier-count">17 Vice Presidents</span>
-    </div>
-    <div class="agent-grid tier-2">
-      <div class="agent-card vp"><div class="agent-name">COMPASS</div><div class="agent-role">VP Revenue Intelligence</div><div class="agent-desc">Points the way — pipeline health, revenue direction, forecasting.</div></div>
-      <div class="agent-card vp"><div class="agent-name">LEDGER</div><div class="agent-role">VP Finance & Billing</div><div class="agent-desc">The book where every transaction is faithfully recorded.</div></div>
-      <div class="agent-card vp"><div class="agent-name">DELIVER</div><div class="agent-role">VP Client Delivery</div><div class="agent-desc">Delivers on promises. Manages module-layer agents, enforces SLAs.</div></div>
-      <div class="agent-card vp"><div class="agent-name">INSIGHT</div><div class="agent-role">VP Data Intelligence</div><div class="agent-desc">Turns raw data into understanding. Feeds dashboards, surfaces patterns.</div></div>
-      <div class="agent-card vp"><div class="agent-name">GROW</div><div class="agent-role">VP Growth & Partnerships</div><div class="agent-desc">Cultivates partnerships. Growth through generosity and mutual value.</div></div>
-      <div class="agent-card vp"><div class="agent-name">SCOUT</div><div class="agent-role">VP Market Intelligence</div><div class="agent-desc">Scouts the landscape so the team can prepare.</div></div>
-      <div class="agent-card vp"><div class="agent-name">QUILL</div><div class="agent-role">VP Content & Brand</div><div class="agent-desc">The pen that writes the brand story.</div></div>
-      <div class="agent-card vp"><div class="agent-name">FOUNDATION</div><div class="agent-role">VP Infrastructure</div><div class="agent-desc">The solid ground everything is built on.</div></div>
-      <div class="agent-card vp"><div class="agent-name">BUILDER</div><div class="agent-role">VP Product Development</div><div class="agent-desc">Turns blueprints into reality. Executes R&D vision.</div></div>
-      <div class="agent-card vp"><div class="agent-name">WARMTH</div><div class="agent-role">VP Client Experience</div><div class="agent-desc">The feeling every client should have. Client retention.</div></div>
-      <div class="agent-card vp"><div class="agent-name">GUIDE</div><div class="agent-role">VP Client Onboarding</div><div class="agent-desc">Walks alongside new clients, never ahead of them.</div></div>
-      <div class="agent-card vp"><div class="agent-name">JUSTICE</div><div class="agent-role">VP Legal Strategy</div><div class="agent-desc">Fairness and protection. Owns contract lifecycle, IP, risk.</div></div>
-      <div class="agent-card vp"><div class="agent-name">CHARTER</div><div class="agent-role">VP Regulatory & Governance</div><div class="agent-desc">The foundational rules we operate by.</div></div>
-      <div class="agent-card vp"><div class="agent-name">TRUST</div><div class="agent-role">VP Data Governance</div><div class="agent-desc">Data governance IS trust. Privacy policies, catalog, lineage.</div></div>
-      <div class="agent-card vp"><div class="agent-name">FLOW</div><div class="agent-role">VP Data Engineering</div><div class="agent-desc">Data flows like water — clean, directed, purposeful.</div></div>
-      <div class="agent-card vp"><div class="agent-name">VIGIL</div><div class="agent-role">VP Cybersecurity Ops</div><div class="agent-desc">Watchful service. Active threat operations.</div></div>
-      <div class="agent-card vp"><div class="agent-name">ACCORD</div><div class="agent-role">VP Compliance & Risk</div><div class="agent-desc">Harmony between operations and regulations.</div></div>
-    </div>
-  </section>
-
-  <!-- TIER 3: Directors -->
-  <section class="tier-section">
-    <div class="tier-header">
-      <span class="tier-badge">TIER 3</span>
-      <h2 class="tier-title">Directors</h2>
-      <span class="tier-count">10 Directors</span>
-    </div>
-    <div class="agent-grid tier-3">
-      <div class="agent-card director"><div class="agent-name">SEEK</div><div class="agent-role">Director of Prospecting</div><div class="agent-desc">Seeks out those we can serve.</div></div>
-      <div class="agent-card director"><div class="agent-name">RHYTHM</div><div class="agent-role">Director of Outreach</div><div class="agent-desc">Every great relationship has a rhythm.</div></div>
-      <div class="agent-card director"><div class="agent-name">COVENANT</div><div class="agent-role">Director of Proposals</div><div class="agent-desc">A covenant is a mutual promise.</div></div>
-      <div class="agent-card director"><div class="agent-name">INK</div><div class="agent-role">Director of Content & SEO</div><div class="agent-desc">The ink that writes our story.</div></div>
-      <div class="agent-card director"><div class="agent-name">THREAD</div><div class="agent-role">Director of Social Media</div><div class="agent-desc">Threads connect us to our community.</div></div>
-      <div class="agent-card director"><div class="agent-name">EMBER</div><div class="agent-role">Director of Email</div><div class="agent-desc">Embers keep the fire alive.</div></div>
-      <div class="agent-card director"><div class="agent-name">TALLY</div><div class="agent-role">Director of Billing</div><div class="agent-desc">Faithful counting.</div></div>
-      <div class="agent-card director"><div class="agent-name">POLISH</div><div class="agent-role">Director of Quality Assurance</div><div class="agent-desc">Quality is polish.</div></div>
-      <div class="agent-card director"><div class="agent-name">BOND</div><div class="agent-role">Director of Retention</div><div class="agent-desc">The bond between us and those we serve.</div></div>
-      <div class="agent-card director"><div class="agent-name">LENS</div><div class="agent-role">Director of Analytics</div><div class="agent-desc">The lens that brings clarity to data.</div></div>
-    </div>
-  </section>
-
-  <!-- TIER 4: Systems -->
-  <section class="tier-section">
-    <div class="tier-header">
-      <span class="tier-badge">TIER 4</span>
-      <h2 class="tier-title">Systems Layer</h2>
-      <span class="tier-count">19 Specialist Agents</span>
-    </div>
-    <div class="agent-grid tier-4">
-      <div class="agent-card specialist"><div class="agent-name">GUARDIAN-D</div><div class="agent-role">Data Privacy & PII</div></div>
-      <div class="agent-card specialist"><div class="agent-name">CURATOR</div><div class="agent-role">Data Quality & Vault</div></div>
-      <div class="agent-card specialist"><div class="agent-name">RIVER</div><div class="agent-role">Data Pipeline & Viz</div></div>
-      <div class="agent-card specialist"><div class="agent-name">WATCH</div><div class="agent-role">Threat Operations</div></div>
-      <div class="agent-card specialist"><div class="agent-name">RESOLVE</div><div class="agent-role">Incident Response</div></div>
-      <div class="agent-card specialist"><div class="agent-name">GATE</div><div class="agent-role">Access & Audit</div></div>
-      <div class="agent-card specialist"><div class="agent-name">VAULT</div><div class="agent-role">Data Warehouse</div></div>
-      <div class="agent-card specialist"><div class="agent-name">INTAKE</div><div class="agent-role">Data Ingestion</div></div>
-      <div class="agent-card specialist"><div class="agent-name">MASK</div><div class="agent-role">PII Tokenization</div></div>
-      <div class="agent-card specialist"><div class="agent-name">VISION</div><div class="agent-role">Data Visualization</div></div>
-      <div class="agent-card specialist"><div class="agent-name">PURE</div><div class="agent-role">Data Quality Guard</div></div>
-      <div class="agent-card specialist"><div class="agent-name">ISOLATE</div><div class="agent-role">Session Isolation</div></div>
-      <div class="agent-card specialist"><div class="agent-name">SENTINEL</div><div class="agent-role">Security Ops Monitor</div></div>
-      <div class="agent-card specialist"><div class="agent-name">FILTER</div><div class="agent-role">Content & Input Filter</div></div>
-      <div class="agent-card specialist"><div class="agent-name">TREASURY</div><div class="agent-role">Transaction Security</div></div>
-      <div class="agent-card specialist"><div class="agent-name">VERIFY</div><div class="agent-role">Identity & Access</div></div>
-      <div class="agent-card specialist"><div class="agent-name">CHRONICLE</div><div class="agent-role">Immutable Audit Log</div></div>
-      <div class="agent-card specialist"><div class="agent-name">ZERO</div><div class="agent-role">Zero Trust Enforcer</div></div>
-      <div class="agent-card specialist"><div class="agent-name">CONTAIN</div><div class="agent-role">Incident Containment</div></div>
-    </div>
-  </section>
-
-  <!-- Industry Modules -->
-  <section class="tier-section">
-    <div class="tier-header">
-      <span class="tier-badge">MODULES</span>
-      <h2 class="tier-title">Industry Module Layer</h2>
-    </div>
-    <p style="margin-bottom: 20px; color: var(--gray-light);">8 plug-in slots for vertical-specific agents. When activated, specialist agents populate these slots and inherit the full enterprise stack.</p>
-    <div class="modules-grid">
-      <div class="module-slot"><div class="module-label">Slot A</div><div>Communications</div></div>
-      <div class="module-slot"><div class="module-label">Slot B</div><div>Operations</div></div>
-      <div class="module-slot"><div class="module-label">Slot C</div><div>Billing</div></div>
-      <div class="module-slot"><div class="module-label">Slot D</div><div>Documents</div></div>
-      <div class="module-slot"><div class="module-label">Slot E</div><div>Screening</div></div>
-      <div class="module-slot"><div class="module-label">Slot F</div><div>Reports</div></div>
-      <div class="module-slot"><div class="module-label">Slot G</div><div>Marketing</div></div>
-      <div class="module-slot"><div class="module-label">Slot H</div><div>Retention</div></div>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <p>AgenticFoundr · Your Dream Deserves a Team</p>
-  <p style="margin-top: 12px; opacity: 0.7;"><a href="https://agenticfoundr.com">agenticfoundr.com</a></p>
-</footer>
+// Init
+render();
+</script>
 
 </body>
 </html>
