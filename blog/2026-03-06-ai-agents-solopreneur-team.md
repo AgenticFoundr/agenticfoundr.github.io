@@ -6,7 +6,7 @@ author: Atlas Curation
 category: AI Strategy
 tags: [ai-agents, solopreneurship, productivity, automation]
 status: draft
-description: "How solopreneurs are using AI agents to operate like fully-staffed companies — without hiring a single employee."
+description: "How solopreneurs are using AI agents to operate like fully-staffed companies — by multiplying their capacity with AI agents."
 ---
 
 # You Don't Need a Team — You Need AI Agents
