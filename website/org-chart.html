@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgenticFoundr - 50 Agents Org Chart</title>
+    <style>
+        :root {
+            --midnight-forest: #0A351D;
+            --warm-cream: #FAF8F5;
+            --luxurious-gold: #C9A84C;
+            --sage: #7DA88A;
+            --moss: #2D7A4E;
+            --charcoal: #2A2A2A;
+            --light-gray: #E8E4DF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--midnight-forest) 0%, #0F4A2D 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: var(--charcoal);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--warm-cream);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .gold-accent {
+            color: var(--luxurious-gold);
+        }
+
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .layer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .layer-label {
+            text-align: center;
+            color: var(--luxurious-gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .agent-card {
+            background: var(--warm-cream);
+            border-radius: 12px;
+            padding: 20px 25px;
+            min-width: 180px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--luxurious-gold);
+        }
+
+        .agent-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .agent-card .agent-id {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--midnight-forest);
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .agent-card .agent-role {
+            font-size: 0.85rem;
+            color: var(--moss);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .agent-card .agent-desc {
+            font-size: 0.75rem;
+            color: var(--charcoal);
+            opacity: 0.7;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        .executive-layer .agent-card {
+            border: 2px solid var(--luxurious-gold);
+        }
+
+        .connector {
+            width: 3px;
+            height: 30px;
+            background: var(--luxurious-gold);
+            opacity: 0.5;
+        }
+
+        /* CEO Card Special Styling */
+        .ceo-card {
+            background: var(--midnight-forest);
+            color: var(--warm-cream);
+            border: 3px solid var(--luxurious-gold);
+            min-width: 280px;
+        }
+
+        .ceo-card .agent-id {
+            color: var(--luxurious-gold);
+            font-size: 1.8rem;
+        }
+
+        .ceo-card .agent-role {
+            color: var(--warm-cream);
+            font-size: 1rem;
+        }
+
+        .ceo-card .agent-desc {
+            color: var(--light-gray);
+            opacity: 0.9;
+        }
+
+        .ceo-card::before {
+            background: var(--luxurious-gold);
+            height: 6px;
+        }
+
+        /* Connectors */
+        .layer-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vertical-line {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--luxurious-gold), transparent);
+        }
+
+        .horizontal-line {
+            width: 80%;
+            height: 3px;
+            background: var(--luxurious-gold);
+            opacity: 0.3;
+            margin: 0 auto;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: var(--warm-cream);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--luxurious-gold);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            color: var(--warm-cream);
+            opacity: 0.6;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .tagline { font-size: 1rem; }
+            .agent-card { min-width: 150px; padding: 15px; }
+            .stats { gap: 30px; }
+            .stat-number { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Agentic<span class="gold-accent">Foundr</span></h1>
+            <p class="tagline">50+ AI Agents. 0 Employees. 1 Vision.</p>
+        </header>
+
+        <div class="org-chart">
+            <!-- CEO Layer -->
+            <div class="layer">
+                <div class="agent-card ceo-card">
+                    <div class="agent-id">🧑‍💼 Atlas Curation</div>
+                    <div class="agent-role">CEO</div>
+                    <div class="agent-desc">Servant Leader • Visionary • Decision Maker</div>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+
+            <!-- Executive Layer -->
+            <div class="layer-label">Executive Layer</div>
+            <div class="layer executive-layer">
+                <div class="agent-card">
+                    <div class="agent-id">🛡️ STEWARD</div>
+                    <div class="agent-role">Chief of Staff</div>
+                    <div class="agent-desc">Coordinates all agents • Daily briefings • Decision support</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-id">✍️ QUILL</div>
+                    <div class="agent-role">Chief Content Officer</div>
+                    <div class="agent-desc">Content strategy • Production • Repurposing</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-id">🎤 VOICE</div>
+                    <div class="agent-role">Chief Communications</div>
+                    <div class="agent-desc">Partnerships • PR • External relations</div>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+
+            <!-- Operations Layer -->
+            <div class="layer-label">Operations Layer</div>
+            <div class="layer">
+                <div class="agent-card">
+                    <div class="agent-id">🌾 HARVEST</div>
+                    <div class="agent-role">Revenue & Finance</div>
+                    <div class="agent-desc">Track revenue • Financial reports • Monetization</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-id">🔗 NEXUS</div>
+                    <div class="agent-role">Calendar & Scheduling</div>
+                    <div class="agent-desc">Time management • Meeting coordination</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-id">🎯 PILOT</div>
+                    <div class="agent-role">Project Management</div>
+                    <div class="agent-desc">Track initiatives • Move projects forward</div>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+
+            <!-- Growth Layer -->
+            <div class="layer-label">Growth Layer</div>
+            <div class="layer">
+                <div class="agent-card">
+                    <div class="agent-id">✨ SPARK</div>
+                    <div class="agent-role">Social Media</div>
+                    <div class="agent-desc">Create posts • Engage community • Trend monitoring</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-id">📧 PULSE</div>
+                    <div class="agent-role">Email Marketing</div>
+                    <div class="agent-desc">Sequences • Nurture leads • Newsletter</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-id">📈 AMPLIFY</div>
+                    <div class="agent-role">Paid Advertising</div>
+                    <div class="agent-desc">Ad management • Creative testing • ROAS</div>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+
+            <!-- Delivery Layer -->
+            <div class="layer-label">Delivery Layer</div>
+            <div class="layer">
+                <div class="agent-card">
+                    <div class="agent-id">🔨 CRAFTER</div>
+                    <div class="agent-role">Product Creation</div>
+                    <div class="agent-desc">Build products • Design assets • Launch support</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-id">📚 MENTOR</div>
+                    <div class="agent-role">Course & Coaching</div>
+                    <div class="agent-desc">Course delivery • Student support • Follow-up</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-id">🛡️ GUARDIAN</div>
+                    <div class="agent-role">Customer Support</div>
+                    <div class="agent-desc">Answer questions • Resolve issues • Escalate</div>
+                </div>
+            </div>
+
+            <div class="connector"></div>
+
+            <!-- Future Expansion Placeholder -->
+            <div class="layer-label" style="opacity: 0.5;">+ 30+ More Agents Coming</div>
+            <div class="layer">
+                <div class="agent-card" style="opacity: 0.5;">
+                    <div class="agent-id">?</div>
+                    <div class="agent-role">Research</div>
+                    <div class="agent-desc">Market analysis • Competitor intel</div>
+                </div>
+                <div class="agent-card" style="opacity: 0.5;">
+                    <div class="agent-id">?</div>
+                    <div class="agent-role">Analytics</div>
+                    <div class="agent-desc">Data visualization • Reports</div>
+                </div>
+                <div class="agent-card" style="opacity: 0.5;">
+                    <div class="agent-id">?</div>
+                    <div class="agent-role">Sales</div>
+                    <div class="agent-desc">Outreach • Follow-up • Close</div>
+                </div>
+                <div class="agent-card" style="opacity: 0.5;">
+                    <div class="agent-id">?</div>
+                    <div class="agent-role">Legal</div>
+                    <div class="agent-desc">Contracts • Compliance • Terms</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">AI Agents</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Employees</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Operation</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Scale</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built by <strong>Atlas Curation</strong> • CEO of AgenticFoundr</p>
+            <p>"Your dream deserves a team."</p>
+        </footer>
+    </div>
+</body>
+</html>

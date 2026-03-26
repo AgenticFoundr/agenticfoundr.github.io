@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products — AgenticFoundr</title>
+<meta name="description" content="23 digital products for AI-powered solopreneurs. Ebooks, software tools, templates, and automation workflows.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+  .filter-btn { padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--border); background: #fff; cursor: pointer; transition: all var(--transition); font-family: 'Inter', sans-serif; color: var(--body); }
+  .filter-btn:hover, .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 768px) { .products-grid { grid-template-columns: 1fr; } }
+  @media (min-width: 769px) and (max-width: 1024px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+  .bundle-card { background: linear-gradient(135deg, #061A0F 0%, #0A351D 100%); color: #fff; border-radius: var(--radius); padding: 40px; text-align: center; margin-top: 40px; }
+  .bundle-card h2 { color: #fff; }
+  .bundle-price { font-size: 48px; font-weight: 900; color: var(--accent); }
+  .bundle-original { font-size: 18px; text-decoration: line-through; opacity: 0.5; margin-right: 8px; }
+</style>
+</head><body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>Agentic</span><span>Foundr</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="products.html" class="active">All Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" style="padding-top:120px;padding-bottom:48px;">
+  <div class="container">
+    <h1>Products</h1>
+    <p class="hero-sub">23 tools to build, run, and scale your one-person enterprise.</p>
+  </div>
+</section>
+
+<!-- Filter + Products -->
+<section class="section-sm">
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProducts('all', this)">All (23)</button>
+      <button class="filter-btn" onclick="filterProducts('tool', this)">🛠 Software Tools (13)</button>
+      <button class="filter-btn" onclick="filterProducts('template', this)">📄 Templates (6)</button>
+      <button class="filter-btn" onclick="filterProducts('ebook', this)">📘 Ebooks (1)</button>
+      <button class="filter-btn" onclick="filterProducts('other', this)">📦 Other (3)</button>
+    </div>
+
+    <div class="products-grid" id="products-grid">
+
+      <!-- EBOOK -->
+      <div class="product-card" data-type="ebook">
+        <div class="product-badge badge-gold">FLAGSHIP</div>
+        <div class="product-emoji">📘</div>
+        <div class="product-type-tag">Ebook · ~44 pages</div>
+        <h3>50 Agents, Zero Employees</h3>
+        <p class="desc">The complete playbook. 50 AI agent profiles with roles, prompts, tools, and implementation guides for every business function.</p>
+        <div class="price">$19</div>
+      </div>
+
+      <!-- SOFTWARE TOOLS -->
+      <div class="product-card" data-type="tool">
+        <div class="product-badge badge-green">$29</div>
+        <div class="product-emoji">🎨</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Brand Identity Generator</h3>
+        <p class="desc">10-step interactive questionnaire → complete brand guide with palette, fonts, logo, voice, and audience strategy.</p>
+        <div class="price">$29</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">🏢</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>One-Person Enterprise Blueprint</h3>
+        <p class="desc">Full org chart with 14 AI agents across 7 departments. Ready-to-use prompts + exportable agent config JSON.</p>
+        <div class="price">$19</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">🔗</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Prompt Chain Builder</h3>
+        <p class="desc">4 multi-agent chain templates. Visual workflow diagrams + exportable prompt configs for content, sales, support, and launches.</p>
+        <div class="price">$19</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">📋</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>SOP Generator</h3>
+        <p class="desc">5 templates with checklists, owners, tools, and time estimates. Standardize your operations for AI delegation.</p>
+        <div class="price">$14</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">🎯</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>AI Delegation Planner</h3>
+        <p class="desc">Audit every task, score for AI potential (0-100), get a prioritized automation roadmap with annual savings calculations.</p>
+        <div class="price">$14</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">💰</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Automation ROI Visualizer</h3>
+        <p class="desc">Before/after comparison charts, cumulative savings projections, break-even analysis. Prove the value of your AI team.</p>
+        <div class="price">$14</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">📈</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Agent Performance Tracker</h3>
+        <p class="desc">Leaderboard, weekly output charts, cost-per-task, ROI per agent, quality scores. Manage your AI team like a real manager.</p>
+        <div class="price">$14</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">🤖</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Agent Roster Dashboard</h3>
+        <p class="desc">Visual team page for your AI agents. Status tracking, quality bars, task counts, and performance metrics at a glance.</p>
+        <div class="price">$12</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">🗺️</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Solopreneur Stack Map</h3>
+        <p class="desc">Visual tech stack organized by function. See what's automated, what's manual, where agents plug in, and total costs.</p>
+        <div class="price">$12</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">✅</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>AI Readiness Scorecard</h3>
+        <p class="desc">20-question assessment across 5 categories. Radar chart, letter grade, gap analysis, and prioritized action plan.</p>
+        <div class="price">$12</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">🌐</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Sales Page Generator</h3>
+        <p class="desc">Answer questions, get a conversion-optimized sales page. Mobile-friendly HTML you can deploy anywhere.</p>
+        <div class="price">$14</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">🔗</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Link-in-Bio Generator</h3>
+        <p class="desc">Branded link-in-bio page with social links, featured products, and email capture. Your own Linktree alternative.</p>
+        <div class="price">$9</div>
+      </div>
+
+      <div class="product-card" data-type="tool">
+        <div class="product-emoji">📅</div>
+        <div class="product-type-tag">Software Tool · Python → HTML</div>
+        <h3>Content Calendar Generator</h3>
+        <p class="desc">30-day content calendar with post ideas, formats, and scheduling across platforms.</p>
+        <div class="price">$12</div>
+      </div>
+
+      <!-- TEMPLATES & GUIDES -->
+      <div class="product-card" data-type="template">
+        <div class="product-emoji">🔑</div>
+        <div class="product-type-tag">PDF Template</div>
+        <h3>The Prompt Vault</h3>
+        <p class="desc">Curated prompt library organized by business function. Copy-paste prompts for content, sales, support, and more.</p>
+        <div class="price">$9</div>
+      </div>
+
+      <div class="product-card" data-type="template">
+        <div class="product-emoji">✅</div>
+        <div class="product-type-tag">PDF Template</div>
+        <h3>AI Business Launch Checklist</h3>
+        <p class="desc">Step-by-step checklist to launch your AI-powered business. From idea to first sale in 30 days.</p>
+        <div class="price">$7</div>
+      </div>
+
+      <div class="product-card" data-type="template">
+        <div class="product-emoji">📐</div>
+        <div class="product-type-tag">PDF Template</div>
+        <h3>One-Person AI Business Blueprint</h3>
+        <p class="desc">Strategic framework for structuring your solo business around AI agents. Revenue models, org design, tool selection.</p>
+        <div class="price">$12</div>
+      </div>
+
+      <div class="product-card" data-type="template">
+        <div class="product-emoji">🧰</div>
+        <div class="product-type-tag">PDF Template</div>
+        <h3>The Solopreneur's AI Tool Stack</h3>
+        <p class="desc">Curated guide to the best AI tools for every business function. Free and paid options compared.</p>
+        <div class="price">$9</div>
+      </div>
+
+      <div class="product-card" data-type="template">
+        <div class="product-emoji">💡</div>
+        <div class="product-type-tag">PDF Template</div>
+        <h3>100 Blog Post Ideas</h3>
+        <p class="desc">100 blog post ideas specifically for AI solopreneurs. Organized by content pillar with SEO notes.</p>
+        <div class="price">$7</div>
+      </div>
+
+      <div class="product-card" data-type="template">
+        <div class="product-emoji">🍳</div>
+        <div class="product-type-tag">PDF Template</div>
+        <h3>The AI Automation Cookbook</h3>
+        <p class="desc">Recipe-style automation guides. Step-by-step instructions for 20+ common business automations.</p>
+        <div class="price">$12</div>
+      </div>
+
+      <!-- OTHER -->
+      <div class="product-card" data-type="other">
+        <div class="product-emoji">📊</div>
+        <div class="product-type-tag">Spreadsheet</div>
+        <h3>AI Revenue Calculator</h3>
+        <p class="desc">Model your revenue across products, services, and channels. Built-in formulas for projections.</p>
+        <div class="price">$9</div>
+      </div>
+
+      <div class="product-card" data-type="other">
+        <div class="product-emoji">⚡</div>
+        <div class="product-type-tag">Workflow Pack · n8n</div>
+        <h3>n8n Workflow Pack</h3>
+        <p class="desc">20 pre-built n8n automation workflows for content, email, social, sales, and operations.</p>
+        <div class="price">$14</div>
+      </div>
+
+      <div class="product-card" data-type="other">
+        <div class="product-emoji">🖥</div>
+        <div class="product-type-tag">Installer Script</div>
+        <h3>$0 Stack Installer</h3>
+        <p class="desc">One-click installer for the complete free solopreneur tech stack. Mac, Linux, and Windows support.</p>
+        <div class="price">$9</div>
+      </div>
+
+    </div>
+
+    <!-- Bundle -->
+    <div class="bundle-card" id="bundle">
+      <p style="font-size:13px;letter-spacing:1px;text-transform:uppercase;font-weight:600;opacity:0.7;margin-bottom:8px;">THE COMPLETE BUNDLE</p>
+      <h2>Everything. One price.</h2>
+      <p style="opacity:0.8;max-width:500px;margin:8px auto 24px;font-size:16px;">All 23 products — ebook, 13 software tools, 6 templates, workflow pack, spreadsheet, and installer. Lifetime access.</p>
+      <div>
+        <span class="bundle-original">$325</span>
+        <span class="bundle-price">$79</span>
+      </div>
+      <p style="font-size:13px;opacity:0.5;margin-top:8px;">Save 76% · Instant download · Free updates forever</p>
+      <a href="#" class="btn btn-accent btn-lg mt-3">Get the Bundle →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Your dream deserves a team.</h2>
+    <p>Start with a free guide, or grab the full bundle. Either way — your AI team is waiting.</p>
+    <a href="free.html" class="btn btn-white btn-lg">Start Free →</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo footer-logo" style="font-size:22px;"><span>Agentic</span><span>Foundr</span></div>
+      <p>AI agents for solopreneurs. Your dream deserves a team.</p>
+    </div>
+    <div>
+      <h4>Products</h4>
+      <ul class="footer-links">
+        <li><a href="products.html">All Products</a></li>
+        <li><a href="products.html#ebooks">Ebooks</a></li>
+        <li><a href="products.html#tools">Software Tools</a></li>
+        <li><a href="products.html#templates">Templates</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="free.html">Free Guides</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul class="footer-links">
+        <li><a href="https://twitter.com/AgenticFoundr" target="_blank">X / Twitter</a></li>
+        <li><a href="https://youtube.com/@AgenticFoundr" target="_blank">YouTube</a></li>
+        <li><a href="https://instagram.com/agenticfoundr" target="_blank">Instagram</a></li>
+        <li><a href="https://github.com/AgenticFoundr" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 AgenticFoundr. All rights reserved.</span>
+    <span>Built with 🤖 by AI agents</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+function filterProducts(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.style.display = (type === 'all' || card.dataset.type === type) ? '' : 'none';
+  });
+}
+</script>
+
+</body></html>

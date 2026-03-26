@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — AgenticFoundr</title>
+<meta name="description" content="Get started free or upgrade. Lead magnets, digital products, and complete bundles for AI-powered solopreneurs.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* Hero */
+  .hero-shop { background: linear-gradient(135deg, #0A351D 0%, #2D7A4E 100%); color: #fff; padding: 80px 24px 60px; text-align: center; }
+  .hero-shop h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 900; line-height: 1.1; max-width: 700px; margin: 0 auto 16px; letter-spacing: -1px; }
+  .hero-shop p { font-size: 18px; opacity: 0.9; max-width: 560px; margin: 0 auto; font-weight: 400; }
+
+  /* Section styling */
+  .section-title { font-size: 32px; font-weight: 900; color: #2A2A2A; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .section-subtitle { font-size: 16px; color: #6B6B6B; margin-bottom: 32px; }
+
+  /* Lead magnets section */
+  .lead-magnets { background: #fff; padding: 60px 24px; }
+  .magnets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+  @media (max-width: 1024px) { .magnets-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .magnets-grid { grid-template-columns: 1fr; } }
+
+  .magnet-card { background: linear-gradient(135deg, #FAF8F5 0%, #fff 100%); border: 2px solid #E2E2E2; border-radius: 16px; padding: 32px; text-align: center; transition: all 0.3s; }
+  .magnet-card:hover { border-color: #0A351D; box-shadow: 0 12px 32px rgba(10, 53, 29, 0.12); transform: translateY(-4px); }
+  .magnet-emoji { font-size: 48px; display: block; margin-bottom: 16px; }
+  .magnet-card h3 { font-size: 20px; font-weight: 800; color: #2A2A2A; margin-bottom: 8px; }
+  .magnet-card p { font-size: 14px; color: #6B6B6B; margin-bottom: 20px; line-height: 1.5; }
+  .magnet-cta { display: inline-block; padding: 12px 28px; background: #0A351D; color: #fff; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 0.2s; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .magnet-cta:hover { background: #164D2F; }
+
+  /* Modal */
+  .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+  .modal.active { display: flex; }
+  .modal-content { background: #fff; border-radius: 16px; padding: 40px; max-width: 500px; width: 90%; position: relative; }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 28px; cursor: pointer; color: #999; }
+  .modal-close:hover { color: #000; }
+  .modal h2 { font-size: 24px; font-weight: 800; color: #2A2A2A; margin-bottom: 8px; }
+  .modal .sub { font-size: 14px; color: #6B6B6B; margin-bottom: 24px; }
+  .modal input[type="email"] { width: 100%; padding: 14px 18px; border: 2px solid #E2E2E2; border-radius: 10px; font-size: 16px; font-family: 'Inter', sans-serif; outline: none; transition: border 0.2s; margin-bottom: 12px; }
+  .modal input[type="email"]:focus { border-color: #0A351D; }
+  .modal button[type="submit"] { width: 100%; padding: 14px; background: #0A351D; color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.2s; }
+  .modal button[type="submit"]:hover { background: #164D2F; }
+  .modal .privacy { font-size: 11px; color: #999; margin-top: 12px; text-align: center; }
+
+  /* Products section */
+  .products-shop { background: #FAF8F5; padding: 60px 24px; }
+  .product-type-label { display: inline-block; background: #0A351D; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .product-type-label.gold { background: #C9A84C; }
+  .product-type-label.green { background: #2D7A4E; }
+
+  .featured-products { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 40px; }
+  @media (max-width: 768px) { .featured-products { grid-template-columns: 1fr; } }
+
+  .product-card-shop { background: #fff; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; transition: all 0.3s; border: 2px solid transparent; }
+  .product-card-shop:hover { border-color: #0A351D; box-shadow: 0 8px 24px rgba(10, 53, 29, 0.1); }
+  .product-type { font-size: 12px; color: #6B6B6B; font-weight: 500; margin-bottom: 8px; }
+  .product-card-shop h3 { font-size: 18px; font-weight: 800; color: #2A2A2A; margin-bottom: 8px; }
+  .product-card-shop p { font-size: 14px; color: #6B6B6B; margin-bottom: 16px; flex-grow: 1; line-height: 1.5; }
+  .product-price-row { display: flex; justify-content: space-between; align-items: center; }
+  .product-price { font-size: 20px; font-weight: 900; color: #0A351D; }
+  .product-btn { padding: 10px 24px; background: #0A351D; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; cursor: pointer; transition: background 0.2s; font-family: 'Inter', sans-serif; }
+  .product-btn:hover { background: #164D2F; }
+
+  /* CTA section */
+  .cta-all-products { background: linear-gradient(135deg, #0A351D 0%, #164D2F 100%); color: #fff; padding: 60px 24px; text-align: center; }
+  .cta-all-products h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+  .cta-all-products p { font-size: 16px; opacity: 0.85; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .btn-cta { display: inline-block; padding: 14px 40px; background: #C9A84C; color: #fff; border-radius: 10px; font-size: 16px; font-weight: 700; text-decoration: none; transition: background 0.2s; }
+  .btn-cta:hover { background: #B89840; }
+
+  /* Trust bar */
+  .trust-bar { background: #fff; padding: 24px; text-align: center; border-bottom: 1px solid #E2E2E2; }
+  .trust-bar-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; font-size: 13px; color: #6B6B6B; }
+  @media (max-width: 640px) { .trust-bar-inner { grid-template-columns: 1fr; } }
+  .trust-item strong { color: #2A2A2A; font-weight: 700; display: block; }
+</style>
+</head><body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>Agentic</span><span>Foundr</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="products.html">All Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-shop">
+  <h1>Your dream deserves a <span style="color: #C9A84C;">team.</span></h1>
+  <p>Get started free with a lead magnet, or grab what you need. Everything you need to build a solopreneur empire.</p>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item"><strong>23+ Products</strong> Ebooks, tools, templates</div>
+    <div class="trust-item"><strong>Free Forever</strong> No credit card. No spam.</div>
+    <div class="trust-item"><strong>Lifetime Updates</strong> Buy once. Yours forever.</div>
+  </div>
+</div>
+
+<!-- Lead Magnets -->
+<section class="lead-magnets">
+  <div class="container">
+    <h2 class="section-title">Start Free 🎁</h2>
+    <p class="section-subtitle">No credit card. Download instantly. No email spam — we promise.</p>
+    
+    <div class="magnets-grid">
+      <!-- Magnet 1 -->
+      <div class="magnet-card">
+        <div class="magnet-emoji">🤖</div>
+        <h3>Your First 5 AI Agents</h3>
+        <p>The starter team every solopreneur needs to hire first. Save 25+ hours/week.</p>
+        <button class="magnet-cta" onclick="openModal('magnet-1')">Get Guide Free →</button>
+      </div>
+
+      <!-- Magnet 2 -->
+      <div class="magnet-card">
+        <div class="magnet-emoji">💰</div>
+        <h3>The $0 Stack</h3>
+        <p>Complete free tech stack for solopreneurs. Tools, workflows, and setup guides included.</p>
+        <button class="magnet-cta" onclick="openModal('magnet-2')">Get Guide Free →</button>
+      </div>
+
+      <!-- Magnet 3 -->
+      <div class="magnet-card">
+        <div class="magnet-emoji">⚡</div>
+        <h3>AI Delegation Cheatsheet</h3>
+        <p>One-page playbook. What to automate, what to keep, and how to brief your AI team.</p>
+        <button class="magnet-cta" onclick="openModal('magnet-3')">Get Cheatsheet Free →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="products-shop">
+  <div class="container">
+    <h2 class="section-title">Featured Products</h2>
+    <p class="section-subtitle">Curated tools to level up your operation.</p>
+
+    <div class="featured-products">
+      <!-- Product 1 -->
+      <div class="product-card-shop">
+        <div class="product-type-label gold">FLAGSHIP</div>
+        <h3>50 Agents, Zero Employees</h3>
+        <p>The complete playbook. 50 AI agent profiles with roles, prompts, tools, and implementation guides for every business function. Your north star for building a full AI enterprise.</p>
+        <div class="product-price-row">
+          <span class="product-price">$19</span>
+          <button class="product-btn" onclick="checkout('fifty-agents')">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card-shop">
+        <div class="product-type-label green">TOOL</div>
+        <h3>One-Person Enterprise Blueprint</h3>
+        <p>Full org chart with 14 AI agents across 7 departments. Ready-to-use prompts + exportable agent config JSON. See your complete AI team in one place.</p>
+        <div class="product-price-row">
+          <span class="product-price">$19</span>
+          <button class="product-btn" onclick="checkout('enterprise-blueprint')">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card-shop">
+        <div class="product-type-label green">TOOL</div>
+        <h3>AI Delegation Planner</h3>
+        <p>Audit every task, score for AI potential (0-100), get a prioritized automation roadmap with annual savings calculations. Know exactly what to delegate.</p>
+        <div class="product-price-row">
+          <span class="product-price">$14</span>
+          <button class="product-btn" onclick="checkout('delegation-planner')">Buy Now</button>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card-shop">
+        <div class="product-type-label green">TOOL</div>
+        <h3>Agent Performance Tracker</h3>
+        <p>Leaderboard, weekly output charts, cost-per-task, ROI per agent, quality scores. Manage your AI team like a real manager.</p>
+        <div class="product-price-row">
+          <span class="product-price">$14</span>
+          <button class="product-btn" onclick="checkout('performance-tracker')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bundle CTA -->
+    <div style="background: linear-gradient(135deg, #0A351D 0%, #2D7A4E 100%); color: #fff; border-radius: 16px; padding: 40px; text-align: center; margin-top: 40px;">
+      <p style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; opacity: 0.7; margin-bottom: 8px;">THE COMPLETE BUNDLE</p>
+      <h2 style="font-size: 28px; font-weight: 900; margin-bottom: 8px;">Everything. One price.</h2>
+      <p style="opacity: 0.8; max-width: 500px; margin: 0 auto 20px; font-size: 16px;">All 23 products — ebook, 13 software tools, 6 templates, workflow pack, and spreadsheet. Lifetime access.</p>
+      <div style="margin-bottom: 12px;">
+        <span style="font-size: 16px; text-decoration: line-through; opacity: 0.5; margin-right: 16px;">$325</span>
+        <span style="font-size: 48px; font-weight: 900; color: #C9A84C;">$79</span>
+      </div>
+      <p style="font-size: 13px; opacity: 0.5; margin-bottom: 20px;">Save 76% · Instant download · Free updates forever</p>
+      <button onclick="checkout('complete-bundle')" class="btn-cta" style="border:none;cursor:pointer;">Get the Bundle →</button>
+    </div>
+  </div>
+</section>
+
+<!-- All Products CTA -->
+<section class="cta-all-products">
+  <div class="container">
+    <h2>Browse All 23 Products</h2>
+    <p>Ebooks, software tools, templates, and automation workflows. Everything organized and filterable.</p>
+    <a href="products.html" class="btn-cta">View Full Catalog →</a>
+  </div>
+</section>
+
+<!-- Modals -->
+<div id="magnet-1" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('magnet-1')">✕</button>
+    <h2>Your First 5 AI Agents</h2>
+    <div class="sub">The starter team every solopreneur needs. Printable one-pager. Instant download.</div>
+    <form action="#" method="POST" onsubmit="return handleMagnet(event, 'Your First 5 AI Agents')">
+      <input type="email" name="email" placeholder="you@example.com" required>
+      <button type="submit">Send Me the Guide →</button>
+      <div class="privacy">🔒 No spam, ever. Unsubscribe anytime.</div>
+    </form>
+  </div>
+</div>
+
+<div id="magnet-2" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('magnet-2')">✕</button>
+    <h2>The $0 Stack</h2>
+    <div class="sub">Complete free tech stack for solopreneurs. Tools, workflows, setup guides.</div>
+    <form action="#" method="POST" onsubmit="return handleMagnet(event, 'The $0 Stack')">
+      <input type="email" name="email" placeholder="you@example.com" required>
+      <button type="submit">Send Me the Guide →</button>
+      <div class="privacy">🔒 No spam, ever. Unsubscribe anytime.</div>
+    </form>
+  </div>
+</div>
+
+<div id="magnet-3" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('magnet-3')">✕</button>
+    <h2>AI Delegation Cheatsheet</h2>
+    <div class="sub">One-page playbook. What to automate, what to keep, how to brief your team.</div>
+    <form action="#" method="POST" onsubmit="return handleMagnet(event, 'AI Delegation Cheatsheet')">
+      <input type="email" name="email" placeholder="you@example.com" required>
+      <button type="submit">Send Me the Cheatsheet →</button>
+      <div class="privacy">🔒 No spam, ever. Unsubscribe anytime.</div>
+    </form>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo footer-logo" style="font-size: 22px;"><span>Agentic</span><span>Foundr</span></div>
+      <p>AI agents for solopreneurs. Your dream deserves a team.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <ul class="footer-links">
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="products.html">All Products</a></li>
+        <li><a href="https://gumroad.com/agenticfoundr" target="_blank">Gumroad</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul class="footer-links">
+        <li><a href="https://twitter.com/AgenticFoundr" target="_blank">X / Twitter</a></li>
+        <li><a href="https://youtube.com/@AgenticFoundr" target="_blank">YouTube</a></li>
+        <li><a href="https://instagram.com/agenticfoundr" target="_blank">Instagram</a></li>
+        <li><a href="https://github.com/AgenticFoundr" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 AgenticFoundr. All rights reserved.</span>
+    <span>Built with 🤖 by AI agents</span>
+  </div>
+</footer>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+function openModal(modalId) {
+  document.getElementById(modalId).classList.add('active');
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).classList.remove('active');
+}
+
+function handleMagnet(event, magnetName) {
+  event.preventDefault();
+  const email = event.target.querySelector('input[name="email"]').value;
+  const magnetId = event.target.parentElement.parentElement.id.replace('magnet-', '');
+  
+  // Submit to backend
+  fetch('/api/lead-magnet', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, magnetId })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert(`Thanks! Check your email for your free ${magnetName}.`);
+      closeModal(event.target.parentElement.parentElement.id);
+      // Option: trigger download
+      // window.location.href = data.downloadUrl;
+    }
+  })
+  .catch(err => console.error(err));
+  
+  return false;
+}
+
+// Stripe Checkout
+async function checkout(productId) {
+  try {
+    const response = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId })
+    });
+
+    const data = await response.json();
+
+    // Free product
+    if (data.downloadUrl) {
+      window.location.href = data.downloadUrl;
+      return;
+    }
+
+    // Paid product - redirect to Stripe
+    if (data.sessionId) {
+      const stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}'); // Will be replaced by server
+      const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
+      if (error) console.error(error);
+    }
+  } catch (error) {
+    console.error('Checkout error:', error);
+    alert('Something went wrong. Please try again.');
+  }
+}
+
+// Close modal when clicking outside
+document.querySelectorAll('.modal').forEach(modal => {
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+});
+</script>
+
+</body></html>

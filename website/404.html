@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — AgenticFoundr</title>
+<link rel="stylesheet" href="css/style.css">
+</head><body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>Agentic</span><span>Foundr</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="products.html">All Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero" style="padding-top:160px;padding-bottom:120px;min-height:70vh;">
+  <div class="container text-center">
+    <div style="font-size:80px;margin-bottom:24px;">🤖</div>
+    <h1>404</h1>
+    <p class="hero-sub" style="color:var(--caption);">Looks like this agent went off-script. The page you're looking for doesn't exist.</p>
+    <div class="hero-cta" style="margin-top:32px;">
+      <a href="index.html" class="btn btn-primary btn-lg">← Back to Home</a>
+      <a href="products.html" class="btn btn-outline btn-lg">Browse Products</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-bottom" style="border-top:none;padding-top:0;">
+    <span>© 2026 AgenticFoundr. All rights reserved.</span>
+    <span>Built with 🤖 by AI agents</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+});
+</script>
+</body></html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Resources — AgenticFoundr</title>
+<meta name="description" content="Free tools for solopreneurs — Brand name availability checker, printable AI guides, and more. No credit card. No sign-up. Just value.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* FEATURED TOOL */
+  .featured-tool { background: var(--primary); border-radius: 20px; padding: 48px; margin-bottom: 64px; position: relative; overflow: hidden; }
+  .featured-tool::before { content: ''; position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; background: var(--accent); border-radius: 50%; opacity: .07; }
+  .featured-tool-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.3); padding: 5px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .featured-tool h2 { font-size: clamp(22px, 4vw, 36px); color: #fff; margin-bottom: 10px; letter-spacing: -.5px; line-height: 1.2; }
+  .featured-tool h2 span { color: var(--accent); }
+  .featured-tool p { font-size: 15px; color: rgba(255,255,255,.7); max-width: 520px; line-height: 1.7; margin-bottom: 28px; }
+  .featured-tool-features { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+  .feat-pill { display: flex; align-items: center; gap: 6px; padding: 6px 14px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); border-radius: 100px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,.8); }
+  .featured-tool-preview { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 24px; margin-bottom: 28px; }
+  .preview-domains { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .preview-domain { padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+  .preview-domain.avail { background: rgba(52,211,153,.15); color: #34D399; border: 1px solid rgba(52,211,153,.3); }
+  .preview-domain.taken { background: rgba(252,165,165,.1); color: #FCA5A5; border: 1px solid rgba(252,165,165,.2); }
+  .preview-socials { display: flex; gap: 8px; flex-wrap: wrap; }
+  .preview-social { padding: 5px 12px; border-radius: 100px; font-size: 11px; font-weight: 600; background: rgba(255,255,255,.08); color: rgba(255,255,255,.6); }
+  .featured-tool-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-tool-primary { padding: 15px 28px; background: var(--accent); color: #1A1A1A; border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all .2s; border: none; cursor: pointer; }
+  .btn-tool-primary:hover { background: #b8983e; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.25); }
+  .btn-tool-secondary { padding: 14px 24px; background: rgba(255,255,255,.08); color: rgba(255,255,255,.85); border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,.15); transition: all .2s; }
+  .btn-tool-secondary:hover { background: rgba(255,255,255,.13); }
+  @media(max-width:640px) { .featured-tool { padding: 28px 20px; } .featured-tool-btns { flex-direction: column; } .btn-tool-primary, .btn-tool-secondary { text-align: center; justify-content: center; } }
+  /* FREEBIES */
+  .freebie-full { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin: 60px 0; padding: 40px; background: #fff; border-radius: var(--radius); border: 1px solid var(--border); }
+  .freebie-full:nth-child(even) { direction: rtl; }
+  .freebie-full:nth-child(even) > * { direction: ltr; }
+  .freebie-visual { background: var(--bg); border-radius: var(--radius-sm); padding: 40px; text-align: center; }
+  .freebie-visual .big-emoji { font-size: 80px; }
+  .freebie-content h3 { font-size: 24px; margin-bottom: 8px; }
+  .freebie-content .sub { font-size: 15px; color: var(--caption); margin-bottom: 16px; line-height: 1.6; }
+  .freebie-bullets { list-style: none; margin-bottom: 20px; }
+  .freebie-bullets li { padding: 6px 0; font-size: 14px; display: flex; gap: 8px; align-items: baseline; }
+  .freebie-bullets .check { color: var(--primary); font-weight: 700; }
+  .freebie-form input[type="email"] { width: 100%; padding: 14px 18px; border: 2px solid var(--border); border-radius: 10px; font-size: 15px; font-family: 'Inter', sans-serif; outline: none; margin-bottom: 10px; }
+  .freebie-form input[type="email"]:focus { border-color: var(--primary); }
+  .freebie-form button { width: 100%; }
+  .freebie-form .note { font-size: 11px; color: var(--caption); margin-top: 8px; text-align: center; }
+  @media (max-width: 768px) {
+    .freebie-full { grid-template-columns: 1fr; padding: 24px; }
+    .freebie-full:nth-child(even) { direction: ltr; }
+  }
+</style>
+</head><body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><span>Agentic</span><span>Foundr</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="products.html">All Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" style="padding-top:120px;padding-bottom:48px;">
+  <div class="container">
+    <div class="hero-badge hero-badge-accent">🎁 100% FREE</div>
+    <h1>Start here — on us.</h1>
+    <p class="hero-sub">Free tools and printable guides to kickstart your AI-powered business. No credit card. No upsell traps. Just value.</p>
+  </div>
+</section>
+
+<!-- Free Resources -->
+<section class="section-sm">
+  <div class="container">
+
+    <!-- ✨ FEATURED TOOL: Brand Checker -->
+    <div class="featured-tool">
+      <div class="featured-tool-badge">⭐ Featured Free Tool</div>
+      <h2>Brand Name Availability <span>Checker</span></h2>
+      <p>Type any business name and instantly see which domains and social media handles are available. Don't fall in love with a name that's already taken.</p>
+
+      <div class="featured-tool-features">
+        <div class="feat-pill">🌐 7 Domain Extensions</div>
+        <div class="feat-pill">📱 8 Social Platforms</div>
+        <div class="feat-pill">⚡ Instant Live Results</div>
+        <div class="feat-pill">📋 Downloadable Report</div>
+        <div class="feat-pill">✅ No Sign-up Required</div>
+      </div>
+
+      <div class="featured-tool-preview">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:10px">Live preview — try "Golden Grace Events"</div>
+        <div class="preview-domains">
+          <span class="preview-domain avail">✅ goldengrace.events</span>
+          <span class="preview-domain taken">❌ goldengrace.com</span>
+          <span class="preview-domain avail">✅ goldengrace.io</span>
+          <span class="preview-domain taken">❌ goldengrace.co</span>
+          <span class="preview-domain avail">✅ goldengrace.ai</span>
+        </div>
+        <div class="preview-socials">
+          <span class="preview-social">📸 Instagram</span>
+          <span class="preview-social">🎵 TikTok</span>
+          <span class="preview-social">🐦 X (Twitter)</span>
+          <span class="preview-social">▶️ YouTube</span>
+          <span class="preview-social">💼 LinkedIn</span>
+          <span class="preview-social">+ 3 more</span>
+        </div>
+      </div>
+
+      <div class="featured-tool-btns">
+        <a href="brand-checker.html" class="btn-tool-primary">🔍 Check Your Brand Name Free →</a>
+        <a href="brand-checker.html" target="_blank" class="btn-tool-secondary">↗ Open in New Tab</a>
+      </div>
+    </div>
+
+    <!-- Freebie 1 -->
+    <div class="freebie-full">
+      <div class="freebie-visual">
+        <div class="big-emoji">🤖</div>
+        <p style="font-size:13px;color:var(--caption);margin-top:12px;">Printable one-pager · Instant download</p>
+      </div>
+      <div class="freebie-content">
+        <h3>Your First 5 AI Agents</h3>
+        <p class="sub">The starter team every solopreneur needs — who to hire first, what they replace, the tools they use, and how many hours they save.</p>
+        <ul class="freebie-bullets">
+          <li><span class="check">✓</span> 5 agent profiles with roles & responsibilities</li>
+          <li><span class="check">✓</span> Tool recommendations (all free tiers)</li>
+          <li><span class="check">✓</span> Time saved per agent (25+ hrs/week total)</li>
+          <li><span class="check">✓</span> Cost comparison vs human hires</li>
+          <li><span class="check">✓</span> Pro tips for each agent</li>
+        </ul>
+        <form class="freebie-form" action="#" method="POST">
+          <input type="email" name="email" placeholder="you@example.com" required>
+          <button type="submit" class="btn btn-primary">Download Free →</button>
+          <div class="note">🔒 No spam, ever. Unsubscribe anytime.</div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Freebie 2 -->
+    <div class="freebie-full">
+      <div class="freebie-visual">
+        <div class="big-emoji">🎯</div>
+        <p style="font-size:13px;color:var(--caption);margin-top:12px;">Decision framework · Pin it to your desk</p>
+      </div>
+      <div class="freebie-content">
+        <h3>Should I Delegate This to AI?</h3>
+        <p class="sub">The 60-second decision framework. Score any task across 5 factors and know instantly whether to automate, review, or keep it human.</p>
+        <ul class="freebie-bullets">
+          <li><span class="check">✓</span> Green / Yellow / Red delegation zones</li>
+          <li><span class="check">✓</span> 5-factor scoring system (rate any task)</li>
+          <li><span class="check">✓</span> 30 example tasks pre-categorized</li>
+          <li><span class="check">✓</span> Score interpretation guide</li>
+          <li><span class="check">✓</span> "Zone of genius" framework</li>
+        </ul>
+        <form class="freebie-form" action="#" method="POST">
+          <input type="email" name="email" placeholder="you@example.com" required>
+          <button type="submit" class="btn btn-primary">Download Free →</button>
+          <div class="note">🔒 No spam, ever. Unsubscribe anytime.</div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Freebie 3 -->
+    <div class="freebie-full">
+      <div class="freebie-visual">
+        <div class="big-emoji">💸</div>
+        <p style="font-size:13px;color:var(--caption);margin-top:12px;">23 tools · $0/month · Full business</p>
+      </div>
+      <div class="freebie-content">
+        <h3>The $0 AI Solopreneur Stack</h3>
+        <p class="sub">Every free tool you need to launch, grow, and automate a one-person business. Organized by category with free tier details.</p>
+        <ul class="freebie-bullets">
+          <li><span class="check">✓</span> 23 tools across 8 categories</li>
+          <li><span class="check">✓</span> Free tier details for every tool</li>
+          <li><span class="check">✓</span> Day 1 "Launch Stack" recommendation</li>
+          <li><span class="check">✓</span> Month 2+ "Scale Stack" upgrade path</li>
+          <li><span class="check">✓</span> No credit card required for any tool</li>
+        </ul>
+        <form class="freebie-form" action="#" method="POST">
+          <input type="email" name="email" placeholder="you@example.com" required>
+          <button type="submit" class="btn btn-primary">Download Free →</button>
+          <div class="note">🔒 No spam, ever. Unsubscribe anytime.</div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Upsell -->
+<section class="section text-center" style="background:#fff;">
+  <div class="container">
+    <h2>Ready for the full toolkit?</h2>
+    <div class="divider"></div>
+    <p style="max-width:500px;margin:0 auto 24px;color:var(--caption);font-size:16px;">These freebies are just the beginning. Get all 23 products — ebook, software tools, templates, and more — in one bundle.</p>
+    <a href="products.html#bundle" class="btn btn-primary btn-lg">See All Products →</a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Your dream deserves a team.</h2>
+    <p>Join the newsletter for weekly AI agent strategies, free resources, and product drops.</p>
+    <form class="email-form" action="#" method="POST">
+      <input type="email" name="email" placeholder="you@example.com" required>
+      <button type="submit" class="btn btn-accent">Subscribe →</button>
+    </form>
+    <p style="font-size:11px;opacity:0.5;margin-top:12px;">No spam, ever. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo footer-logo" style="font-size:22px;"><span>Agentic</span><span>Foundr</span></div>
+      <p>AI agents for solopreneurs. Your dream deserves a team.</p>
+    </div>
+    <div>
+      <h4>Products</h4>
+      <ul class="footer-links">
+        <li><a href="products.html">All Products</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul class="footer-links">
+        <li><a href="free.html">Free Guides</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul class="footer-links">
+        <li><a href="https://twitter.com/AgenticFoundr" target="_blank">X / Twitter</a></li>
+        <li><a href="https://youtube.com/@AgenticFoundr" target="_blank">YouTube</a></li>
+        <li><a href="https://instagram.com/agenticfoundr" target="_blank">Instagram</a></li>
+        <li><a href="https://github.com/AgenticFoundr" target="_blank">GitHub</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 AgenticFoundr. All rights reserved.</span>
+    <span>Built with 🤖 by AI agents</span>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+});
+</script>
+
+</body></html>

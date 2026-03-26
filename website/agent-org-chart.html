@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgenticFoundr — Org Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#FAF8F5;font-family:'Inter',sans-serif;color:#2A2A2A}
+.page{max-width:1200px;margin:0 auto;padding:40px 20px}
+
+/* Header */
+.header{text-align:center;margin-bottom:50px}
+.header h1{font-size:36px;font-weight:800;color:#0A351D}
+.header h1 span{color:#C9A84C}
+.header p{font-size:14px;color:#7DA88A;margin-top:6px}
+
+/* Stats */
+.stats{display:flex;justify-content:center;gap:40px;margin-bottom:50px;flex-wrap:wrap}
+.stat-box{text-align:center}
+.stat-box .num{font-size:36px;font-weight:800;color:#0A351D}
+.stat-box .lbl{font-size:10px;color:#999;text-transform:uppercase;letter-spacing:2px}
+
+/* ─── TREE STRUCTURE ─── */
+.tree{display:flex;flex-direction:column;align-items:center}
+
+/* Vertical line between tiers */
+.vline{width:2px;height:30px;background:#C9A84C;margin:0 auto}
+
+/* Tier container */
+.tier{margin-bottom:10px;width:100%}
+.tier-label{
+ text-align:center;
+ font-size:11px;
+ font-weight:700;
+ letter-spacing:3px;
+ text-transform:uppercase;
+ color:#999;
+ margin-bottom:14px;
+ padding:6px 0;
+}
+
+/* Tier row */
+.tier-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+
+/* ─── CARD STYLES ─── */
+.card{
+ background:white;
+ border-radius:12px;
+ padding:14px 18px;
+ text-align:center;
+ box-shadow:0 2px 12px rgba(0,0,0,0.06);
+ transition:transform .2s,box-shadow .2s;
+ cursor:default;
+ border-top:4px solid transparent;
+ min-width:110px;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+.card .emoji{font-size:28px;display:block;margin-bottom:6px}
+.card .name{font-weight:700;font-size:14px;color:#0A351D}
+.card .role{font-size:9px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-top:3px}
+
+/* Tier-specific card sizes & colors */
+
+/* Founder */
+.card.founder{
+ border-top:4px solid #C9A84C;
+ background:linear-gradient(180deg,#fff,#FEF9E7);
+ padding:20px 30px;
+}
+.card.founder .emoji{font-size:36px}
+.card.founder .name{font-size:20px}
+.card.founder .role{font-size:11px;color:#C9A84C;font-weight:600}
+
+/* CEO */
+.card.ceo{
+ border-top:4px solid #C9A84C;
+ background:linear-gradient(180deg,#fff,#FEF9E7);
+ padding:18px 28px;
+}
+.card.ceo .emoji{font-size:32px}
+.card.ceo .name{font-size:18px}
+.card.ceo .role{font-size:10px;color:#C9A84C;font-weight:600}
+
+/* ─── LINEAGE COLORS ─── */
+/* Core C-Suite (CFO,COO,CMO,CRO,CTO,CCO) = #0A351D (Midnight Forest) */
+/* CLO = orange #F97316 */
+/* CDO = teal #14B8A6 */
+/* CISO = red #EF4444 */
+
+/* Core C-Suite lineage (dark green) */
+.card.csuite{border-top:4px solid #0A351D}.card.csuite .role{color:#0A351D;font-weight:600}
+
+/* Special lanes */
+.card.clo{border-top:4px solid #F97316}.card.clo .role{color:#F97316;font-weight:600}
+.card.cdo{border-top:4px solid #14B8A6}.card.cdo .role{color:#14B8A6;font-weight:600}
+.card.ciso{border-top:4px solid #EF4444}.card.ciso .role{color:#EF4444;font-weight:600}
+
+/* VP size (applies to all lineage VPs) */
+.vp-size{padding:10px 14px;min-width:90px}
+.vp-size .emoji{font-size:20px;margin-bottom:4px}
+.vp-size .name{font-size:11px}
+.vp-size .role{font-size:8px}
+
+/* Director size */
+.dir-size{padding:8px 12px;min-width:80px}
+.dir-size .emoji{font-size:18px;margin-bottom:3px}
+.dir-size .name{font-size:10px}
+.dir-size .role{font-size:7px}
+
+/* Data/Security */
+.card.data{border-top:4px solid #14B8A6;padding:8px 12px;min-width:80px}
+.card.data .emoji{font-size:16px;margin-bottom:2px}
+.card.data .name{font-size:9px}
+.card.data .role{font-size:7px;color:#14B8A6;font-weight:600}
+
+.card.sec{border-top:4px solid #EF4444;padding:8px 12px;min-width:80px}
+.card.sec .emoji{font-size:16px;margin-bottom:2px}
+.card.sec .name{font-size:9px}
+.card.sec .role{font-size:7px;color:#EF4444;font-weight:600}
+
+/* Module slots */
+.card.module{
+ border-top:4px solid #8B5CF6;
+ padding:10px 14px;
+ min-width:100px;
+}
+.card.module .emoji{font-size:20px;margin-bottom:4px}
+.card.module .name{font-size:10px}
+.card.module .role{font-size:7px;color:#8B5CF6;font-weight:600}
+
+/* Horizontal spread line */
+.hline{height:2px;background:#ddd;margin:0 auto 10px;border-radius:1px}
+
+/* Legend */
+.legend{
+ display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
+ margin-top:40px;padding:16px;
+ background:white;border-radius:10px;
+ box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#666}
+.legend-dot{width:12px;height:12px;border-radius:3px}
+
+/* Footer */
+.footer{margin-top:30px;text-align:center;color:#aaa;font-size:11px}
+</style>
+</head>
+<body>
+<div class="page">
+
+ <div class="header">
+  <h1>Agentic<span>Foundr</span></h1>
+  <p>Servant Leadership Model — Enterprise Agent Org Chart</p>
+ </div>
+
+ <div class="stats">
+  <div class="stat-box"><div class="num">57</div><div class="lbl">Core Agents</div></div>
+  <div class="stat-box"><div class="num">9</div><div class="lbl">C-Suite</div></div>
+  <div class="stat-box"><div class="num">17</div><div class="lbl">VPs</div></div>
+  <div class="stat-box"><div class="num">10</div><div class="lbl">Directors</div></div>
+  <div class="stat-box"><div class="num">8</div><div class="lbl">Modules</div></div>
+ </div>
+
+ <div class="tree">
+
+  <!-- ═══ FOUNDER ═══ -->
+  <div class="tier">
+   <div class="tier-label">Founder</div>
+   <div class="tier-row">
+    <div class="card founder"><span class="emoji">👤</span><div class="name">YOU</div><div class="role">Founder & Owner</div></div>
+   </div>
+  </div>
+  <div class="vline"></div>
+
+  <!-- ═══ CEO ═══ -->
+  <div class="tier">
+   <div class="tier-label">Tier 0 — CEO</div>
+   <div class="tier-row">
+    <div class="card ceo"><span class="emoji">🧠</span><div class="name">ATLAS</div><div class="role">Chief Executive Officer</div></div>
+   </div>
+  </div>
+  <div class="vline"></div>
+
+  <!-- ═══ C-SUITE ═══ -->
+  <div class="tier">
+   <div class="tier-label">Tier 1 — C-Suite</div>
+   <div class="hline" style="width:80%"></div>
+   <div class="tier-row">
+    <div class="card csuite"><span class="emoji">💰</span><div class="name">STEWARD</div><div class="role">CFO</div></div>
+    <div class="card csuite"><span class="emoji">⚙️</span><div class="name">BRIDGE</div><div class="role">COO</div></div>
+    <div class="card csuite"><span class="emoji">📣</span><div class="name">VOICE</div><div class="role">CMO</div></div>
+    <div class="card csuite"><span class="emoji">🎯</span><div class="name">HARVEST</div><div class="role">CRO</div></div>
+    <div class="card csuite"><span class="emoji">🔧</span><div class="name">CRAFT</div><div class="role">CTO</div></div>
+    <div class="card csuite"><span class="emoji">🤝</span><div class="name">HAVEN</div><div class="role">CCO</div></div>
+    <div class="card clo"><span class="emoji">⚖️</span><div class="name">SAGE</div><div class="role">CLO</div></div>
+    <div class="card cdo"><span class="emoji">🌐</span><div class="name">KEEPER</div><div class="role">CDO</div></div>
+    <div class="card ciso"><span class="emoji">🛡️</span><div class="name">SHIELD</div><div class="role">CISO</div></div>
+   </div>
+  </div>
+  <div class="vline"></div>
+
+  <!-- ═══ VPs ═══ -->
+  <div class="tier">
+   <div class="tier-label">Tier 2 — Vice Presidents (17)</div>
+   <div class="hline" style="width:90%"></div>
+   <div class="tier-row">
+    <div class="card csuite vp-size"><span class="emoji">📊</span><div class="name">COMPASS</div><div class="role">VP Revenue</div></div>
+    <div class="card csuite vp-size"><span class="emoji">🧾</span><div class="name">LEDGER</div><div class="role">VP Finance</div></div>
+    <div class="card csuite vp-size"><span class="emoji">🔄</span><div class="name">DELIVER</div><div class="role">VP Delivery</div></div>
+    <div class="card csuite vp-size"><span class="emoji">🔬</span><div class="name">INSIGHT</div><div class="role">VP Data</div></div>
+    <div class="card csuite vp-size"><span class="emoji">✍️</span><div class="name">QUILL</div><div class="role">VP Content</div></div>
+    <div class="card csuite vp-size"><span class="emoji">🚀</span><div class="name">GROW</div><div class="role">VP Growth</div></div>
+    <div class="card csuite vp-size"><span class="emoji">🗺️</span><div class="name">SCOUT</div><div class="role">VP Market</div></div>
+    <div class="card csuite vp-size"><span class="emoji">🖥️</span><div class="name">FOUNDATION</div><div class="role">VP Infra</div></div>
+    <div class="card csuite vp-size"><span class="emoji">🧩</span><div class="name">BUILDER</div><div class="role">VP Product</div></div>
+    <div class="card csuite vp-size"><span class="emoji">⭐</span><div class="name">WARMTH</div><div class="role">VP CX</div></div>
+    <div class="card csuite vp-size"><span class="emoji">🎓</span><div class="name">GUIDE</div><div class="role">VP Onboard</div></div>
+    <div class="card clo vp-size"><span class="emoji">🏛️</span><div class="name">JUSTICE</div><div class="role">VP Legal</div></div>
+    <div class="card clo vp-size"><span class="emoji">📜</span><div class="name">CHARTER</div><div class="role">VP Gov</div></div>
+    <div class="card cdo vp-size"><span class="emoji">🔐</span><div class="name">TRUST</div><div class="role">VP Data Gov</div></div>
+    <div class="card cdo vp-size"><span class="emoji">🔩</span><div class="name">FLOW</div><div class="role">VP Eng</div></div>
+    <div class="card ciso vp-size"><span class="emoji">🔭</span><div class="name">VIGIL</div><div class="role">VP Security</div></div>
+    <div class="card ciso vp-size"><span class="emoji">📋</span><div class="name">ACCORD</div><div class="role">VP Risk</div></div>
+   </div>
+  </div>
+  <div class="vline"></div>
+
+  <!-- ═══ DIRECTORS ═══ -->
+  <div class="tier">
+   <div class="tier-label">Tier 3 — Directors (10)</div>
+   <div class="hline" style="width:60%"></div>
+   <div class="tier-row">
+    <div class="card csuite dir-size"><span class="emoji">🔍</span><div class="name">SEEK</div><div class="role">Prospecting</div></div>
+    <div class="card csuite dir-size"><span class="emoji">🎵</span><div class="name">RHYTHM</div><div class="role">Outreach</div></div>
+    <div class="card csuite dir-size"><span class="emoji">🤝</span><div class="name">COVENANT</div><div class="role">Proposals</div></div>
+    <div class="card csuite dir-size"><span class="emoji">📝</span><div class="name">INK</div><div class="role">Content</div></div>
+    <div class="card csuite dir-size"><span class="emoji">🧵</span><div class="name">THREAD</div><div class="role">Social</div></div>
+    <div class="card csuite dir-size"><span class="emoji">🔥</span><div class="name">EMBER</div><div class="role">Email</div></div>
+    <div class="card csuite dir-size"><span class="emoji">📒</span><div class="name">TALLY</div><div class="role">Billing</div></div>
+    <div class="card ciso dir-size"><span class="emoji">✨</span><div class="name">POLISH</div><div class="role">QA</div></div>
+    <div class="card csuite dir-size"><span class="emoji">🔗</span><div class="name">BOND</div><div class="role">Retention</div></div>
+    <div class="card cdo dir-size"><span class="emoji">🔭</span><div class="name">LENS</div><div class="role">Analytics</div></div>
+   </div>
+  </div>
+  <div class="vline"></div>
+
+  <!-- ═══ DATA & SECURITY ═══ -->
+  <div class="tier">
+   <div class="tier-label">Data & Security Systems (19)</div>
+   <div class="hline" style="width:90%"></div>
+   <div class="tier-row" style="margin-bottom:10px">
+    <div class="card data"><span class="emoji">🔏</span><div class="name">GUARDIAN-D</div><div class="role">Data</div></div>
+    <div class="card data"><span class="emoji">🗄️</span><div class="name">CURATOR</div><div class="role">Data</div></div>
+    <div class="card data"><span class="emoji">🌊</span><div class="name">RIVER</div><div class="role">Data</div></div>
+    <div class="card data"><span class="emoji">🏦</span><div class="name">VAULT</div><div class="role">Data</div></div>
+    <div class="card data"><span class="emoji">📥</span><div class="name">INTAKE</div><div class="role">Data</div></div>
+    <div class="card data"><span class="emoji">🎭</span><div class="name">MASK</div><div class="role">Data</div></div>
+    <div class="card data"><span class="emoji">📊</span><div class="name">VISION</div><div class="role">Data</div></div>
+    <div class="card data"><span class="emoji">💎</span><div class="name">PURE</div><div class="role">Data</div></div>
+    <div class="card data"><span class="emoji">🛡️</span><div class="name">ISOLATE</div><div class="role">Data</div></div>
+   </div>
+   <div class="tier-row">
+    <div class="card sec"><span class="emoji">👁️</span><div class="name">WATCH</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">🔧</span><div class="name">RESOLVE</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">🚪</span><div class="name">GATE</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">🩺</span><div class="name">SENTINEL</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">🔍</span><div class="name">FILTER</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">💰</span><div class="name">TREASURY</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">✅</span><div class="name">VERIFY</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">📜</span><div class="name">CHRONICLE</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">⭕</span><div class="name">ZERO</div><div class="role">Security</div></div>
+    <div class="card sec"><span class="emoji">📦</span><div class="name">CONTAIN</div><div class="role">Security</div></div>
+   </div>
+  </div>
+  <div class="vline"></div>
+
+  <!-- ═══ INDUSTRY MODULES ═══ -->
+  <div class="tier">
+   <div class="tier-label">Tier 4 — Industry Modules (8 Slots)</div>
+   <div class="hline" style="width:70%"></div>
+   <div class="tier-row">
+    <div class="card module"><span class="emoji">💬</span><div class="name">SLOT A</div><div class="role">Communications</div></div>
+    <div class="card module"><span class="emoji">⚙️</span><div class="name">SLOT B</div><div class="role">Operations</div></div>
+    <div class="card module"><span class="emoji">💵</span><div class="name">SLOT C</div><div class="role">Billing</div></div>
+    <div class="card module"><span class="emoji">📄</span><div class="name">SLOT D</div><div class="role">Documents</div></div>
+    <div class="card module"><span class="emoji">🔍</span><div class="name">SLOT E</div><div class="role">Screening</div></div>
+    <div class="card module"><span class="emoji">📊</span><div class="name">SLOT F</div><div class="role">Reports</div></div>
+    <div class="card module"><span class="emoji">📣</span><div class="name">SLOT G</div><div class="role">Marketing</div></div>
+    <div class="card module"><span class="emoji">🔄</span><div class="name">SLOT H</div><div class="role">Retention</div></div>
+   </div>
+  </div>
+
+ </div>
+
+ <!-- Legend -->
+ <div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#C9A84C"></div>Founder / CEO</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0A351D"></div>Core C-Suite</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#F97316"></div>Legal (CLO)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#14B8A6"></div>Data (CDO)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#EF4444"></div>Security (CISO)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#8B5CF6"></div>Module</div>
+ </div>
+
+ <div class="footer">Servant Leadership Model — Names like WARMTH, GUIDE, HAVEN, COVENANT reflect our brand values.</div>
+
+ <!-- ═══ ROLE DEFINITIONS ═══ -->
+ <style>
+  .defs{margin-top:50px}
+  .defs h2{font-size:24px;font-weight:800;color:#0A351D;text-align:center;margin-bottom:30px}
+  .def-section{margin-bottom:30px}
+  .def-section-title{
+   font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+   padding:8px 16px;border-radius:6px;margin-bottom:14px;display:inline-block;color:white;
+  }
+  .def-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+  .def-item{
+   background:white;border-radius:8px;padding:14px 16px;
+   box-shadow:0 2px 8px rgba(0,0,0,0.05);border-left:4px solid;
+  }
+  .def-item .def-name{font-weight:700;font-size:14px;color:#0A351D}
+  .def-item .def-title{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin:2px 0 6px}
+  .def-item .def-desc{font-size:12px;color:#555;line-height:1.5}
+  .def-item .def-reports{font-size:10px;color:#999;margin-top:6px;font-style:italic}
+ </style>
+
+ <div class="defs">
+  <h2>📖 Agent Role Definitions</h2>
+
+  <!-- FOUNDER -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#C9A84C">Founder</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#C9A84C">
+     <div class="def-name">👤 YOU</div>
+     <div class="def-title">Founder & Owner</div>
+     <div class="def-desc">The single point of strategic authority. Sets the vision, approves major decisions, and provides final sign-off on all critical matters. The founder's word is law — every agent in the enterprise ultimately serves the founder's mission. Owns the company, defines the culture, and ensures the servant leadership model stays true to its values.</div>
+    </div>
+   </div>
+  </div>
+
+  <!-- CEO -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#C9A84C">CEO</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#C9A84C">
+     <div class="def-name">🧠 ATLAS</div>
+     <div class="def-title">Chief Executive Officer</div>
+     <div class="def-desc">The master orchestrator. Receives strategic objectives from the founder, decomposes them into enterprise-wide missions, and delegates execution to the C-Suite. Ensures alignment across all departments and maintains the servant leadership vision.</div>
+     <div class="def-reports">Reports to: YOU (Founder)</div>
+    </div>
+   </div>
+  </div>
+
+  <!-- C-SUITE -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#0A351D">C-Suite</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#0A351D">
+     <div class="def-name">💰 STEWARD</div>
+     <div class="def-title">Chief Financial Officer</div>
+     <div class="def-desc">Financial health, planning, budgeting, reporting, and risk management. Oversees all financial operations, ensures fiscal responsibility, manages cash flow, and provides financial insights to ATLAS.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: COMPASS, LEDGER, TALLY</div>
+    </div>
+    <div class="def-item" style="border-color:#0A351D">
+     <div class="def-name">⚙️ BRIDGE</div>
+     <div class="def-title">Chief Operating Officer</div>
+     <div class="def-desc">Orchestrates client delivery workflows, SLA compliance, and vendor relationships. Ensures operational excellence across all delivery channels and maintains quality standards.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: DELIVER, INSIGHT</div>
+    </div>
+    <div class="def-item" style="border-color:#0A351D">
+     <div class="def-name">📣 VOICE</div>
+     <div class="def-title">Chief Marketing Officer</div>
+     <div class="def-desc">Content creation, SEO, social media, email campaigns, and brand presence. Drives market awareness, manages brand reputation, and generates leads through strategic marketing.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: QUILL, INK, THREAD, EMBER</div>
+    </div>
+    <div class="def-item" style="border-color:#0A351D">
+     <div class="def-name">🎯 HARVEST</div>
+     <div class="def-title">Chief Revenue Officer</div>
+     <div class="def-desc">Full sales pipeline — lead research, outreach, proposals, and deal closure. Unifies sales and marketing efforts to maximize revenue growth across the entire customer acquisition journey.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: GROW, SCOUT, SEEK, RHYTHM, COVENANT</div>
+    </div>
+    <div class="def-item" style="border-color:#0A351D">
+     <div class="def-name">🔧 CRAFT</div>
+     <div class="def-title">Chief Technology Officer</div>
+     <div class="def-desc">Infrastructure health, agent deployments, integrations, and model optimization. Manages all technical infrastructure, evaluates AI models, and ensures system reliability.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: FOUNDATION, BUILDER</div>
+    </div>
+    <div class="def-item" style="border-color:#0A351D">
+     <div class="def-name">🤝 HAVEN</div>
+     <div class="def-title">Chief Client Officer</div>
+     <div class="def-desc">Client relationships — onboarding, satisfaction, renewals, and upsells. Ensures exceptional client experiences, drives retention, and identifies expansion opportunities.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: WARMTH, GUIDE, BOND</div>
+    </div>
+    <div class="def-item" style="border-color:#F97316">
+     <div class="def-name">⚖️ SAGE</div>
+     <div class="def-title">Chief Legal Officer</div>
+     <div class="def-desc">Contracts, regulatory compliance, risk management, and IP protection. Provides legal guidance, manages risk exposure, and protects intellectual property.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: JUSTICE, CHARTER</div>
+    </div>
+    <div class="def-item" style="border-color:#14B8A6">
+     <div class="def-name">🌐 KEEPER</div>
+     <div class="def-title">Chief Data Officer</div>
+     <div class="def-desc">Data strategy, governance, protection, and analytics infrastructure. Manages data assets, ensures data quality and privacy, and oversees the entire Data Lane.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: TRUST, FLOW, LENS + Data Lane</div>
+    </div>
+    <div class="def-item" style="border-color:#EF4444">
+     <div class="def-name">🛡️ SHIELD</div>
+     <div class="def-title">Chief Information Security Officer</div>
+     <div class="def-desc">Security vision, threat operations, compliance, and risk posture. Leads security strategy, manages threat detection and response, and oversees the entire Security Lane.</div>
+     <div class="def-reports">Reports to: ATLAS · Manages: VIGIL, ACCORD, POLISH + Security Lane</div>
+    </div>
+   </div>
+  </div>
+
+  <!-- VPs -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#0A351D">Vice Presidents</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">📊 COMPASS</div><div class="def-title">VP Revenue Intelligence</div><div class="def-desc">Pipeline health, revenue forecasting, and directional insights. Provides real-time visibility into sales performance and predictive analytics.</div><div class="def-reports">Reports to: STEWARD (CFO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🧾 LEDGER</div><div class="def-title">VP Finance & Billing</div><div class="def-desc">Billing operations, invoicing, and financial tracking. Manages accounts receivable, payment processing, and financial reporting.</div><div class="def-reports">Reports to: STEWARD (CFO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🔄 DELIVER</div><div class="def-title">VP Client Delivery</div><div class="def-desc">Client delivery workflows, SLA enforcement, and module agents. Ensures timely, quality delivery of all client-facing services.</div><div class="def-reports">Reports to: BRIDGE (COO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🔬 INSIGHT</div><div class="def-title">VP Data Intelligence</div><div class="def-desc">Analytics aggregation, dashboard feeds, and pattern recognition. Transforms raw data into actionable business insights.</div><div class="def-reports">Reports to: BRIDGE (COO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">✍️ QUILL</div><div class="def-title">VP Content & Brand</div><div class="def-desc">Content strategy, brand storytelling, and marketing copy. Creates compelling content that resonates with target audiences.</div><div class="def-reports">Reports to: VOICE (CMO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🚀 GROW</div><div class="def-title">VP Growth & Partnerships</div><div class="def-desc">Partnership pipeline, expansion revenue, and mutual value creation. Identifies and develops strategic partnerships.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🗺️ SCOUT</div><div class="def-title">VP Market Intelligence</div><div class="def-desc">Market research, competitive intelligence, and landscape scanning. Keeps the enterprise ahead of market trends and opportunities.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🖥️ FOUNDATION</div><div class="def-title">VP Infrastructure</div><div class="def-desc">Mac Mini, Ollama, API health, and technical backbone. Maintains all technical infrastructure and ensures uptime.</div><div class="def-reports">Reports to: CRAFT (CTO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🧩 BUILDER</div><div class="def-title">VP Product Development</div><div class="def-desc">R&D backlog, product roadmap, and performance patterns. Drives innovation and product evolution.</div><div class="def-reports">Reports to: CRAFT (CTO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">⭐ WARMTH</div><div class="def-title">VP Client Experience</div><div class="def-desc">Client retention, NPS, satisfaction, and health scoring. Ensures clients feel valued, heard, and supported.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🎓 GUIDE</div><div class="def-title">VP Client Onboarding</div><div class="def-desc">New client setup, walkthroughs, and first-success journeys. Sets clients up for long-term success from day one.</div><div class="def-reports">Reports to: HAVEN (CCO)</div></div>
+    <div class="def-item" style="border-color:#F97316"><div class="def-name">🏛️ JUSTICE</div><div class="def-title">VP Legal Strategy</div><div class="def-desc">Legal ops, contracts, IP portfolio, and risk management. Handles strategic legal planning and execution.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
+    <div class="def-item" style="border-color:#F97316"><div class="def-name">📜 CHARTER</div><div class="def-title">VP Regulatory & Governance</div><div class="def-desc">Compliance calendar, governance frameworks, and policy management. Ensures adherence to all regulations.</div><div class="def-reports">Reports to: SAGE (CLO)</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔐 TRUST</div><div class="def-title">VP Data Governance</div><div class="def-desc">Data policies, privacy, catalog, lineage, and GDPR compliance. Protects data as a strategic enterprise asset.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔩 FLOW</div><div class="def-title">VP Data Engineering</div><div class="def-desc">Data pipelines, ingestion, warehousing, and flow management. Builds and maintains data infrastructure.</div><div class="def-reports">Reports to: KEEPER (CDO)</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🔭 VIGIL</div><div class="def-title">VP Cybersecurity Ops</div><div class="def-desc">Active threat operations, security monitoring, and posture management. Provides 24/7 security vigilance.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">📋 ACCORD</div><div class="def-title">VP Compliance & Risk</div><div class="def-desc">Risk register, SOC2 compliance, and regulatory alignment. Maintains the enterprise compliance posture.</div><div class="def-reports">Reports to: SHIELD (CISO)</div></div>
+   </div>
+  </div>
+
+  <!-- DIRECTORS -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#0A351D">Directors</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🔍 SEEK</div><div class="def-title">Director of Prospecting</div><div class="def-desc">Lead generation and prospect identification. Finds potential clients who need our services.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🎵 RHYTHM</div><div class="def-title">Director of Outreach</div><div class="def-desc">Sales sequencing, outreach cadence, and follow-ups. Maintains consistent and timely client communication.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🤝 COVENANT</div><div class="def-title">Director of Proposals</div><div class="def-desc">Proposal creation, mutual promises, and terms negotiation. Crafts compelling proposals that close deals.</div><div class="def-reports">Reports to: HARVEST (CRO)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">📝 INK</div><div class="def-title">Director of Content & SEO</div><div class="def-desc">Content creation, SEO optimization, and writing. Produces search-optimized written content.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🧵 THREAD</div><div class="def-title">Director of Social Media</div><div class="def-desc">Social channels, community management, and engagement. Builds and maintains social presence.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🔥 EMBER</div><div class="def-title">Director of Email</div><div class="def-desc">Email campaigns, nurturing sequences, and warm communications. Manages the full email marketing lifecycle.</div><div class="def-reports">Reports to: QUILL (VP Content)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">📒 TALLY</div><div class="def-title">Director of Billing</div><div class="def-desc">Invoice generation, payment tracking, and financial counting. Manages day-to-day billing operations.</div><div class="def-reports">Reports to: LEDGER (VP Finance)</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">✨ POLISH</div><div class="def-title">Director of Quality Assurance</div><div class="def-desc">Output quality, polish, and excellence verification. Ensures all deliverables meet the highest standards.</div><div class="def-reports">Reports to: ACCORD (VP Risk)</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🔗 BOND</div><div class="def-title">Director of Retention</div><div class="def-desc">Client retention, relationship bonds, and renewals. Keeps clients happy and engaged long-term.</div><div class="def-reports">Reports to: WARMTH (VP CX)</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔭 LENS</div><div class="def-title">Director of Analytics</div><div class="def-desc">KPI aggregation, metrics tracking, and analytical clarity. Provides data-driven insights across the enterprise.</div><div class="def-reports">Reports to: TRUST (VP Data Gov)</div></div>
+   </div>
+  </div>
+
+  <!-- DATA LANE -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#14B8A6">Data Lane</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🔏 GUARDIAN-D</div><div class="def-title">Data Privacy & PII</div><div class="def-desc">PII handling, tokenization, and privacy protection. Ensures all sensitive data is properly safeguarded.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → GUARDIAN-D</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🗄️ CURATOR</div><div class="def-title">Data Quality & Vault</div><div class="def-desc">Data quality assurance, warehouse management, and vault integrity. Maintains data accuracy and secure storage.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → CURATOR</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🌊 RIVER</div><div class="def-title">Data Pipeline & Visualization</div><div class="def-desc">Data flow management, visualization, and dashboard delivery. Manages data streaming and reporting pipelines.</div><div class="def-reports">Chain: KEEPER (CDO) → FLOW (VP) → LENS (Dir) → RIVER</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🏦 VAULT</div><div class="def-title">Data Warehouse</div><div class="def-desc">Secure encrypted storage and tamper-proof data warehousing. The single source of truth for enterprise data.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → VAULT</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">📥 INTAKE</div><div class="def-title">Data Ingestion</div><div class="def-desc">Data intake, classification, and entry processing. Handles all incoming data from external and internal sources.</div><div class="def-reports">Chain: KEEPER (CDO) → FLOW (VP) → LENS (Dir) → INTAKE</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🎭 MASK</div><div class="def-title">PII Tokenization</div><div class="def-desc">PII masking and token replacement. Replaces sensitive data with tokens before any LLM sees it.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → MASK</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">📊 VISION</div><div class="def-title">Data Visualization</div><div class="def-desc">Real-time dashboards, reports, and visual insights for all C-Suite and the founder. Aggregated only — no raw PII.</div><div class="def-reports">Chain: KEEPER (CDO) → FLOW (VP) → LENS (Dir) → VISION</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">💎 PURE</div><div class="def-title">Data Quality Guard</div><div class="def-desc">Data purity, validation, and cleansing. Validates all data for PoisonedRAG patterns before entering VAULT.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → PURE</div></div>
+    <div class="def-item" style="border-color:#14B8A6"><div class="def-name">🛡️ ISOLATE</div><div class="def-title">Session Isolation</div><div class="def-desc">Every agent conversation runs in a clean isolated context. Prevents cross-tenant data bleed and contamination.</div><div class="def-reports">Chain: KEEPER (CDO) → TRUST (VP) → LENS (Dir) → ISOLATE</div></div>
+   </div>
+  </div>
+
+  <!-- SECURITY LANE -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#EF4444">Security Lane</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">👁️ WATCH</div><div class="def-title">Threat Operations</div><div class="def-desc">Behavioral anomaly monitoring of all agents. Continuous surveillance for threats and suspicious activity.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → WATCH</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🔧 RESOLVE</div><div class="def-title">Incident Response</div><div class="def-desc">Incident handling, resolution, and recovery. Responds to confirmed security incidents with speed and precision.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → RESOLVE</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🚪 GATE</div><div class="def-title">Access & Audit</div><div class="def-desc">Access control, gatekeeping, and audit trail management. Controls who can access what resources.</div><div class="def-reports">Chain: SHIELD (CISO) → ACCORD (VP) → POLISH (Dir) → GATE</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🩺 SENTINEL</div><div class="def-title">Security Ops Monitor</div><div class="def-desc">24/7 security monitoring, health checks, and automated alerts. Continuous security surveillance.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → SENTINEL</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">🔍 FILTER</div><div class="def-title">Content & Input Filter</div><div class="def-desc">100% of inbound messages scanned before any agent reads them. OWASP LLM Top 10 compliant.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → FILTER</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">💰 TREASURY</div><div class="def-title">Transaction Security</div><div class="def-desc">Every financial transaction requires TREASURY clearance. Thresholds: &lt;$500 auto, $500-$5K ATLAS confirms, &gt;$5K human required.</div><div class="def-reports">Chain: SHIELD (CISO) → ACCORD (VP) → POLISH (Dir) → TREASURY</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">✅ VERIFY</div><div class="def-title">Identity & Access Manager</div><div class="def-desc">Least-privilege access enforcement. 30-day API key rotation. Monitors for account takeover fraud.</div><div class="def-reports">Chain: SHIELD (CISO) → ACCORD (VP) → POLISH (Dir) → VERIFY</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">📜 CHRONICLE</div><div class="def-title">Immutable Audit Log</div><div class="def-desc">Tamper-proof log of every agent action with full reasoning chain. GDPR+CCPA+SOC2 ready.</div><div class="def-reports">Chain: SHIELD (CISO) → ACCORD (VP) → POLISH (Dir) → CHRONICLE</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">⭕ ZERO</div><div class="def-title">Zero Trust Enforcer</div><div class="def-desc">Validates every agent-to-agent communication before execution. NIST SP 800-207 compliant. Never trust, always verify.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → ZERO</div></div>
+    <div class="def-item" style="border-color:#EF4444"><div class="def-name">📦 CONTAIN</div><div class="def-title">Incident Containment</div><div class="def-desc">On confirmed threat: isolate, pause, alert SHIELD + human simultaneously, preserve forensics, recover.</div><div class="def-reports">Chain: SHIELD (CISO) → VIGIL (VP) → POLISH (Dir) → CONTAIN</div></div>
+   </div>
+  </div>
+
+  <!-- INDUSTRY MODULES -->
+  <div class="def-section">
+   <div class="def-section-title" style="background:#8B5CF6">Industry Modules</div>
+   <div class="def-grid">
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">💬 SLOT A — Communications</div><div class="def-desc">Client/customer facing communications. Handles inbound and outbound messaging for industry-specific needs.</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">⚙️ SLOT B — Operations</div><div class="def-desc">Scheduling and dispatch. Manages industry-specific operational workflows and resource allocation.</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">💵 SLOT C — Billing</div><div class="def-desc">Payments and invoicing. Handles industry-specific billing, payment processing, and collections.</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">📄 SLOT D — Documents</div><div class="def-desc">Contracts and forms. Manages industry-specific document creation, signing, and storage.</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🔍 SLOT E — Screening</div><div class="def-desc">Intake and qualification. Handles industry-specific screening, vetting, and qualification processes.</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">📊 SLOT F — Reports</div><div class="def-desc">Analytics and reporting. Generates industry-specific reports, dashboards, and performance metrics.</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">📣 SLOT G — Marketing</div><div class="def-desc">Campaigns and reputation. Manages industry-specific marketing campaigns and brand reputation.</div></div>
+    <div class="def-item" style="border-color:#0A351D"><div class="def-name">🔄 SLOT H — Retention</div><div class="def-desc">Renewal and re-engagement. Handles industry-specific client retention, renewals, and win-back campaigns.</div></div>
+   </div>
+  </div>
+
+ </div>
+
+ <!-- ═══ SAMPLE INDUSTRY CONFIGURATIONS ═══ -->
+ <style>
+  .samples{margin-top:60px}
+  .samples h2{font-size:24px;font-weight:800;color:#0A351D;text-align:center;margin-bottom:8px}
+  .samples .subtitle{font-size:14px;color:#7DA88A;text-align:center;margin-bottom:40px}
+  .industry{
+   background:white;border-radius:16px;padding:28px 24px;margin-bottom:24px;
+   box-shadow:0 4px 16px rgba(0,0,0,0.06);border-left:6px solid #8B5CF6;
+  }
+  .industry-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .industry-icon{font-size:36px}
+  .industry-info h3{font-size:18px;font-weight:700;color:#0A351D;margin:0}
+  .industry-info .persona{font-size:12px;color:#C9A84C;font-weight:600;margin-top:2px}
+  .industry-info .tagline{font-size:13px;color:#666;margin-top:4px;font-style:italic}
+  .slot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:12px}
+  .slot-example{
+   background:#FAFAFA;border-radius:8px;padding:10px 14px;
+   border-left:3px solid #8B5CF6;
+  }
+  .slot-example .slot-label{font-size:10px;font-weight:700;color:#8B5CF6;text-transform:uppercase;letter-spacing:1px}
+  .slot-example .slot-use{font-size:12px;color:#333;margin-top:3px;font-weight:600}
+  .slot-example .slot-how{font-size:11px;color:#666;margin-top:2px;line-height:1.4}
+  .divider{height:1px;background:#eee;margin:12px 0 16px}
+ </style>
+
+ <div class="samples">
+  <h2>🏭 See Yourself Using AgenticFoundr</h2>
+  <p class="subtitle">Here's how the 8 industry module slots configure for real solopreneurs</p>
+
+  <!-- REAL ESTATE -->
+  <div class="industry">
+   <div class="industry-header">
+    <div class="industry-icon">🏠</div>
+    <div class="industry-info">
+     <h3>Real Estate Agent</h3>
+     <div class="persona">Solo agent closing 30+ deals/year</div>
+     <div class="tagline">"I need a team but can't afford one. AgenticFoundr IS my team."</div>
+    </div>
+   </div>
+   <div class="slot-grid">
+    <div class="slot-example"><div class="slot-label">Slot A — Communications</div><div class="slot-use">Lead Response Bot</div><div class="slot-how">Responds to Zillow/Realtor.com leads in under 2 minutes. Qualifies buyers, books showings, answers property questions 24/7.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot B — Operations</div><div class="slot-use">Showing Scheduler</div><div class="slot-how">Coordinates showing times across multiple listings. Syncs with your calendar, sends reminders to clients, confirms lockbox codes.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot C — Billing</div><div class="slot-use">Commission Tracker</div><div class="slot-how">Tracks pending commissions, closing timelines, and splits. Alerts you when payments are expected or overdue.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot D — Documents</div><div class="slot-use">Contract Manager</div><div class="slot-how">Generates purchase agreements, addendums, and disclosure forms. Routes for e-signatures and tracks completion.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot E — Screening</div><div class="slot-use">Buyer Qualifier</div><div class="slot-how">Pre-qualifies leads with budget, timeline, and pre-approval questions before you invest time in showings.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot F — Reports</div><div class="slot-use">Market Analysis</div><div class="slot-how">Generates CMAs, neighborhood stats, and market trends. Produces professional PDF reports for listing presentations.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot G — Marketing</div><div class="slot-use">Listing Promoter</div><div class="slot-how">Creates social posts, virtual tour descriptions, email blasts, and open house flyers for every new listing automatically.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot H — Retention</div><div class="slot-use">Past Client Nurture</div><div class="slot-how">Anniversary emails, home value updates, and referral requests. Keeps you top-of-mind for repeat business and referrals.</div></div>
+   </div>
+  </div>
+
+  <!-- FITNESS COACH -->
+  <div class="industry">
+   <div class="industry-header">
+    <div class="industry-icon">💪</div>
+    <div class="industry-info">
+     <h3>Fitness Coach / Personal Trainer</h3>
+     <div class="persona">Online coach with 50+ active clients</div>
+     <div class="tagline">"I became a trainer to change lives, not drown in admin work."</div>
+    </div>
+   </div>
+   <div class="slot-grid">
+    <div class="slot-example"><div class="slot-label">Slot A — Communications</div><div class="slot-use">Client Check-In Bot</div><div class="slot-how">Daily check-ins via text/DM. Collects workout logs, nutrition photos, and mood scores. Escalates concerns to you.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot B — Operations</div><div class="slot-use">Program Builder</div><div class="slot-how">Generates personalized workout plans based on client goals, equipment, and progress. Auto-adjusts when they plateau.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot C — Billing</div><div class="slot-use">Subscription Manager</div><div class="slot-how">Handles monthly billing, failed payment follow-ups, plan upgrades/downgrades, and cancellation saves.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot D — Documents</div><div class="slot-use">Waiver & Intake Forms</div><div class="slot-how">Sends liability waivers, health questionnaires, and goal-setting forms. Files everything for compliance.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot E — Screening</div><div class="slot-use">Lead Qualifier</div><div class="slot-how">Screens inquiries for commitment level, budget fit, and health clearances before you hop on a discovery call.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot F — Reports</div><div class="slot-use">Progress Dashboard</div><div class="slot-how">Weekly progress reports per client — weight trends, strength gains, adherence rates. Monthly business revenue reports.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot G — Marketing</div><div class="slot-use">Content Engine</div><div class="slot-how">Creates transformation posts, workout reels captions, newsletter content, and before/after graphics from client data.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot H — Retention</div><div class="slot-use">Win-Back & Milestone</div><div class="slot-how">Celebrates client milestones (100 workouts, PRs). Re-engages inactive clients with personalized offers.</div></div>
+   </div>
+  </div>
+
+  <!-- FREELANCE DESIGNER -->
+  <div class="industry">
+   <div class="industry-header">
+    <div class="industry-icon">🎨</div>
+    <div class="industry-info">
+     <h3>Freelance Designer / Creative</h3>
+     <div class="persona">Brand designer juggling 8-12 active projects</div>
+     <div class="tagline">"I got into design to create — not to chase invoices and write proposals."</div>
+    </div>
+   </div>
+   <div class="slot-grid">
+    <div class="slot-example"><div class="slot-label">Slot A — Communications</div><div class="slot-use">Client Portal Bot</div><div class="slot-how">Handles revision requests, project status updates, and client questions. Keeps everything in one thread per project.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot B — Operations</div><div class="slot-use">Project Tracker</div><div class="slot-how">Manages timelines, deliverable deadlines, and revision rounds. Alerts you when a project needs attention.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot C — Billing</div><div class="slot-use">Invoice & Payments</div><div class="slot-how">Sends invoices at milestone completion. Chases late payments politely. Tracks hours for hourly clients.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot D — Documents</div><div class="slot-use">Proposal Generator</div><div class="slot-how">Creates branded proposals with scope, timeline, and pricing. Generates contracts with kill fees and IP transfer clauses.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot E — Screening</div><div class="slot-use">Client Fit Filter</div><div class="slot-how">Screens inquiries for budget, timeline, and scope. Filters out tire-kickers so you only talk to serious leads.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot F — Reports</div><div class="slot-use">Revenue & Pipeline</div><div class="slot-how">Monthly revenue reports, project profitability analysis, and pipeline visibility. Know your numbers without spreadsheets.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot G — Marketing</div><div class="slot-use">Portfolio Promoter</div><div class="slot-how">Turns completed projects into case studies, social posts, and Behance/Dribbble updates automatically.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot H — Retention</div><div class="slot-use">Repeat Client Engine</div><div class="slot-how">Follows up on past projects for refreshes, seasonal updates, or new needs. Builds recurring revenue from existing clients.</div></div>
+   </div>
+  </div>
+
+  <!-- E-COMMERCE -->
+  <div class="industry">
+   <div class="industry-header">
+    <div class="industry-icon">🛒</div>
+    <div class="industry-info">
+     <h3>E-Commerce Store Owner</h3>
+     <div class="persona">Shopify/Etsy seller doing $10K-$50K/month</div>
+     <div class="tagline">"I started this to be free — not to work 16-hour days alone."</div>
+    </div>
+   </div>
+   <div class="slot-grid">
+    <div class="slot-example"><div class="slot-label">Slot A — Communications</div><div class="slot-use">Customer Support</div><div class="slot-how">Handles order status, shipping questions, returns, and product inquiries. Resolves 80% of tickets without you.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot B — Operations</div><div class="slot-use">Inventory & Fulfillment</div><div class="slot-how">Monitors stock levels, triggers reorder alerts, coordinates with suppliers, and tracks shipments.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot C — Billing</div><div class="slot-use">Revenue & Tax</div><div class="slot-how">Tracks daily revenue, handles refund processing, generates sales tax reports, and reconciles payment gateways.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot D — Documents</div><div class="slot-use">Product Listings</div><div class="slot-how">Writes SEO-optimized product descriptions, generates comparison charts, and creates FAQ sections for new products.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot E — Screening</div><div class="slot-use">Fraud Detection</div><div class="slot-how">Flags suspicious orders (mismatched billing/shipping, bulk orders, known fraud patterns) before fulfillment.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot F — Reports</div><div class="slot-use">Sales Analytics</div><div class="slot-how">Daily sales dashboard, best-seller trends, ad spend ROI, conversion rates, and inventory forecasting.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot G — Marketing</div><div class="slot-use">Campaign Engine</div><div class="slot-how">Creates email campaigns, social ads, seasonal promotions, and influencer outreach. A/B tests subject lines.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot H — Retention</div><div class="slot-use">Loyalty & Reviews</div><div class="slot-how">Post-purchase review requests, loyalty rewards, abandoned cart recovery, and personalized restock reminders.</div></div>
+   </div>
+  </div>
+
+  <!-- CONSULTANT -->
+  <div class="industry">
+   <div class="industry-header">
+    <div class="industry-icon">📋</div>
+    <div class="industry-info">
+     <h3>Business Consultant</h3>
+     <div class="persona">Strategy consultant billing $150-$300/hr</div>
+     <div class="tagline">"Every hour I spend on admin is $200 I'm not billing."</div>
+    </div>
+   </div>
+   <div class="slot-grid">
+    <div class="slot-example"><div class="slot-label">Slot A — Communications</div><div class="slot-use">Meeting Prep Bot</div><div class="slot-how">Pre-meeting briefs with client history, action items from last session, and industry news. You walk in prepared every time.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot B — Operations</div><div class="slot-use">Engagement Manager</div><div class="slot-how">Tracks active engagements, deliverable timelines, and billable hours. Ensures nothing falls through the cracks.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot C — Billing</div><div class="slot-use">Time & Invoice</div><div class="slot-how">Automatic time tracking from calendar events. Generates invoices with detailed line items. Net-30 payment reminders.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot D — Documents</div><div class="slot-use">Deliverable Builder</div><div class="slot-how">Creates strategy decks, SOWs, executive summaries, and recommendations reports from your notes and frameworks.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot E — Screening</div><div class="slot-use">Prospect Qualifier</div><div class="slot-how">Evaluates inbound leads for revenue fit, industry match, and engagement size before discovery calls.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot F — Reports</div><div class="slot-use">Client Impact Reports</div><div class="slot-how">Generates ROI analyses, progress reports, and outcome tracking for each engagement. Proves your value in data.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot G — Marketing</div><div class="slot-use">Thought Leadership</div><div class="slot-how">Turns your expertise into LinkedIn posts, blog articles, newsletter content, and podcast show notes.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot H — Retention</div><div class="slot-use">Follow-Up & Referral</div><div class="slot-how">Post-engagement check-ins, quarterly business reviews, and referral requests from satisfied clients.</div></div>
+   </div>
+  </div>
+
+  <!-- CONTRACTOR -->
+  <div class="industry">
+   <div class="industry-header">
+    <div class="industry-icon">🔨</div>
+    <div class="industry-info">
+     <h3>Home Services / Contractor</h3>
+     <div class="persona">Plumber, electrician, or handyman running solo</div>
+     <div class="tagline">"I'm great at my trade. I'm terrible at running a business."</div>
+    </div>
+   </div>
+   <div class="slot-grid">
+    <div class="slot-example"><div class="slot-label">Slot A — Communications</div><div class="slot-use">Dispatch & Booking</div><div class="slot-how">Answers calls/texts, books appointments, sends confirmation with arrival windows. No more missed calls on the job.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot B — Operations</div><div class="slot-use">Route & Schedule</div><div class="slot-how">Optimizes daily routes, schedules jobs by zone, and manages emergency/priority slots.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot C — Billing</div><div class="slot-use">Quote & Invoice</div><div class="slot-how">Generates estimates on-site, converts to invoices on completion, processes payments via mobile, and follows up on overdue.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot D — Documents</div><div class="slot-use">Permits & Compliance</div><div class="slot-how">Tracks license renewals, insurance certificates, permit requirements, and warranty documentation per job.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot E — Screening</div><div class="slot-use">Job Qualifier</div><div class="slot-how">Screens incoming requests — is it your service area? Your specialty? Photos of the problem? Filters before you drive out.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot F — Reports</div><div class="slot-use">Job & Revenue Reports</div><div class="slot-how">Weekly job counts, average ticket size, most profitable service types, and busiest days. Know your business.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot G — Marketing</div><div class="slot-use">Review & Referral</div><div class="slot-how">Sends review requests after every job. Manages Google Business profile. Creates before/after social posts.</div></div>
+    <div class="slot-example"><div class="slot-label">Slot H — Retention</div><div class="slot-use">Maintenance Reminders</div><div class="slot-how">Annual HVAC tune-ups, seasonal plumbing checks, warranty follow-ups. Turns one-time jobs into recurring revenue.</div></div>
+   </div>
+  </div>
+
+ </div>
+
+</div>
+</body>
+</html>
