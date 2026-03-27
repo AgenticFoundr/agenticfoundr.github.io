@@ -103,6 +103,10 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#F3F4F6;color:var(-
 .social-status .status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .social-visit{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:5px 10px;border-radius:7px;font-size:11px;font-weight:600;color:var(--gray);background:#F3F4F6;border:1px solid var(--border);text-decoration:none;transition:all .18s}
 .social-visit:hover{background:var(--border);color:var(--text)}
+.social-card.manual{border-color:#E5E7EB;background:#FAFAFA}
+.social-verify-btn{display:flex;align-items:center;gap:6px;margin-top:10px;padding:9px 14px;border-radius:9px;font-size:12px;font-weight:700;color:#fff;background:var(--af);border:none;text-decoration:none;transition:all .18s;cursor:pointer}
+.social-verify-btn:hover{background:#0d4226;transform:translateY(-1px)}
+.social-tip{font-size:10px;color:var(--gray);margin-top:5px;font-style:italic}
 
 /* SUMMARY BOX */
 .summary-box{background:var(--af);border-radius:16px;padding:32px;margin-bottom:32px;color:#fff;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
@@ -286,9 +290,13 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#F3F4F6;color:var(-
 
       <!-- SOCIAL MEDIA -->
       <div class="section-label">Social Media Handles <span style="font-size:10px;font-weight:500;color:var(--green);margin-left:6px">Auto-checking all platforms</span></div>
-      <div style="background:#F0FDF4;border:1px solid #6EE7B7;border-radius:10px;padding:11px 16px;font-size:12px;color:#065F46;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px">
+      <div style="background:#F0FDF4;border:1px solid #6EE7B7;border-radius:10px;padding:11px 16px;font-size:12px;color:#065F46;margin-bottom:6px;display:flex;align-items:flex-start;gap:8px">
         <span>⚡</span>
-        <span><strong>Auto-checking all platforms</strong> — results appear in seconds. Click any handle name to visit the profile directly.</span>
+        <span><strong>YouTube & LinkedIn auto-check</strong> — results appear in seconds.</span>
+      </div>
+      <div style="background:#F5F3FF;border:1px solid #C4B5FD;border-radius:10px;padding:11px 16px;font-size:12px;color:#5B21B6;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px">
+        <span>🔍</span>
+        <span><strong>Instagram, TikTok, X & others</strong> block all bots — click the button on each card to verify in one tap. If you see "page not found" the handle is yours!</span>
       </div>
       <div class="social-grid" id="socialGrid"></div>
 
@@ -324,14 +332,15 @@ const TLDs = [
 ];
 
 const SOCIALS = [
-  { id:'instagram', name:'Instagram',  icon:'📸', bg:'#FDF2F8', profileUrl: h=>`https://www.instagram.com/${h}/`,       checkUrl: h=>`https://www.instagram.com/${h}/` },
-  { id:'tiktok',    name:'TikTok',     icon:'🎵', bg:'#F0F0F0', profileUrl: h=>`https://www.tiktok.com/@${h}`,          checkUrl: h=>`https://www.tiktok.com/@${h}` },
-  { id:'x',         name:'X (Twitter)',icon:'🐦', bg:'#F7F9FA', profileUrl: h=>`https://x.com/${h}`,                    checkUrl: h=>`https://x.com/${h}` },
-  { id:'youtube',   name:'YouTube',    icon:'▶️', bg:'#FFF5F5', profileUrl: h=>`https://www.youtube.com/@${h}`,          checkUrl: h=>`https://www.youtube.com/@${h}` },
-  { id:'facebook',  name:'Facebook',   icon:'👍', bg:'#EFF6FF', profileUrl: h=>`https://www.facebook.com/${h}`,         checkUrl: h=>`https://www.facebook.com/${h}` },
-  { id:'threads',   name:'Threads',    icon:'🧵', bg:'#F7F7F7', profileUrl: h=>`https://www.threads.net/@${h}`,         checkUrl: h=>`https://www.threads.net/@${h}` },
-  { id:'pinterest', name:'Pinterest',  icon:'📌', bg:'#FFF5F5', profileUrl: h=>`https://www.pinterest.com/${h}/`,       checkUrl: h=>`https://www.pinterest.com/${h}/` },
-  { id:'linkedin',  name:'LinkedIn',   icon:'💼', bg:'#EFF6FF', profileUrl: h=>`https://www.linkedin.com/company/${h}`, checkUrl: h=>`https://www.linkedin.com/company/${h}` },
+  // auto: true = server-side check is reliable. auto: false = manual verify button shown
+  { id:'instagram', name:'Instagram',  icon:'📸', bg:'#FDF2F8', auto:false, profileUrl: h=>`https://www.instagram.com/${h}/`,       checkUrl: h=>`https://www.instagram.com/${h}/` },
+  { id:'tiktok',    name:'TikTok',     icon:'🎵', bg:'#F0F0F0', auto:false, profileUrl: h=>`https://www.tiktok.com/@${h}`,          checkUrl: h=>`https://www.tiktok.com/@${h}` },
+  { id:'x',         name:'X (Twitter)',icon:'🐦', bg:'#F7F9FA', auto:false, profileUrl: h=>`https://x.com/${h}`,                    checkUrl: h=>`https://x.com/${h}` },
+  { id:'youtube',   name:'YouTube',    icon:'▶️', bg:'#FFF5F5', auto:true,  profileUrl: h=>`https://www.youtube.com/@${h}`,          checkUrl: h=>`https://www.youtube.com/@${h}` },
+  { id:'facebook',  name:'Facebook',   icon:'👍', bg:'#EFF6FF', auto:false, profileUrl: h=>`https://www.facebook.com/${h}`,         checkUrl: h=>`https://www.facebook.com/${h}` },
+  { id:'threads',   name:'Threads',    icon:'🧵', bg:'#F7F7F7', auto:false, profileUrl: h=>`https://www.threads.net/@${h}`,         checkUrl: h=>`https://www.threads.net/@${h}` },
+  { id:'pinterest', name:'Pinterest',  icon:'📌', bg:'#FFF5F5', auto:false, profileUrl: h=>`https://www.pinterest.com/${h}/`,       checkUrl: h=>`https://www.pinterest.com/${h}/` },
+  { id:'linkedin',  name:'LinkedIn',   icon:'💼', bg:'#EFF6FF', auto:true,  profileUrl: h=>`https://www.linkedin.com/company/${h}`, checkUrl: h=>`https://www.linkedin.com/company/${h}` },
 ];
 
 // ══════════════════════════════════════════════════
@@ -403,11 +412,14 @@ async function checkSocialViaProxy(platformId, handle) {
 }
 
 async function checkSocial(platform, handle) {
-  // 1. Try Cloudflare Worker first (most accurate — server-side, no CORS)
+  // Non-auto platforms skip server check — show manual verify button
+  if (!platform.auto) return 'manual';
+
+  // Auto platforms: try Cloudflare Worker
   if (WORKER_URL) {
     try {
       const res = await fetch(`${WORKER_URL}?handle=${handle}&platform=${platform.id}`, {
-        signal: AbortSignal.timeout(8000),
+        signal: AbortSignal.timeout(10000),
       });
       if (res.ok) {
         const data = await res.json();
@@ -416,7 +428,7 @@ async function checkSocial(platform, handle) {
     } catch {}
   }
 
-  // 2. Proxy fallback
+  // Proxy fallback
   return checkSocialViaProxy(platform.id, handle);
 }
 
@@ -478,12 +490,23 @@ function socialStatusHtml(state) {
   if (state === 'checking') return `<span class="social-status"><span class="status-dot checking"></span> Checking…</span>`;
   if (state === 'available') return `<span class="social-status" style="color:#059669"><span class="status-dot available"></span> Available</span>`;
   if (state === 'taken') return `<span class="social-status" style="color:#DC2626"><span class="status-dot taken"></span> Taken</span>`;
+  if (state === 'manual') return `<span class="social-status" style="color:#6B7280"><span class="status-dot" style="background:#9CA3AF"></span> Tap to verify</span>`;
   return `<span class="social-status" style="color:#D97706"><span class="status-dot" style="background:#D97706"></span> Unconfirmed</span>`;
 }
 
+function socialBottomRow(platform, handle, state) {
+  if (state === 'manual' || state === 'unknown') {
+    return `<a href="${platform.profileUrl(handle)}" target="_blank" class="social-verify-btn">
+      🔍 Check @${handle} on ${platform.name} →
+    </a>
+    <div class="social-tip">Opens in a new tab — if you see "page not found" it's available!</div>`;
+  }
+  return `<a href="${platform.profileUrl(handle)}" target="_blank" class="social-visit">↗ View @${handle} on ${platform.name}</a>`;
+}
+
 function renderSocialCard(platform, handle) {
-  const state = socialStates[platform.id] || 'checking';
-  const cardClass = state === 'available' ? 'available' : state === 'taken' ? 'taken' : state === 'unknown' ? 'unknown' : 'checking';
+  const state = socialStates[platform.id] || (platform.auto ? 'checking' : 'manual');
+  const cardClass = state === 'available' ? 'available' : state === 'taken' ? 'taken' : state === 'manual' ? 'manual' : state === 'unknown' ? 'unknown' : 'checking';
   return `
     <div class="social-card ${cardClass}" id="sc-${platform.id}">
       <div class="social-top">
@@ -496,7 +519,7 @@ function renderSocialCard(platform, handle) {
         </div>
         ${socialStatusHtml(state)}
       </div>
-      <a href="${platform.profileUrl(handle)}" target="_blank" class="social-visit">↗ View @${handle} on ${platform.name}</a>
+      ${socialBottomRow(platform, handle, state)}
     </div>`;
 }
 
@@ -552,8 +575,8 @@ async function runCheck() {
     domainGrid.innerHTML += renderDomainCard(domain, 'checking');
   });
 
-  // Render social cards (all in checking state)
-  SOCIALS.forEach(s => socialStates[s.id] = 'checking');
+  // Render social cards — auto platforms start as checking, manual ones show verify button
+  SOCIALS.forEach(s => socialStates[s.id] = s.auto ? 'checking' : 'manual');
   const socialGrid = document.getElementById('socialGrid');
   socialGrid.innerHTML = SOCIALS.map(s => renderSocialCard(s, handle)).join('');
 
@@ -610,7 +633,7 @@ async function switchVariation(newHandle, btn) {
     domainGrid.innerHTML += renderDomainCard(domain, 'checking');
   });
 
-  SOCIALS.forEach(s => socialStates[s.id] = 'checking');
+  SOCIALS.forEach(s => socialStates[s.id] = s.auto ? 'checking' : 'manual');
   const socialGrid = document.getElementById('socialGrid');
   socialGrid.innerHTML = SOCIALS.map(s => renderSocialCard(s, newHandle)).join('');
   updateSummary();
@@ -650,13 +673,8 @@ function updateSocialCard(platformId, state, handle) {
   const platform = SOCIALS.find(s => s.id === platformId);
   const card = document.getElementById(`sc-${platformId}`);
   if (!card) return;
-  const stateClass = state === 'available' ? 'available' : state === 'taken' ? 'taken' : state === 'unknown' ? 'unknown' : 'checking';
+  const stateClass = state === 'available' ? 'available' : state === 'taken' ? 'taken' : state === 'manual' ? 'manual' : state === 'unknown' ? 'unknown' : 'checking';
   card.className = `social-card ${stateClass}`;
-
-  const retryBtn = state === 'unknown'
-    ? `<button onclick="retrySocial('${platformId}','${handle}')" style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:5px 10px;border-radius:7px;font-size:11px;font-weight:600;color:#D97706;background:#FFFBEB;border:1px solid #FCD34D;cursor:pointer;font-family:inherit">🔄 Retry Check</button>`
-    : `<a href="${platform.profileUrl(handle)}" target="_blank" class="social-visit">↗ View @${handle} on ${platform.name}</a>`;
-
   card.innerHTML = `
     <div class="social-top">
       <div class="social-left">
@@ -668,7 +686,7 @@ function updateSocialCard(platformId, state, handle) {
       </div>
       ${socialStatusHtml(state)}
     </div>
-    ${retryBtn}`;
+    ${socialBottomRow(platform, handle, state)}`;
   updateSummary();
 }
 
