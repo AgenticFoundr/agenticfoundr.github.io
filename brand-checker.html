@@ -545,7 +545,6 @@ async function runCheck() {
   currentName = input;
   domainResults = {};
   socialStates = {};
-  SOCIALS.forEach(s => socialStates[s.id] = 'unchecked');
 
   const handle = slugify(input);
   const variations = buildVariations(input);
@@ -567,8 +566,9 @@ async function runCheck() {
   // Render variations
   renderVariations(variations, activeVar);
 
-  // Render domain cards (all checking)
+  // Render domain cards (all checking) — reset first to avoid duplication
   const domainGrid = document.getElementById('domainGrid');
+  domainGrid.innerHTML = '';
   TLDs.forEach(t => {
     const domain = handle + t.tld;
     domainResults[domain] = 'checking';
